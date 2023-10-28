@@ -28,7 +28,6 @@ const SectionDetails = () => {
         .post('/section/insertSection', sectionForms)
         .then((res) => {
           const insertedDataId = res.data.data.insertId;
-          console.log(insertedDataId);
           message('Section inserted successfully.', 'success');
           setTimeout(() => {
             navigate(`/SectionEdit/${insertedDataId}`);

@@ -1,6 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import { Row, Col, Form, FormGroup, Label, Input, Button } from 'reactstrap';
+import React, { useContext,useEffect, useState } from 'react';
+import {
+  Row,
+  Col,
+  Form,
+  FormGroup,
+  Label,
+  Input,
+  Button,
+  
+  TabContent,
+  TabPane,
+} from 'reactstrap';
 import { ToastContainer } from 'react-toastify';
+import * as Icon from 'react-feather';
 import { useNavigate, useParams } from 'react-router-dom';
 import moment from 'moment';
 import { Editor } from 'react-draft-wysiwyg';
@@ -10,31 +22,85 @@ import { EditorState, convertToRaw, ContentState } from 'draft-js';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import '../form-editor/editor.scss';
 import BreadCrumbs from '../../layouts/breadcrumbs/BreadCrumbs';
-import AttachmentModalV2 from '../../components/Tender/AttachmentModalV2';
 import ComponentCard from '../../components/ComponentCard';
 import ComponentCardV2 from '../../components/ComponentCardV2';
 import ViewFileComponentV2 from '../../components/ProjectModal/ViewFileComponentV2';
+import AttachmentModalV2 from '../../components/Tender/AttachmentModalV2';
+import AudioViewFileComponentV2 from '../../components/Tender/AudioViewFileComponentV2';
 import message from '../../components/Message';
 import api from '../../constants/api';
 import ContentMoreDetails from '../../components/Content/ContentMoreDetails';
+import Tab from '../../components/Tab';
+import AddVideoModal from '../../components/Content/AddVideoModal';
+import ItemTable from '../../components/Content/ItemTable';
+import AppContext from '../../context/AppContext';
+import creationdatetime from '../../constants/creationdatetime';
+
 
 const ContentUpdate = () => {
   // All state variables
   const [lineItem] = useState(null);
+  
   const [contentDetails, setContentDetails] = useState();
   const [sectionLinked, setSectionLinked] = useState();
   const [categoryLinked, setCategoryLinked] = useState();
   const [subcategoryLinked, setSubCategoryLinked] = useState();
   const [description, setDescription] = useState('');
+  const [activeTab, setActiveTab] = useState('1');
+  const [pictureroomname, setPictureRoomName] = useState('');
+  const [attachmentroomname, setAttachmentRoomName] = useState('');
+  const [picturefiletypes, setPictureFileTypes] = useState('');
+  const [attachmentfiletypes, setAttachmentFileTypes] = useState('');
+  const [picturemodal, setPictureModal] = useState(false);
   const [attachmentModal, setAttachmentModal] = useState(false);
-  const [valuelist, setValuelist] = useState();
   const [attachmentData, setDataForAttachment] = useState({
     modelType: '',
   });
+  const [pictureData, setDataForPicture] = useState({
+    modelType: '',
+  });
+const [pictureupdate, setPictureUpdate] = useState(false);
+const [attachmentupdate, setAttachmentUpdate] = useState(false);
+const [audioattachmentroomname, setAudioAttachmentRoomName] = useState('');
+const [audioattachmentfiletypes, setAudioAttachmentFileTypes] = useState('');
+const [audioattachmentModal, setAudioAttachmentModal] = useState(false);
+const [audioattachmentData, setAudioDataForAttachment] = useState({
+  modelType: '',
+});
+const [audioattachmentupdate, setAudioAttachmentUpdate] = useState(false);
+const [editaudiodatamodal, setEditAudioDataModal] = useState(null);
+
+ //Attachments
+ const dataForAttachment = () => {
+  setDataForAttachment({
+    modelType: 'attachment',
+  });
+};
+//Pictures
+const dataForPicture = () => {
+  setDataForPicture({
+    modelType: 'picture',
+  });
+};
+//Audio Attachment
+const dataForAudioAttachment = () => {
+  setAudioDataForAttachment({
+    modelType: 'audioattachment',
+  });
+};
+
+const [addVideoModal,setAddVideoModal] = useState();
+  const [valuelist, setValuelist] = useState();
+  const [project, setProject] = useState([]);
+  const [quote, setQuote] = useState({});
 
   // Navigation and Parameter Constants
   const { id } = useParams();
   const navigate = useNavigate();
+  const { loggedInuser } = useContext(AppContext);
+  const toggle = (tab) => {
+    if (activeTab !== tab) setActiveTab(tab);
+  };
 
   //Setting data in contentDetails
   const handleInputs = (e) => {
@@ -70,12 +136,10 @@ const ContentUpdate = () => {
   };
   //Edit Content
   const editContentData = () => {
-    console.log(contentDetails);
-    if (
-      contentDetails.content_title !== '' &&
-      contentDetails.sub_category_id !== '' &&
-      contentDetails.published !== ''
-    ) {
+    if (contentDetails.title !== '' )
+    {
+      contentDetails.modification_date = creationdatetime;
+      contentDetails.modified_by= loggedInuser.first_name; 
       api
         .post('/content/editContent', contentDetails)
         .then(() => {
@@ -88,6 +152,23 @@ const ContentUpdate = () => {
       message('Please fill all required fields', 'warning');
     }
   };
+  // const editContentData = () => {
+  //   if (
+  //     contentDetails.content_title !== ''
+  //   ) {contentDetails.modified_date = creationdatetime;
+  //     contentDetails.modified_by= loggedInuser.first_name;
+  //     api
+  //       .post('/content/editContent', contentDetails)
+  //       .then(() => {
+  //         message('Record edited successfully', 'success');
+  //       })
+  //       .catch(() => {
+  //         message('Unable to edit record.', 'error');
+  //       });
+  //   } else {
+  //     message('Please fill all required fields', 'warning');
+  //   }
+  // };
   // getting data from Section
   const getsection = () => {
     api.get('/content/getSection', sectionLinked).then((res) => {
@@ -106,7 +187,7 @@ const ContentUpdate = () => {
       setSubCategoryLinked(res.data.data);
     });
   };
-// get data from valuelist
+  // get data from valuelist
   const getValuelist = () => {
     api
       .get('/content/getValueList')
@@ -118,13 +199,26 @@ const ContentUpdate = () => {
       });
   };
 
-  //Attachments
-  const dataForAttachment = () => {
-    setDataForAttachment({
-      modelType: 'attachment',
+  const getProject = () => {
+    api.get('project/getOppProject').then((res) => {
+      setProject(res.data.data);
     });
-    console.log('inside DataForAttachment');
   };
+  const getQuote = () => {
+    api.post('/tender/getQuoteById', { opportunity_id: id }).then((res) => {
+      setQuote(res.data.data[0]);
+    });
+  }; 
+
+
+  const tabs = [
+    { id: '1', name: 'Video' },
+    { id: '2', name: 'Attachment'},
+    
+  ];
+
+  //Attachments
+  
 
   useEffect(() => {
     getsection();
@@ -132,6 +226,9 @@ const ContentUpdate = () => {
     getSubCategory();
     getContentById();
     getValuelist();
+    getProject();
+    getQuote();
+    
     console.log(lineItem);
   }, [id]);
 
@@ -265,36 +362,156 @@ const ContentUpdate = () => {
           </ComponentCard>
         </FormGroup>
       </Form>
-      {/* Picture and Attachments Form */}
+      <ComponentCard title="More Details">
+        <ToastContainer></ToastContainer>
+
+        <Tab toggle={toggle} tabs={tabs} />
+        <TabContent className="p-4" activeTab={activeTab}>
+          <TabPane tabId="1">
+          <AddVideoModal
+          addVideoModal={addVideoModal}
+          setAddVideoModal={setAddVideoModal}
+          ContentId = {id}
+        />
+
+        <Row className="mb-4">
+          <Col md="2">
+            <Button
+              color="primary"
+              onClick={() => {
+                setAddVideoModal(true);
+              }}
+            >
+              Add Video
+            </Button>
+          </Col>
+          </Row>
+          <ItemTable
+          ContentId={id}
+          project={project}
+          quote={quote}
+          />
+          </TabPane>
+          <TabPane tabId="2" >
+          {/* Picture and Attachments Form */}
+
+            <Form>
+              <FormGroup>
+              <ComponentCard title="Picture">
+                  <Row>
+                    <Col xs="12" md="3" className="mb-3">
+                      <Button
+                        className="shadow-none"
+                        color="primary"
+                        onClick={() => {
+                          setPictureRoomName('ContentPic');
+                          setPictureFileTypes(['JPG','JPEG', 'PNG', 'GIF']);
+                          dataForPicture();
+                          setPictureModal(true);
+                        }}
+                      >
+                        <Icon.File className="rounded-circle" width="20" />
+                      </Button>
+                    </Col>
+                  </Row>
+                  <AttachmentModalV2
+                    moduleId={id}
+                    attachmentModal={picturemodal}
+                    setAttachmentModal={setPictureModal}
+                    roomName={pictureroomname}
+                    fileTypes={picturefiletypes}
+                    altTagData="Content Data"
+                    desc="Content Data"
+                    recordType="Picture"
+                    mediaType={pictureData.modelType}
+                    update={pictureupdate}
+                    setUpdate={setPictureUpdate}
+                  />
+                  <ViewFileComponentV2 moduleId={id} roomName="ContentPic" recordType="Picture" update={pictureupdate}
+                    setUpdate={setPictureUpdate}/>
+                    </ComponentCard>
+              </FormGroup>
+            </Form>
       <Form>
-        <FormGroup>
-          <ComponentCard title="Attachments">
-            <Row>
-              <Col xs="12" md="3" className="mb-3">
-                <Button
-                  color="primary"
-                  onClick={() => {
-                    dataForAttachment();
-                    setAttachmentModal(true);
-                  }}
-                >
-                  Add
-                </Button>
-              </Col>
-            </Row>
-            <AttachmentModalV2
-              moduleId={id}
-              roomName="Content"
-              altTagData="Content Data"
-              desc="Content Data"
-              modelType={attachmentData.modelType}
-              attachmentModal={attachmentModal}
-              setAttachmentModal={setAttachmentModal}
-            />
-            <ViewFileComponentV2 moduleId={id} roomName="Content" />
-          </ComponentCard>
-        </FormGroup>
-      </Form>
+              <FormGroup>
+              <ComponentCard title="Attachments">
+                  <Row>
+                    <Col xs="12" md="3" className="mb-3">
+                      <Button
+                        className="shadow-none"
+                        color="primary"
+                        onClick={() => {
+                          setAttachmentRoomName('ContentAttachment');
+                          setAttachmentFileTypes(['JPG','JPEG', 'PNG', 'GIF', 'PDF']);
+                          dataForAttachment();
+                          setAttachmentModal(true);
+                        }}
+                      >
+                        <Icon.File className="rounded-circle" width="20" />
+                      </Button>
+                    </Col>
+                  </Row>
+                  <AttachmentModalV2
+                    moduleId={id}
+                    attachmentModal={attachmentModal}
+                    setAttachmentModal={setAttachmentModal}
+                    roomName={attachmentroomname}
+                    fileTypes={attachmentfiletypes}
+                    altTagData="ContentRelated Data"
+                    desc="ContentRelated Data"
+                    recordType="ContentRelatedPicture"
+                    mediaType={attachmentData.modelType}
+                    update={attachmentupdate}
+                    setUpdate={setAttachmentUpdate}
+                  />
+                  <ViewFileComponentV2 moduleId={id} roomName="ContentAttachment" recordType="ContentRelatedPicture" update={attachmentupdate}
+                    setUpdate={setAttachmentUpdate}/>
+                    </ComponentCard>
+              </FormGroup>
+            </Form>
+            <Form>
+              <FormGroup>
+              <ComponentCard title="Audio Attachments">
+                  <Row>
+                    <Col xs="12" md="3" className="mb-3">
+                      <Button
+                        className="shadow-none"
+                        color="primary"
+                        onClick={() => {
+                          setAudioAttachmentRoomName('ContentAudioAttachment');
+                          setAudioAttachmentFileTypes(['GIF', 'OGG', 'MP3', 'WAV', 'M4A']);
+                          dataForAudioAttachment();
+                          setAudioAttachmentModal(true);
+                        }}
+                      >
+                        <Icon.File className="rounded-circle" width="20" />
+                      </Button>
+                    </Col>
+                  </Row>
+                  <AttachmentModalV2
+                    moduleId={id}
+                    attachmentModal={audioattachmentModal}
+                    setAttachmentModal={setAudioAttachmentModal}
+                    roomName={audioattachmentroomname}
+                    fileTypes={audioattachmentfiletypes}
+                    altTagData="ContentRelated Data"
+                    desc="ContentRelated Data"
+                    recordType="ContentRelatedAudio"
+                    mediaType={audioattachmentData.modelType}
+                    update={audioattachmentupdate}
+                    setUpdate={setAudioAttachmentUpdate}
+                    editaudiodatamodal={editaudiodatamodal}
+                    setEditAudioDataModal={setEditAudioDataModal}
+                  />
+                  <AudioViewFileComponentV2 moduleId={id} roomName="ContentAudioAttachment" recordType="ContentRelatedAudio" update={audioattachmentupdate}
+                    setUpdate={setAudioAttachmentUpdate}
+                    />
+                    </ComponentCard>
+              </FormGroup>
+            </Form>
+          </TabPane> 
+        </TabContent>
+      </ComponentCard>
     </>
   );
 };

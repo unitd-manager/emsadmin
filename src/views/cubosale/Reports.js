@@ -10,7 +10,7 @@ import { Card,
   import "jspdf-autotable";
 import api from '../../constants/api';
 
-import ProjectReportSection from '../../components/ProjectReportTop/ProjectReportSection';
+import ProjectReportSection from '../../components/projectReportTop/ProjectReportSection';
 
 // import BreadCrumbs from '../layouts/breadcrumbs/BreadCrumbs';
 // import jsPDF from "jspdf";
