@@ -23,7 +23,7 @@ const SectionDetails = () => {
   // Api // insertSection
   const insertSection = () => {
     if (sectionForms.section_title !== '') {
-      sectionForms.created_date = creationdatetime;
+      sectionForms.creation_date = creationdatetime;
       api
         .post('/section/insertSection', sectionForms)
         .then((res) => {
