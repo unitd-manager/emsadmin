@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import {
   Row,
   Col,
@@ -25,6 +25,7 @@ import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import '../form-editor/editor.scss';
 import api from '../../constants/api';
 import SectionButton from '../../components/SectionTable/SectionButton';
+import AppContext from '../../context/AppContext';
 import creationdatetime from '../../constants/creationdatetime';
 
 const SectionEdit = () => {
@@ -38,6 +39,7 @@ const SectionEdit = () => {
   const [pictureData, setDataForPicture] = useState({
     modelType: '',
   });
+  const [pictureupdate, setPictureUpdate] = useState(false);
   // Navigation and Parameter Constants
   const { id } = useParams();
   const navigate = useNavigate();
@@ -45,6 +47,7 @@ const SectionEdit = () => {
   const toggle = (tab) => {
     if (activeTab !== tab) setActiveTab(tab);
   };
+  const { loggedInuser } = useContext(AppContext);
 
   // Abi for Picture attachment
   const dataForPicture = () => {
@@ -78,6 +81,7 @@ const SectionEdit = () => {
   const editSectionData = () => {
     if (section.section_title !== '') {
       section.modification_date = creationdatetime;
+      section.modified_by= loggedInuser.first_name; 
       api
         .post('/section/editSection', section)
         .then(() => {
@@ -296,8 +300,11 @@ const SectionEdit = () => {
                   desc="Section Data"
                   recordType="Picture"
                   mediaType={pictureData.modelType}
+                  update={pictureupdate}
+                  setUpdate={setPictureUpdate}
                 />
-                <ViewFileComponentV2 moduleId={id} roomName="SectionPic" recordType="Picture" />
+                <ViewFileComponentV2 moduleId={id} roomName="SectionPic" recordType="Picture" update={pictureupdate}
+                    setUpdate={setPictureUpdate} />
               </FormGroup>
             </Form>
           </TabPane>
