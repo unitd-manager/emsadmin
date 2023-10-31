@@ -117,7 +117,7 @@ useEffect(() => {
                 <tr key={res.media_id}>
                   <td style={tableStyle}>
                     <a
-                      href={`http://43.228.126.245/emsapi/storage/uploads/${res.name}`}
+                      href={`http://43.228.126.245/EMS-API/storage/uploads/${res.name}`}
                       target="_blank"
                       rel="noreferrer"
                     >
