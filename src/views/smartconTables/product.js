@@ -53,7 +53,7 @@ const Test = () => {
       bDestroy: true,
       ajax: {
         type: 'POST',
-        url: 'http://43.228.126.245:3005/product/getProductsPagination',
+        url: 'http://43.228.126.245:4013/product/getProductsPagination',
       },
       lengthMenu: [
         [10, 100, -1],
