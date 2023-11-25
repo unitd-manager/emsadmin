@@ -12,12 +12,13 @@ export default function ContentMoreDetails({
   subcategoryLinked,
   sectionLinked,
   categoryLinked,
-  
+  subvaluelist,
   }) {
   ContentMoreDetails.propTypes = {
     contentDetails: PropTypes.object,
     handleInputs: PropTypes.any,
     valuelist: PropTypes.object,
+    subvaluelist: PropTypes.object,
     subcategoryLinked: PropTypes.func,
     sectionLinked: PropTypes.func,
     categoryLinked: PropTypes.func,
@@ -171,6 +172,27 @@ contentDetails && (
                     <option defaultValue="selected">Please Select</option>
                     {valuelist &&
                       valuelist.map((e) => {
+                        return (
+                          <option key={e.value} value={e.value}>
+                            {e.value}
+                          </option>
+                        );
+                      })}
+                  </Input>
+                </FormGroup>
+              </Col>
+              <Col md="3">
+                <FormGroup>
+                  <Label>Sub-SubCategory</Label>
+                  <Input
+                    type="select"
+                    onChange={handleInputs}
+                    value={contentDetails && contentDetails.sub_sub_category}
+                    name="sub_sub_category"
+                  >
+                    <option defaultValue="selected">Please Select</option>
+                    {subvaluelist &&
+                      subvaluelist.map((e) => {
                         return (
                           <option key={e.value} value={e.value}>
                             {e.value}

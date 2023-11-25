@@ -39,8 +39,7 @@ import creationdatetime from '../../constants/creationdatetime';
 
 const ContentUpdate = () => {
   // All state variables
-  const [lineItem] = useState(null);
-  
+
   const [contentDetails, setContentDetails] = useState();
   const [sectionLinked, setSectionLinked] = useState();
   const [categoryLinked, setCategoryLinked] = useState();
@@ -91,6 +90,7 @@ const dataForAudioAttachment = () => {
 
 const [addVideoModal,setAddVideoModal] = useState();
   const [valuelist, setValuelist] = useState();
+  const [subvaluelist, setSubValuelist] = useState();
   const [project, setProject] = useState([]);
   const [quote, setQuote] = useState({});
 
@@ -152,23 +152,6 @@ const [addVideoModal,setAddVideoModal] = useState();
       message('Please fill all required fields', 'warning');
     }
   };
-  // const editContentData = () => {
-  //   if (
-  //     contentDetails.content_title !== ''
-  //   ) {contentDetails.modified_date = creationdatetime;
-  //     contentDetails.modified_by= loggedInuser.first_name;
-  //     api
-  //       .post('/content/editContent', contentDetails)
-  //       .then(() => {
-  //         message('Record edited successfully', 'success');
-  //       })
-  //       .catch(() => {
-  //         message('Unable to edit record.', 'error');
-  //       });
-  //   } else {
-  //     message('Please fill all required fields', 'warning');
-  //   }
-  // };
   // getting data from Section
   const getsection = () => {
     api.get('/content/getSection', sectionLinked).then((res) => {
@@ -193,6 +176,16 @@ const [addVideoModal,setAddVideoModal] = useState();
       .get('/content/getValueList')
       .then((res) => {
         setValuelist(res.data.data);
+      })
+      .catch(() => {
+        message('valuelist not found', 'info');
+      });
+  };
+   const getSubValulist = () => {
+    api
+      .get('/content/getSub-SubCategory')
+      .then((res) => {
+        setSubValuelist(res.data.data);
       })
       .catch(() => {
         message('valuelist not found', 'info');
@@ -228,8 +221,7 @@ const [addVideoModal,setAddVideoModal] = useState();
     getValuelist();
     getProject();
     getQuote();
-    
-    console.log(lineItem);
+    getSubValulist();
   }, [id]);
 
   return (
@@ -280,6 +272,7 @@ const [addVideoModal,setAddVideoModal] = useState();
             contentDetails={contentDetails}
             handleInputs={handleInputs}
             valuelist={valuelist}
+            subvaluelist={subvaluelist}
             subcategoryLinked={subcategoryLinked}
             getCategory={getCategory}
             sectionLinked={sectionLinked}
@@ -427,7 +420,7 @@ const [addVideoModal,setAddVideoModal] = useState();
                     update={pictureupdate}
                     setUpdate={setPictureUpdate}
                   />
-                  <ViewFileComponentV2 moduleId={id} roomName="ContentPic" recordType="Picture" update={pictureupdate}
+                  <ViewFileComponentV2 moduleId={id} roomName="Content" recordType="Picture" update={pictureupdate}
                     setUpdate={setPictureUpdate}/>
                     </ComponentCard>
               </FormGroup>

@@ -141,8 +141,12 @@ const FinanceTable = Loadable(lazy(() => import('../views/smartconTables/Orders'
 // Admin
 
 const Content = Loadable(lazy(() => import('../views/smartconTables/Content')));
+const QuestionAnswer = Loadable(lazy(() => import('../views/smartconTables/QuestionAnswer')));
+const Magazine = Loadable(lazy(() => import('../views/smartconTables/Magazine')));
 const Customer = Loadable(lazy(() => import('../views/smartconTables/Customer')));
 const ContentDetailsTable = Loadable(lazy(() => import('../views/detailTable/ContentDetails')));
+const QuestionDetails = Loadable(lazy(() => import('../views/detailTable/QuestionDetails')));
+const NewMagazine = Loadable(lazy(() => import('../views/detailTable/NewMagazine')));
 const CustomerDetailsTable = Loadable(lazy(() => import('../views/detailTable/CustomerDetails')));
 const SubCategoryTable = Loadable(lazy(() => import('../views/smartconTables/SubCategory')));
 const BlogDetailsTable = Loadable(lazy(() => import('../views/detailTable/BlogDetails')));
@@ -177,6 +181,9 @@ const ProductEdit = Loadable(lazy(() => import('../views/EditData/ProductEdit'))
 const StaffEdit = Loadable(lazy(() => import('../views/EditData/StaffEdit')));
 const OrdersEdit = Loadable(lazy(() => import('../views/EditData/OrdersEdit')));
 const ContentEdit = Loadable(lazy(() => import('../views/EditData/ContentEdit')));
+const QuestionsEdit = Loadable(lazy(() => import('../views/EditData/QuestionsEdit')));
+const ArticleEdit = Loadable(lazy(() => import('../views/EditData/ArticleEdit')));
+const MagazineEdit = Loadable(lazy(() => import('../views/EditData/MagazineEdit')));
 const CustomerEdit = Loadable(lazy(() => import('../views/EditData/CustomerEdit')));
 const SectionEdit = Loadable(lazy(() => import('../views/EditData/SectionEdit')));
 const Login = Loadable(lazy(() => import('../views/detailTable/Login')));
@@ -239,6 +246,9 @@ const Routernew = () => {
           <Route path="/ProductEdit/:id" name="productdata" element={<ProductEdit />}></Route>
           <Route path="/OrdersEdit/:id" name="orderdata" element={<OrdersEdit />}></Route>
           <Route path="/ContentEdit/:id" name="contentdata" element={<ContentEdit />}></Route>
+          <Route path="/QuestionsEdit/:id" name="contentdata" element={<QuestionsEdit />}></Route>
+          <Route path="/ArticleEdit/:id" name="contentdata" element={<ArticleEdit />}></Route>
+          <Route path="/MagazineEdit/:id" name="contentdata" element={<MagazineEdit />}></Route>
           <Route path="/CustomerEdit/:id" name="customerdata" element={<CustomerEdit />}></Route>
           <Route path="/BlogEdit/:id" name="blogdata" element={<BlogEdit />}></Route>
           <Route path="/InventoryEdit/:id" name="inventorydata" element={<InventoryEdit />}></Route>
@@ -398,11 +408,23 @@ const Routernew = () => {
           <Route path="/UserGroupDetails" name="usergroupdetailsdata" element={<UserGroupDetails />}></Route>
         
           <Route path="/Content" name="contentdata" element={<Content />}></Route>
+          <Route path="/QuestionAnswer" name="contentdata" element={<QuestionAnswer />}></Route>
+          <Route path="/Magazine" name="contentdata" element={<Magazine />}></Route>
           <Route path="/Customer" name="customerdata" element={<Customer />}></Route>
           <Route
             path="/ContentDetails"
             name="contentdetailsdata"
             element={<ContentDetailsTable />}
+          ></Route>
+          <Route
+            path="/QuestionDetails"
+            name="contentdetailsdata"
+            element={<QuestionDetails />}
+          ></Route>
+           <Route
+            path="/NewMagazine"
+            name="contentdetailsdata"
+            element={<NewMagazine />}
           ></Route>
            <Route
             path="/CustomerDetails"

@@ -73,9 +73,9 @@ return (
                       <thead>
                         <tr>
                           <th scope="col">  S.No </th>
-                          <th scope="col">Embed Code </th>
-                          <th scope="col">Video Link </th>
-                          <th scope="col">Creation</th>
+                          <th scope="col">Answer</th>
+                          <th scope="col">Status</th>
+                          <th scope="col">Created BY</th>
                           
                           <th scope="col">Action</th>
                         </tr>

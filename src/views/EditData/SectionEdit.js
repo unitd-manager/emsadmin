@@ -197,13 +197,11 @@ const SectionEdit = () => {
                   name="groups"
                 >
                   <option defaultValue="selected">Please Select</option>
-                  <option value="Reports">Reports</option>
+                  <option value="Main">Main</option>
                   <option value="Home">Home</option>
-                  <option value="Tender/Project">Tender/Project</option>
-                  <option value="Finance/Admin/Purchase">Finance/Admin/Purchase</option>
-                  <option value="Payroll/HR">Payroll/HR</option>
                   <option value="Admin">Admin</option>
                   <option value="App">App</option>
+           
                 </Input>
               </Col>
               <Col md="4">
