@@ -95,7 +95,12 @@ const ContentUpdate = () => {
       message('Please fill all required fields', 'warning');
     }
   };
-
+  const [sectionLinked, setSectionLinked] = useState();
+  const getsection = () => {
+   api.get('/content/getMonth', sectionLinked).then((res) => {
+     setSectionLinked(res.data.data);
+   });
+ };
   const tabs = [
     { id: '1', name: 'Articles' },
     { id: '2', name: 'Attachment' },
@@ -106,6 +111,7 @@ const ContentUpdate = () => {
   useEffect(() => {
     getContentById();
     getArticlesById();
+    getsection();
   }, [id]);
 
   return (
@@ -155,6 +161,7 @@ const ContentUpdate = () => {
           <MagazineDetails
             contentDetails={contentDetails}
             handleInputs={handleInputs}
+            sectionLinked={sectionLinked}
           ></MagazineDetails>
 
           

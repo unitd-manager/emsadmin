@@ -38,17 +38,6 @@ export default function OrderProductDetails({ answers }) {
       message('Deletion canceled', 'info');
     }
   };
-//   const deleteAnswer = (answerId) => {
-//     api
-//    .post('/content/deleteAnswer', { answer_id: answerId })
-//    .then(() => {
-//      message('Record edited successfully', 'success');
-//      window.location.reload();
-//    })
-//    .catch(() => {
-//      message('Unable to edit record.', 'error');
-//    });
-// } 
   const invoiceTableColumns = [
     {
       name: '#',
@@ -100,8 +89,8 @@ export default function OrderProductDetails({ answers }) {
                       <td>{index + 1}</td>
                       <td>
                         <div className='anchor'>
-                         <span onClick={() => handleEditClick(element)}>
-                            Edit
+                         <span onClick={() => handleEditClick(element)}style={{ cursor: 'pointer' }}>
+                         <Icon.Edit2 />
                           </span>
                         </div>
                       </td>
@@ -111,8 +100,8 @@ export default function OrderProductDetails({ answers }) {
                   ></td>
                       <td>{element.status}</td>
                       <td>{element.created_by}</td>
-                      <td><span onClick={() => deleteAnswer(element.answer_id)}>
-                            Delete
+                      <td><span onClick={() => deleteAnswer(element.answer_id)}style={{ cursor: 'pointer' }}>
+                           <Icon.Trash2/>
                           </span></td>
                     </tr>
                   );
@@ -130,5 +119,5 @@ export default function OrderProductDetails({ answers }) {
         />
       )}
     </ComponentCard>
-  );
+ );
 }

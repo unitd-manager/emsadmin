@@ -7,11 +7,14 @@ import ComponentCard from '../ComponentCard';
 export default function ContentMoreDetails({
   contentDetails,
   handleInputs,
+  sectionLinked,
   }) {
   ContentMoreDetails.propTypes = {
     contentDetails: PropTypes.object,
     handleInputs: PropTypes.any,
+    sectionLinked: PropTypes.object,
      };
+  
   return (
     <div>
    <ComponentCard title="Magazine Details" creationModificationDate={contentDetails}>
@@ -43,11 +46,19 @@ export default function ContentMoreDetails({
                 <FormGroup>
                   <Label> Month<span className="required"> *</span>  </Label>
                   <Input
-                    type="text"
-                    onChange={handleInputs}
-                    value={contentDetails && contentDetails.month}
-                    name="month"
-                  />
+      type="select"
+      name="month"
+      value={contentDetails && contentDetails.month}
+      onChange={handleInputs}
+    >
+      <option value="" selected="selected">
+        Please Select
+      </option>
+      {sectionLinked &&
+        sectionLinked.map((ele) => {
+          return <option value={ele.name}>{ele.name}</option>;
+        })}
+    </Input>
                 </FormGroup>
               </Col>
            

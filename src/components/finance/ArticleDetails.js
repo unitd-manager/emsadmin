@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom';
 import * as Icon from 'react-feather';
 import ComponentCard from '../ComponentCard';
 import ArticleEdit from '../../views/EditData/ArticleEdit';
+import api from '../../constants/api';
+import message from '../Message';
 
 export default function OrderProductDetails({ editArticles }) {
   OrderProductDetails.propTypes = {
@@ -21,7 +23,7 @@ export default function OrderProductDetails({ editArticles }) {
 
   const invoiceTableColumns = [
     {
-      name: '#',
+      name: 'S.NO',
       grow: 0,
       wrap: true,
       width: '4%',
@@ -41,8 +43,27 @@ export default function OrderProductDetails({ editArticles }) {
     },
     { name: 'Title' },
     { name: 'Author' },
+    { name: 'Delete' },
   ];
-
+  const deleteArticle = (articleID) => {
+    const confirmDelete = window.confirm('Are you sure you want to delete this record?');
+  
+    if (confirmDelete) {
+      api
+      .post('/content/deleteArticle', { article_id: articleID })
+        .then(() => {
+          message('Record edited successfully', 'success');
+          window.location.reload();
+        })
+        .catch(() => {
+          message('Unable to delete record.', 'error');
+        });
+    } else {
+     
+      message('Deletion canceled', 'info');
+    }
+  };
+  
   return (
     <ComponentCard>
       <Form>
@@ -63,13 +84,16 @@ export default function OrderProductDetails({ editArticles }) {
                       <td>{index + 1}</td>
                       <td>
                         <div className='anchor'>
-                         <span onClick={() => handleEditClick(element)}>
-                            Edit
+                         <span onClick={() => handleEditClick(element)}style={{ cursor: 'pointer' }}>
+                         <Icon.Edit2 />
                           </span>
                         </div>
                       </td>
                       <td>{element.title}</td>
                       <td>{element.author}</td>
+                      <td><span onClick={() => deleteArticle(element.article_id)}style={{ cursor: 'pointer' }}>
+                          <Icon.Trash2/>
+                          </span></td>
                     </tr>
                   );
                 })}

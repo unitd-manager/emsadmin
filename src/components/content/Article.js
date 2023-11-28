@@ -37,7 +37,11 @@ export default function InvoiceItem({ articleData, setArticleData,magazineId }) 
     }
   );
   const handleInputs = (e) => {
-    setArticles({ ...articles, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+  setArticles((prevArticles) => ({
+    ...prevArticles,
+    [name]: value,
+  }));
   };
   // const convertHtmlToDraft = (existingQuoteformal) => {
   //   const contentBlock = htmlToDraft(existingQuoteformal && existingQuoteformal);
@@ -55,14 +59,14 @@ export default function InvoiceItem({ articleData, setArticleData,magazineId }) 
     });
   };
   const insertArticle = () => {
-    if (articles.title !== '' && articles.author !=='') {
-    api
+    if (articles.title && articles.author) {
+      api
         .post('/content/insertArticle', articles)
         .then((res) => {
           setArticles(res.data.data);
-         message('Article inserted successfully.', 'success');
-         window.location.reload();
-            })
+          message('Article inserted successfully.', 'success');
+          window.location.reload();
+        })
         .catch(() => {
           message('Network connection error.', 'error');
         });
