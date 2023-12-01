@@ -33,6 +33,7 @@ export default function InvoiceItem({ addAnswerModal, setAddAnswerModal,Question
   const [description, setDescription] = useState('');
   const [valuelist, setValuelist] = useState('');
   const [categoryLinked, setCategoryLinked] = useState('');
+  const [correctAnswerExists, setCorrectAnswerExists] = useState(false);
   const [articles, setArticles] = useState(
     {
       question_id: QuestionId,
@@ -41,14 +42,6 @@ export default function InvoiceItem({ addAnswerModal, setAddAnswerModal,Question
   const handleInputs = (e) => {
     setArticles({ ...articles, [e.target.name]: e.target.value });
   };
-  // const convertHtmlToDraft = (existingQuoteformal) => {
-  //   const contentBlock = htmlToDraft(existingQuoteformal && existingQuoteformal);
-  //   if (contentBlock) {
-  //     const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
-  //     const editorState = EditorState.createWithContent(contentState);
-  //     setDescription(editorState);
-  //   }
-  // };
   const { loggedInuser } = useContext(AppContext);
 
   const handleDataEditor = (e, type) => {
@@ -57,6 +50,7 @@ export default function InvoiceItem({ addAnswerModal, setAddAnswerModal,Question
       [type]: draftToHtml(convertToRaw(e.getCurrentContent())),
     });
   };
+
   const insertArticle = () => {
     if (articles.answer !== '' ) {
       articles.created_by= loggedInuser.first_name;   
@@ -92,7 +86,18 @@ export default function InvoiceItem({ addAnswerModal, setAddAnswerModal,Question
   useEffect(() => {
     getCategory();
     getValuelist();
-  }, [QuestionId]);
+     }, [QuestionId]);
+     useEffect(() => {
+      // Check if there is already an answer with status 'correct'
+      api.post('/content/getAnswersByQuestionId', { question_id: QuestionId })
+        .then((res) => {
+          const correctAnswer = res.data.data.find((answer) => answer.status === 'Correct');
+          setCorrectAnswerExists(!!correctAnswer);
+        })
+        .catch(() => {
+          message('Error checking answers.', 'error');
+        });
+    }, [QuestionId]);
   return (
     <>
       <Modal size="xl" isOpen={addAnswerModal}>
@@ -118,21 +123,22 @@ export default function InvoiceItem({ addAnswerModal, setAddAnswerModal,Question
                 <FormGroup>
                   <Label>Status</Label>
                   <Input
-                    type="select"
-                    onChange={handleInputs}
-                    value={articles && articles.status}
-                    name="status"
-                  >
-                    <option defaultValue="selected">Please Select</option>
-                    {valuelist &&
-                      valuelist.map((e) => {
-                        return (
-                          <option key={e.value} value={e.value}>
-                            {e.value}
-                          </option>
-                        );
-                      })}
-                  </Input>
+                      type="select"
+                      onChange={handleInputs}
+                      value={articles && articles.status}
+                      name="status"
+                      disabled={correctAnswerExists && articles.status === 'Correct'}
+                    >
+                      <option defaultValue="selected">Please Select</option>
+                      {valuelist &&
+                        valuelist.map((e) => {
+                          return (
+                            <option key={e.value} value={e.value} disabled={correctAnswerExists && e.value === 'Correct'}>
+                              {e.value}
+                            </option>
+                          );
+                        })}
+                    </Input>
                 </FormGroup>
               </Col>
             </Row>

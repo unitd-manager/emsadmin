@@ -32,7 +32,7 @@ const ContentDetails = () => {
   };
   //Insert Content Data
   const insertContentData = () => {
-    if (contentDetails.questions !== '' )
+    if (contentDetails.questions)
     {
       contentDetails.creation_date = creationdatetime;
       contentDetails.created_by= loggedInuser.first_name;   

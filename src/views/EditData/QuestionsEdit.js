@@ -88,7 +88,7 @@ const [answers,setAnswers] = useState();
   };
   //Edit Content
   const editContentData = () => {
-    if (contentDetails.title !== '' )
+    if (contentDetails.questions !== '' )
     {
       contentDetails.modification_date = creationdatetime;
       contentDetails.modified_by= loggedInuser.first_name; 
@@ -207,7 +207,7 @@ const [answers,setAnswers] = useState();
                 <Button
                   color="dark"
                   onClick={() => {
-                    navigate('/Content');
+                    navigate('/QuestionAnswer');
                     console.log('back to list');
                   }}
                 >

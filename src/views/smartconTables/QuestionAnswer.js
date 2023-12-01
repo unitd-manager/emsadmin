@@ -15,8 +15,8 @@ import message from '../../components/Message';
 import api from '../../constants/api';
 import BreadCrumbs from '../../layouts/breadcrumbs/BreadCrumbs';
 import CommonTable from '../../components/CommonTable';
-// import Publish from '../../components/Publish';
-// import SortOrder from '../../components/SortOrder';
+import Publish from '../../components/Publish';
+import SortOrder from '../../components/SortOrder';
 
 const Questions = () => {
   //Const Variables
@@ -67,6 +67,12 @@ const Questions = () => {
       wrap: true,
     },
     {
+      name: 'Order',
+      selector: 'sort_order',
+      sortable: true,
+      grow: 0,
+    },
+    {
       name: 'Created by',
       selector: 'created_by',
       sortable: true,
@@ -79,7 +85,13 @@ const Questions = () => {
       width: 'auto',
       grow: 3,
     },
-
+    {
+      name: 'Published',
+      selector: 'published',
+      sortable: true,
+      width: 'auto',
+      grow: 3,
+    },
   ];
 
   return (
@@ -115,10 +127,26 @@ const Questions = () => {
                       <Icon.Edit2 />
                     </Link>
                   </td>
+                 
                   <td>{element.questions}</td>
-                
+                  <td>
+                    <SortOrder
+                      idValue={element.question_id}
+                      idColumn="question_id"
+                      tablename="questions"
+                      value={element.sort_order}
+                    ></SortOrder>
+                  </td>
                   <td>{element.created_by}</td>
                   <td>{element.modified_by}</td>
+                  <td>
+                    <Publish
+                      idColumn="question_id"
+                      tablename="questions"
+                      idValue={element.question_id.toString()}
+                      value={element.published}
+                    ></Publish>
+                  </td>
                   </tr>
               );
             })}

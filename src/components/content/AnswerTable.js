@@ -40,7 +40,7 @@ export default function OrderProductDetails({ answers }) {
   };
   const invoiceTableColumns = [
     {
-      name: '#',
+      name: 'S.No',
       grow: 0,
       wrap: true,
       width: '4%',
@@ -68,18 +68,18 @@ export default function OrderProductDetails({ answers }) {
   return (
     <ComponentCard>
       <Form>
-        <div className="container">
-          <Table id="example">
-            <thead>
-              <tr>
-                {invoiceTableColumns.map((cell) => {
-                  return <td key={cell.name}>{cell.name}</td>;
-                })}
-              </tr>
-            </thead>
-            <tbody>
-              {answers &&
-                answers.map((element, index) => {
+      <div className="container">
+          {answers && answers.length > 0 ? (
+            <Table id="example">
+              <thead>
+                <tr>
+                  {invoiceTableColumns.map((cell) => (
+                    <td key={cell.name}>{cell.name}</td>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {answers.map((element, index) => {
                   const removeHTMLTags = (html) => {
                     const doc = new DOMParser().parseFromString(html, 'text/html');
                     return doc.body.textContent || '';
@@ -103,11 +103,14 @@ export default function OrderProductDetails({ answers }) {
                       <td><span onClick={() => deleteAnswer(element.answer_id)}style={{ cursor: 'pointer' }}>
                            <Icon.Trash2/>
                           </span></td>
-                    </tr>
+                   </tr>
                   );
                 })}
-            </tbody>
-          </Table>
+              </tbody>
+            </Table>
+          ) : (
+            <p>No records found.</p>
+          )}
         </div>
       </Form>
 
