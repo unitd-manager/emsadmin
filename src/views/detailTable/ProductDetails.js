@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Row, Col, Form, FormGroup, Label, Input, Button } from 'reactstrap';
 import { ToastContainer } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
@@ -6,11 +6,13 @@ import BreadCrumbs from '../../layouts/breadcrumbs/BreadCrumbs';
 import ComponentCard from '../../components/ComponentCard';
 import message from '../../components/Message';
 import api from '../../constants/api';
+import AppContext from '../../context/AppContext';
 
 const ProductDetails = () => {
   //All const variables
   const [itemcode, setItemcode] = useState();
   const navigate = useNavigate();
+  const { loggedInuser } = useContext(AppContext);
   const [productDetails, setProductDetails] = useState({
     title: '',
     item_code: '',
@@ -27,8 +29,10 @@ const ProductDetails = () => {
     });
   };
   //Insert Product Data
-  const insertProductData = () => {
+  const insertProductData = (code) => {
     productDetails.item_code = parseFloat(itemcode) + 1;
+    productDetails.created_by = loggedInuser.first_name;
+    productDetails.product_code=code;
     if (productDetails.title !== '' && productDetails.item_code !== '') {
       api
         .post('/product/insertProduct', productDetails)
@@ -45,6 +49,16 @@ const ProductDetails = () => {
     } else {
       message('Please fill all required fields.', 'warning');
     }
+  };
+  const generateCode = () => {
+    api
+      .post('/commonApi/getCodeValue', { type: 'product' })
+      .then((res) => {
+        insertProductData(res.data.data);
+      })
+      .catch(() => {
+        insertProductData('');
+      });
   };
   //useeffect
   useEffect(() => {
@@ -81,7 +95,7 @@ const ProductDetails = () => {
                       className="shadow-none"
                       color="primary"
                       onClick={() => {
-                        insertProductData();
+                        generateCode();
                       }}
                     >
                       Save & Continue

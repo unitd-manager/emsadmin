@@ -1,27 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Row, Col, Button, Form, FormGroup } from 'reactstrap';
+import { Row, Col, Button } from 'reactstrap';
 import ComponentCardV2 from '../ComponentCardV2';
+// import DeleteButton from '../DeleteButton';
 
-export default function FinanceEditComp({
-     backToList,
-     editFinanceData,
-      navigate
-}) {
-  FinanceEditComp.propTypes = {
-   backToList: PropTypes.func,
-   editFinanceData: PropTypes.func,
-   navigate: PropTypes.any
-
+function OrdersEditButtons({ editFinanceData, navigate }) {
+  OrdersEditButtons.propTypes = {
+    editFinanceData: PropTypes.any,
+    navigate: PropTypes.any,
+    // id: PropTypes.string,
   };
   return (
-    <Form>
-      <FormGroup>
+    <div>
       <ComponentCardV2>
         <Row>
           <Col>
-            <Button className='shadow-none'
+            <Button
               color="primary"
+              className="shadow-none"
               onClick={() => {
                 editFinanceData();
                 setTimeout(() => {
@@ -33,29 +29,34 @@ export default function FinanceEditComp({
             </Button>
           </Col>
           <Col>
-              <Button className='shadow-none'
-                color="primary"
-                onClick={() => {
-                  editFinanceData();
-                   }}
-              >
-                Apply
-              </Button>
-            </Col>
-           <Col>
-            <Button className='shadow-none'
+            <Button
+              color="primary"
+              className="shadow-none"
+              onClick={() => {
+                editFinanceData();
+              }}
+            >
+              Apply
+            </Button>
+          </Col>
+         
+          <Col>
+            <Button
+              className="shadow-none"
               color="dark"
               onClick={() => {
-                backToList();
                 navigate('/Orders');
-               }}
+                console.log('back to list');
+              }}
             >
               Back to List
             </Button>
           </Col>
+    
         </Row>
       </ComponentCardV2>
-      </FormGroup>
-  </Form>
-);
+    </div>
+  );
 }
+
+export default OrdersEditButtons;

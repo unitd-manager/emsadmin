@@ -22,12 +22,6 @@ const FinanceEdit = () => {
   // Navigation and Parameter Constants
   const { id } = useParams();
   const navigate = useNavigate();
-  //Button fuctions
-  const applyChanges = () => {};
-  const backToList = () => {
-    navigate('/Orders');
-  };
-  //All Functions/Methods
   //Setting Data in Finance Details
   const handleInputs = (e) => {
     setFinanceDetails({ ...financeDetails, [e.target.name]: e.target.value });
@@ -64,9 +58,9 @@ const FinanceEdit = () => {
     api
       .post('/orders/editFinances', financeDetails)
       .then(() => {
-        message('Record editted successfully', 'success');
-        getFinancesById();
+        message('Record edited successfully', 'success');
       })
+
       .catch(() => {
         message('Unable to edit record.', 'error');
       });
@@ -84,9 +78,8 @@ const FinanceEdit = () => {
         <FinanceButton
           navigate={navigate}
           editFinanceData={editFinanceData}
-          applyChanges={applyChanges}
-          backToList={backToList}
-        ></FinanceButton>
+          id={id}
+         ></FinanceButton>
 
         {/* Main Details */}
         <FinanceMainDetails
