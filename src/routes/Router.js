@@ -159,7 +159,7 @@ const SubCategoryDetailsTable = Loadable(
 const SupplierTable = Loadable(lazy(() => import('../views/smartconTables/Supplier')));
 const ValuelistTable = Loadable(lazy(() => import('../views/smartconTables/Valuelist')));
 const ValuelistDetailsTable = Loadable(lazy(() => import('../views/detailTable/ValuelistDetails')));
-const PurchaseOrderDetailTable = Loadable(lazy(() => import('../views/detailTable/PurchaseOrderDetail')));
+const PurchaseOrderDetail= Loadable(lazy(() => import('../views/detailTable/PurchaseOrderDetail')));
 const SettingTable = Loadable(lazy(() => import('../views/smartconTables/Setting')));
 const Section = Loadable(lazy(() => import('../views/smartconTables/Section')));
 const SectionDetails = Loadable(lazy(() => import('../views/detailTable/SectionDetails')));
@@ -396,7 +396,7 @@ const Routernew = () => {
              <Route
             path="/PurchaseOrderDetail"
             name="purchaseorderdetaildata"
-            element={<PurchaseOrderDetailTable />}
+            element={<PurchaseOrderDetail />}
           ></Route>
           <Route path="/Section" name="sectiondata" element={<Section />}></Route>
           <Route path="/SectionDetails" name="sectiondetaildata" element={<SectionDetails />}></Route>

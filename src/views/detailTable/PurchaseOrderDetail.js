@@ -32,10 +32,11 @@ const PurchaseOrderDetails = () => {
   const handleInputs = (e) => {
     setPurchaseForms({ ...purchaseForms, [e.target.name]: e.target.value });
   };
-  //inserting data of Purchase Order
-  const insertPurchaseOrder = () => {
+  
+   //inserting data of Purchase Order
+   const insertPurchaseOrder = (code) => {
     purchaseForms.purchase_order_date = moment();
-
+    purchaseForms.po_code=code;
     if (purchaseForms.supplier_id !== '') {
       api
         .post('/purchaseorder/insertPurchaseOrder', purchaseForms)
@@ -44,7 +45,7 @@ const PurchaseOrderDetails = () => {
           message('Purchase Order inserted successfully.', 'success');
           setTimeout(() => {
             navigate(`/PurchaseOrderEdit/${insertedDataId}`);
-          }, 300);
+          }, 500);
         })
         .catch(() => {
           message('Unable to edit record.', 'error');
@@ -53,6 +54,18 @@ const PurchaseOrderDetails = () => {
       message('Please fill all required fields.', 'warning');
     }
   };
+
+  const generateCode = () => {
+    api
+      .post('/commonApi/getCodeValue', { type: 'purchaseOrder' })
+      .then((res) => {
+        insertPurchaseOrder(res.data.data);
+      })
+      .catch(() => {
+        insertPurchaseOrder('');
+      });
+  };
+
   useEffect(() => {
     editPurchaseById();
   }, [id]);
@@ -66,7 +79,7 @@ const PurchaseOrderDetails = () => {
             <Form>
               <FormGroup>
                 <Row>
-                  <Label>supplier Name </Label>
+                  <Label>Supplier Name </Label>
                   <Input
                     type="select"
                     name="supplier_id"
@@ -96,14 +109,14 @@ const PurchaseOrderDetails = () => {
                         type="button"
                         className="btn mr-2 shadow-none"
                         onClick={() => {
-                          insertPurchaseOrder();
+                          generateCode();
                         }}
                       >
                         Save & Continue
                       </Button>
                       <Button
                         onClick={() => {
-                          navigate('/PurchaseOrderEdit');
+                          navigate('/PurchaseOrder');
                         }}
                         type="button"
                         className="btn btn-dark shadow-none"

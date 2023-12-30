@@ -4,7 +4,7 @@ import { Button } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'datatables.net-dt/js/dataTables.dataTables';
 import 'datatables.net-dt/css/jquery.dataTables.min.css';
-import moment from 'moment';
+// import moment from 'moment';
 import $ from 'jquery';
 import 'datatables.net-buttons/js/buttons.colVis';
 import 'datatables.net-buttons/js/buttons.flash';
@@ -156,7 +156,7 @@ const Customer = () => {
                   <td>{element.email}</td>
                   <td>{element.pass_word}</td>
                   <td>{element.mobile}</td>
-                  <td>{moment(element.creation_date).format('YYYY-MM-DD')}</td>
+                  <td>{element.creation_date}</td>
                 
                 </tr>
               );

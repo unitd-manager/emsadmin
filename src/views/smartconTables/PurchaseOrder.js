@@ -7,8 +7,8 @@ import 'datatables.net-dt/css/jquery.dataTables.min.css';
 import $ from 'jquery';
 import 'datatables.net-buttons/js/buttons.colVis';
 import 'datatables.net-buttons/js/buttons.flash';
-import 'datatables.net-buttons/js/buttons.html5';
-import 'datatables.net-buttons/js/buttons.print';
+// import 'datatables.net-buttons/js/buttons.html5';
+// import 'datatables.net-buttons/js/buttons.print';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 import api from '../../constants/api';
@@ -41,13 +41,13 @@ const PurchaseOrder = () => {
         pageLength: 20,
         processing: true,
         dom: 'Bfrtip',
-        buttons: [
-          {
-            extend: 'print',
-            text: 'Print',
-            className: 'shadow-none btn btn-primary',
-          },
-        ],
+        // buttons: [
+        //   {
+        //     extend: 'print',
+        //     text: 'Print',
+        //     className: 'shadow-none btn btn-primary',
+        //   },
+        // ],
       });
     }, 1000);
     getpurchaseorder();
@@ -130,7 +130,7 @@ const PurchaseOrder = () => {
             <>
               <Row>
                 <Col md="6">
-                  <Link to="/purchaseorderDetail">
+                  <Link to="/PurchaseOrderDetail">
                     <Button color="primary" className="shadow-none">
                       New
                     </Button>
@@ -164,7 +164,7 @@ const PurchaseOrder = () => {
                   <tr key={element.purchase_order_id}>
                     <td>{index + 1}</td>
                     <td>
-                      <Link to={`/purchaseorderEdit/${element.purchase_order_id}`}>
+                      <Link to={`/purchaseorderEdit/${element.purchase_order_id}?tab=1`}>
                         <Icon.Edit2 />
                       </Link>
                     </td>

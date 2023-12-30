@@ -90,8 +90,7 @@ const dataForAudioAttachment = () => {
 
 const [addVideoModal,setAddVideoModal] = useState();
   const [valuelist, setValuelist] = useState();
-  const [subvaluelist, setSubValuelist] = useState();
-  const [project, setProject] = useState([]);
+ const [project, setProject] = useState([]);
   const [quote, setQuote] = useState({});
 
   // Navigation and Parameter Constants
@@ -181,16 +180,6 @@ const [addVideoModal,setAddVideoModal] = useState();
         message('valuelist not found', 'info');
       });
   };
-   const getSubValulist = () => {
-    api
-      .get('/content/getSub-SubCategory')
-      .then((res) => {
-        setSubValuelist(res.data.data);
-      })
-      .catch(() => {
-        message('valuelist not found', 'info');
-      });
-  };
 
   const getProject = () => {
     api.get('project/getOppProject').then((res) => {
@@ -221,7 +210,6 @@ const [addVideoModal,setAddVideoModal] = useState();
     getValuelist();
     getProject();
     getQuote();
-    getSubValulist();
   }, [id]);
 
   return (
@@ -272,7 +260,6 @@ const [addVideoModal,setAddVideoModal] = useState();
             contentDetails={contentDetails}
             handleInputs={handleInputs}
             valuelist={valuelist}
-            subvaluelist={subvaluelist}
             subcategoryLinked={subcategoryLinked}
             getCategory={getCategory}
             sectionLinked={sectionLinked}

@@ -83,10 +83,7 @@ const CustomerDetails = () => {
                       color="primary"
                       onClick={() => {
                         insertCustomerData();
-                        setTimeout(() => {
-                          navigate('/CustomerEdit');
-                        }, 800);
-                      }}
+                                  }}
                     >
                       Save
                     </Button>

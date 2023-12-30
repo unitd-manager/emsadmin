@@ -2,24 +2,48 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import '../form-editor/editor.scss';
+import * as Icon from 'react-feather';
 import { ToastContainer } from 'react-toastify';
+import { Button, Col, Form, FormGroup, Nav, NavItem, NavLink, Row, TabContent, TabPane } from 'reactstrap';
 import BreadCrumbs from '../../layouts/breadcrumbs/BreadCrumbs';
 import message from '../../components/Message';
 import api from '../../constants/api';
 import CategoryButton from '../../components/CategoryTable/CategoryButton';
 import CategoryDetailComp from '../../components/CategoryTable/CategoryDetailComp';
 import creationdatetime from '../../constants/creationdatetime';
+import ViewFileComponentV2 from '../../components/ProjectModal/ViewFileComponentV2';
+import AttachmentModalV2 from '../../components/Tender/AttachmentModalV2';
+import ComponentCard from '../../components/ComponentCard';
+
 
 const CategoryEdit = () => {
   //All state variables
   const [categoryDetails, setCategoryDetails] = useState();
+  const [activeTab, setActiveTab] = useState('1');
+  const [attachmentModal, setAttachmentModal] = useState(false);
+  const [RoomName, setRoomName] = useState('');
+  const [fileTypes, setFileTypes] = useState('');
   const [section, setSection] = useState();
   const [valuelist, setValuelist] = useState();
-
+  const [pictureData, setDataForPicture] = useState({
+    modelType: '',
+  });
+  const [pictureupdate, setPictureUpdate] = useState(false);
   //Navigation and Parameter Constants
   const { id } = useParams();
   const navigate = useNavigate();
 
+
+  const toggle = (tab) => {
+    if (activeTab !== tab) setActiveTab(tab);
+  };
+
+  // Abi for Picture attachment
+  const dataForPicture = () => {
+    setDataForPicture({
+      modelType: 'picture',
+    });
+  };
   // Button Save Apply Back List
   const applyChanges = () => {};
   const saveChanges = () => {
@@ -129,6 +153,60 @@ const CategoryEdit = () => {
         section={section}
         valuelist={valuelist}
       ></CategoryDetailComp>
+       <ComponentCard>
+        <ToastContainer></ToastContainer>
+        <Nav tabs>
+          <NavItem>
+            <NavLink
+              className={activeTab === '1' ? 'active' : ''}
+              onClick={() => {
+                toggle('1');
+              }}
+            >
+              Picture
+            </NavLink>
+          </NavItem>
+        </Nav>
+        <TabContent className="p-4" activeTab={activeTab}>
+          <TabPane tabId="1">
+            <Form>
+              <FormGroup>
+                <Row>
+                  <Col xs="12" md="3" className="mb-3">
+                    <Button
+                      className="shadow-none"
+                      color="primary"
+                      onClick={() => {
+                        setRoomName('Category');
+                        setFileTypes(['JPG','JPEG','PNG', 'GIF', 'OGG', 'MP3', 'WAV', 'M4A']);
+                        dataForPicture();
+                        setAttachmentModal(true);
+                      }}
+                    >
+                      <Icon.Image className="rounded-circle" width="20" />
+                    </Button>
+                  </Col>
+                </Row>
+                <AttachmentModalV2
+                  moduleId={id}
+                  attachmentModal={attachmentModal}
+                  setAttachmentModal={setAttachmentModal}
+                  roomName={RoomName}
+                  fileTypes={fileTypes}
+                  altTagData="Category Data"
+                  desc="Category Data"
+                  recordType="Picture"
+                  mediaType={pictureData.modelType}
+                  update={pictureupdate}
+                  setUpdate={setPictureUpdate}
+                />
+                <ViewFileComponentV2 moduleId={id} roomName="Category" recordType="Picture" update={pictureupdate}
+                    setUpdate={setPictureUpdate} />
+              </FormGroup>
+            </Form>
+          </TabPane>
+        </TabContent>
+      </ComponentCard>
     </>
   );
 };

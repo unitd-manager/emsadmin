@@ -200,7 +200,7 @@ const SectionEdit = () => {
                   <option value="Main">Main</option>
                   <option value="Home">Home</option>
                   <option value="Admin">Admin</option>
-                  <option value="App">App</option>
+                  <option value="Navmenu">Navmenu</option>
            
                 </Input>
               </Col>
