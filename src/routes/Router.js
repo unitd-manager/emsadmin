@@ -187,7 +187,7 @@ const QuestionsEdit = Loadable(lazy(() => import('../views/EditData/QuestionsEdi
 const ArticleEdit = Loadable(lazy(() => import('../views/EditData/ArticleEdit')));
 const MagazineEdit = Loadable(lazy(() => import('../views/EditData/MagazineEdit')));
 const CustomerEdit = Loadable(lazy(() => import('../views/EditData/CustomerEdit')));
-const BroadCastEdit = Loadable(lazy(() => import('../views/EditData/BroadCastEdit')));
+//const BroadCastEdit = Loadable(lazy(() => import('../views/EditData/BroadCastEdit')));
 const BroadCastsEdit = Loadable(lazy(() => import('../views/EditData/BroadCastsEdit')));
 const SectionEdit = Loadable(lazy(() => import('../views/EditData/SectionEdit')));
 const Login = Loadable(lazy(() => import('../views/detailTable/Login')));
@@ -254,7 +254,7 @@ const Routernew = () => {
           <Route path="/ArticleEdit/:id" name="contentdata" element={<ArticleEdit />}></Route>
           <Route path="/MagazineEdit/:id" name="contentdata" element={<MagazineEdit />}></Route>
           <Route path="/CustomerEdit/:id" name="customerdata" element={<CustomerEdit />}></Route>
-          <Route path="/BroadCastEdit/:id" name="customerdata" element={<BroadCastEdit />}></Route>
+          {/* <Route path="/BroadCastEdit/:id" name="customerdata" element={<BroadCastEdit />}></Route> */}
           <Route path="/BroadCastsEdit/:id" name="customerdata" element={<BroadCastsEdit />}></Route>
           <Route path="/BlogEdit/:id" name="blogdata" element={<BlogEdit />}></Route>
           <Route path="/InventoryEdit/:id" name="inventorydata" element={<InventoryEdit />}></Route>

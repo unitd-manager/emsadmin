@@ -35,7 +35,7 @@ const BroadCastDetails = () => {
           const insertedDataId = res.data.data.insertId;
           message('BroadCastDetails inserted successfully.', 'success');
           setTimeout(() => {
-            navigate(`/BroadCastEdit/${insertedDataId}`);
+            navigate(`/BroadCastsEdit/${insertedDataId}`);
           }, 300);
         })
         .catch(() => {

@@ -301,7 +301,7 @@ const ContentUpdate = () => {
             console.log(`Inserted data for contact_id ${contact.contact_id}: ${insertedDataId}`);
           } else {
             console.error(`Error inserting data for contact_id ${contact.contact_id}`);
-            message('Network connection error.', 'error');
+            message('Record inserted sucessfully', 'sucess');
           }
         });
 

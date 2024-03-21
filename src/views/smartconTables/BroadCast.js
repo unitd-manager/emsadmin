@@ -91,7 +91,7 @@ const BroadCast = () => {
         <BreadCrumbs />
 
         <CommonTable
-          title="Category List"
+          title="BroadCast List"
           Button={
             <Link to="/BroadCastDetails">
               <Button color="primary" className="shadow-none">

@@ -233,7 +233,7 @@ const ValueListEdit = () => {
                       className="shadow-none"
                       onClick={addContactToggle.bind(null)}
                     >
-                      Add Country{' '}
+                      Add Cities{' '}
                     </Button>
                     <Modal size="lg" isOpen={addContactModal} toggle={addContactToggle.bind(null)}>
                       <ModalHeader toggle={addContactToggle.bind(null)}>New Cities</ModalHeader>
