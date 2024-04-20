@@ -3,21 +3,21 @@ import { Row, Col, Form, FormGroup, Label, Input } from 'reactstrap';
 import PropTypes from 'prop-types';
 import ComponentCard from '../ComponentCard';
 
-export default function CategoryDetailComp({ categoryDetails, handleInputs}) {
+export default function CategoryDetailComp({ categoryDetails, handleInputs, section, valuelist }) {
   CategoryDetailComp.propTypes = {
     categoryDetails: PropTypes.object,
     handleInputs: PropTypes.func,
-    // section: PropTypes.array,
-    // valuelist: PropTypes.array,
+    section: PropTypes.array,
+    valuelist: PropTypes.array,
   };
   return (
     <>
       <Form>
         <FormGroup>
-        <ComponentCard title="BroadCast Details"
+        <ComponentCard title="Category Details"
          creationModificationDate={categoryDetails}>
             <Row>
-              <Col md="3">
+              <Col md="4">
                 <FormGroup>
                   <Label>
                     Title <span className="required"> *</span>
@@ -25,13 +25,31 @@ export default function CategoryDetailComp({ categoryDetails, handleInputs}) {
                   <Input
                     type="text"
                     onChange={handleInputs}
-                    value={categoryDetails && categoryDetails.title}
-                    name="title"
+                    value={categoryDetails && categoryDetails.category_title}
+                    name="category_title"
                   />
                 </FormGroup>
               </Col>
-
-              {/* <Col md="4">
+              <Col md="4">
+                <FormGroup>
+                  <Label>Section</Label>
+                  <Input
+                    type="select"
+                    onChange={handleInputs}
+                    value={categoryDetails && categoryDetails.section_id}
+                    name="section_id"
+                  >
+                    <option defaultValue="selected">
+                      Please Select
+                    </option>
+                    {section &&
+                      section.map((e) => {
+                        return <option key={e.section_id} value={e.section_id}>{e.section_title}</option>;
+                      })}
+                  </Input>
+                </FormGroup>
+              </Col>
+              <Col md="4">
                 <FormGroup>
                   <Label>Category Type</Label>
                   <Input
@@ -49,33 +67,21 @@ export default function CategoryDetailComp({ categoryDetails, handleInputs}) {
                       })}
                   </Input>
                 </FormGroup>
-              </Col> */}
- 
-              <Col md="3">
+              </Col>
+          </Row>
+          <Row>
+              <Col md="4">
                 <FormGroup>
-                  <Label>Description</Label>
+                  <Label>Internal Link</Label>
                   <Input
-                    type="textarea"
-                    value={categoryDetails && categoryDetails.description}
+                    type="text"
+                    value={categoryDetails && categoryDetails.internal_link}
                     onChange={handleInputs}
-                    name="description"
+                    name="internal_link"
                   ></Input>
                 </FormGroup>
               </Col>
-              <Col md="3">
-              <FormGroup>
-              <Label>
-                   BroadCast Date <span className="required"> *</span>
-                  </Label>
-                  <Input
-                    type="date"
-                    onChange={handleInputs}
-                    value={categoryDetails && categoryDetails.broadcast_date}
-                    name="broadcast_date"
-                  />
-                </FormGroup>
-              </Col>
-              {/* <Col md="4">
+              <Col md="4">
               <FormGroup>
                 
                 <Label>Published</Label>
@@ -148,7 +154,7 @@ export default function CategoryDetailComp({ categoryDetails, handleInputs}) {
             name="seo_title"
           />
         </FormGroup>
-      </Col> */}
+      </Col>
             </Row>
           </ComponentCard>
           <Row></Row>
