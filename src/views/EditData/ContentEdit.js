@@ -1,4 +1,4 @@
-import React, { useContext,useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import {
   Row,
   Col,
@@ -7,7 +7,12 @@ import {
   Label,
   Input,
   Button,
-  
+  Modal,
+  ModalFooter,
+  ModalHeader,
+  Card,
+  CardBody,
+  ModalBody,
   TabContent,
   TabPane,
 } from 'reactstrap';
@@ -36,7 +41,6 @@ import ItemTable from '../../components/Content/ItemTable';
 import AppContext from '../../context/AppContext';
 import creationdatetime from '../../constants/creationdatetime';
 
-
 const ContentUpdate = () => {
   // All state variables
 
@@ -58,39 +62,39 @@ const ContentUpdate = () => {
   const [pictureData, setDataForPicture] = useState({
     modelType: '',
   });
-const [pictureupdate, setPictureUpdate] = useState(false);
-const [attachmentupdate, setAttachmentUpdate] = useState(false);
-const [audioattachmentroomname, setAudioAttachmentRoomName] = useState('');
-const [audioattachmentfiletypes, setAudioAttachmentFileTypes] = useState('');
-const [audioattachmentModal, setAudioAttachmentModal] = useState(false);
-const [audioattachmentData, setAudioDataForAttachment] = useState({
-  modelType: '',
-});
-const [audioattachmentupdate, setAudioAttachmentUpdate] = useState(false);
-const [editaudiodatamodal, setEditAudioDataModal] = useState(null);
+  const [pictureupdate, setPictureUpdate] = useState(false);
+  const [attachmentupdate, setAttachmentUpdate] = useState(false);
+  const [audioattachmentroomname, setAudioAttachmentRoomName] = useState('');
+  const [audioattachmentfiletypes, setAudioAttachmentFileTypes] = useState('');
+  const [audioattachmentModal, setAudioAttachmentModal] = useState(false);
+  const [audioattachmentData, setAudioDataForAttachment] = useState({
+    modelType: '',
+  });
+  const [audioattachmentupdate, setAudioAttachmentUpdate] = useState(false);
+  const [editaudiodatamodal, setEditAudioDataModal] = useState(null);
 
- //Attachments
- const dataForAttachment = () => {
-  setDataForAttachment({
-    modelType: 'attachment',
-  });
-};
-//Pictures
-const dataForPicture = () => {
-  setDataForPicture({
-    modelType: 'picture',
-  });
-};
-//Audio Attachment
-const dataForAudioAttachment = () => {
-  setAudioDataForAttachment({
-    modelType: 'audioattachment',
-  });
-};
+  //Attachments
+  const dataForAttachment = () => {
+    setDataForAttachment({
+      modelType: 'attachment',
+    });
+  };
+  //Pictures
+  const dataForPicture = () => {
+    setDataForPicture({
+      modelType: 'picture',
+    });
+  };
+  //Audio Attachment
+  const dataForAudioAttachment = () => {
+    setAudioDataForAttachment({
+      modelType: 'audioattachment',
+    });
+  };
 
-const [addVideoModal,setAddVideoModal] = useState();
+  const [addVideoModal, setAddVideoModal] = useState();
   const [valuelist, setValuelist] = useState();
- const [project, setProject] = useState([]);
+  const [project, setProject] = useState([]);
   const [quote, setQuote] = useState({});
 
   // Navigation and Parameter Constants
@@ -135,10 +139,9 @@ const [addVideoModal,setAddVideoModal] = useState();
   };
   //Edit Content
   const editContentData = () => {
-    if (contentDetails.title !== '' )
-    {
+    if (contentDetails.title !== '') {
       contentDetails.modification_date = creationdatetime;
-      contentDetails.modified_by= loggedInuser.first_name; 
+      contentDetails.modified_by = loggedInuser.first_name;
       api
         .post('/content/editContent', contentDetails)
         .then(() => {
@@ -190,20 +193,206 @@ const [addVideoModal,setAddVideoModal] = useState();
     api.post('/tender/getQuoteById', { opportunity_id: id }).then((res) => {
       setQuote(res.data.data[0]);
     });
-  }; 
-
+  };
 
   const tabs = [
     { id: '1', name: 'Video' },
-    { id: '2', name: 'Attachment'},
-    
+    { id: '2', name: 'Attachment' },
+    { id: '3', name: 'BroadCast List' },
   ];
 
+  const [insertTimeSheet, setInsertTimesheet] = useState({
+    broadcast_id: '',
+    city: '',
+  });
+  const [categoryDetails, setbroadcast] = useState();
+  const [milestones, setMilestones] = useState([]);
+  const [taskdetail, setTaskDetail] = useState([]);
+  const [selectedTasks, setSelectedTasks] = useState([]);
+  //const [employee, setEmployee] = useState();  // Gettind data from Job By Id
+
+  const [addContactModalss, setAddContactModalss] = useState(false);
+  //const [employeeTime, setEmployee] = useState();
+  const addContactToggless = () => {
+    setAddContactModalss(!addContactModalss);
+  };
+  // Gettind data from Job By Id
+  const editJobById = () => {
+    api
+      .get('/valuelist/getCountryValuelist')
+      .then((res) => {
+        console.log(res.data.data);
+        //setEmployee(res.data.data);
+      })
+      .catch(() => {});
+  };
+
+  // const handleInputs = (e) => {
+  //   setbroadcast({ ...categoryDetails, [e.target.name]: e.target.value });
+  // };
+
+  //Milestone data in milestoneDetails
+  const handleInputsTime = (e) => {
+    setInsertTimesheet({ ...insertTimeSheet, [e.target.name]: e.target.value });
+  };
+  //Insert Milestone
+  // Insert Milestone
+  //  const inserttimeSheets = () => {
+  //     // Check if at least one task is selected
+  //     if (selectedTasks.length === 0) {
+  //       message('Please select at least one task.', 'warning');
+  //       return;
+  //     }
+
+  //     // Loop through selectedTasks and create a record for each selected task
+  //     selectedTasks.forEach((selectedTask) => {
+  //       const newContactWithCompany = {
+  //         ...insertTimeSheet,
+  //         city: selectedTask,
+  //       };
+  //       newContactWithCompany.broadcast_id=id;
+  //       // You can add other properties to newContactWithCompany if needed
+
+  //       api
+  //         .post('/content/insertBroadcastConntact', newContactWithCompany)
+  //         .then((res) => {
+  //           const insertedDataId = res.data.data.insertId;
+  //           console.log(insertedDataId);
+  //           // You can perform additional actions or update UI as needed
+  //         })
+  //         .catch(() => {
+  //           message('Network connection error.', 'error');
+  //         });
+  //     });
+
+  //     message('TimeSheets inserted successfully.', 'success');
+
+  //     // You may want to reset the selectedTasks array after insertion
+  //     setSelectedTasks([]);
+  //   };
+  const inserttimeSheets = async () => {
+    try {
+      if (selectedTasks.length === 0) {
+        message('Please select at least one task.', 'warning');
+        return;
+      }
+
+      const contactResponse = await api.post('/contact/getContactByCountrycities', {
+        country: insertTimeSheet.country,
+        city: selectedTasks.join(','), // Join selected cities into a comma-separated string
+      });
+
+      if (contactResponse?.data?.data && contactResponse.data.data.length > 0) {
+        contactResponse.data.data.forEach(async (contact) => {
+          const newContactWithCompany = {
+            ...insertTimeSheet,
+            contact_id: contact.contact_id,
+            city: selectedTasks,
+          };
+          newContactWithCompany.broadcast_id = id;
+
+          const response = await api.post(
+            '/content/insertBroadcastConntact',
+            newContactWithCompany,
+          );
+
+          if (response.data.success) {
+            const insertedDataId = response.data.data.insertId;
+            console.log(`Inserted data for contact_id ${contact.contact_id}: ${insertedDataId}`);
+          } else {
+            console.error(`Error inserting data for contact_id ${contact.contact_id}`);
+            message('Record inserted sucessfully', 'sucess');
+          }
+        });
+
+        message('Contacts inserted successfully.', 'success');
+        setSelectedTasks([]);
+      } else {
+        console.error('No contact records found for the selected country and city.');
+        message('No contact records found for the selected country and city.', 'error');
+      }
+    } catch (error) {
+      console.error('Error inserting time sheets:', error);
+      message('Error inserting time sheets.', 'error');
+    }
+  };
+
+  // Get Category By Id
+  const CategoryById = () => {
+    api
+      .post('/content/getBroadCastById', { broadcast_id: id })
+      .then((res) => {
+        setbroadcast(res.data.data[0]);
+      })
+      .catch(() => {
+        message('category Data Not Found', 'info');
+      });
+  };
+
+  // Api call for getting project name dropdown
+  const getMilestoneName = () => {
+    api
+      .get('/valuelist/getCountryValuelist')
+      .then((res) => {
+        setMilestones(res.data.data);
+      })
+      .catch(() => {
+        message('Milestone not found', 'info');
+      });
+  };
+
+  // Api call for getting milestone dropdown based on project ID
+  const getTaskName = () => {
+    api
+      .get('/valuelist/getCitiesvalue')
+      .then((res) => {
+        setTaskDetail(res.data.data);
+      })
+      .catch(() => {
+        message('Task not found', 'info');
+      });
+  };
+
+  useEffect(() => {
+    editJobById();
+  }, [id]);
+
+  useEffect(() => {
+    getMilestoneName();
+    CategoryById();
+    getTaskName();
+    //getStaffNamefilter();
+  }, [id]);
+  const [filteredContacts, setFilteredContacts] = useState([]);
+  const [country, setCountry] = useState([]);
+
+  const getContactcountryName = () => {
+    api
+      .post('/content/getBroadCastcountryById', { broadcast_id: id })
+      .then((res) => {
+        setCountry(res.data.data);
+        // Set filtered contacts initially with all contacts
+        //setFilteredContacts(res.data.data);
+      })
+      .catch(() => {
+        message('Milestone not found', 'info');
+      });
+  };
+  console.log("",categoryDetails)
+  const handleFilterChange = (selectedCountry) => {
+    // Update the filtered contacts based on the selected country
+    if (selectedCountry === 'selected') {
+      setFilteredContacts(country); // Show all contacts when "Please Select" is chosen
+    } else {
+      setFilteredContacts(country.filter((contact) => contact.country === selectedCountry));
+    }
+  };
+
   //Attachments
-  
 
   useEffect(() => {
     getsection();
+    getContactcountryName();
     getCategory();
     getSubCategory();
     getContentById();
@@ -348,36 +537,32 @@ const [addVideoModal,setAddVideoModal] = useState();
         <Tab toggle={toggle} tabs={tabs} />
         <TabContent className="p-4" activeTab={activeTab}>
           <TabPane tabId="1">
-          <AddVideoModal
-          addVideoModal={addVideoModal}
-          setAddVideoModal={setAddVideoModal}
-          ContentId = {id}
-        />
+            <AddVideoModal
+              addVideoModal={addVideoModal}
+              setAddVideoModal={setAddVideoModal}
+              ContentId={id}
+            />
 
-        <Row className="mb-4">
-          <Col md="2">
-            <Button
-              color="primary"
-              onClick={() => {
-                setAddVideoModal(true);
-              }}
-            >
-              Add Video
-            </Button>
-          </Col>
-          </Row>
-          <ItemTable
-          ContentId={id}
-          project={project}
-          quote={quote}
-          />
+            <Row className="mb-4">
+              <Col md="2">
+                <Button
+                  color="primary"
+                  onClick={() => {
+                    setAddVideoModal(true);
+                  }}
+                >
+                  Add Video
+                </Button>
+              </Col>
+            </Row>
+            <ItemTable ContentId={id} project={project} quote={quote} />
           </TabPane>
-          <TabPane tabId="2" >
-          {/* Picture and Attachments Form */}
+          <TabPane tabId="2">
+            {/* Picture and Attachments Form */}
 
             <Form>
               <FormGroup>
-              <ComponentCard title="Picture">
+                <ComponentCard title="Picture">
                   <Row>
                     <Col xs="12" md="3" className="mb-3">
                       <Button
@@ -385,7 +570,7 @@ const [addVideoModal,setAddVideoModal] = useState();
                         color="primary"
                         onClick={() => {
                           setPictureRoomName('ContentPic');
-                          setPictureFileTypes(['JPG','JPEG', 'PNG', 'GIF']);
+                          setPictureFileTypes(['JPG', 'JPEG', 'PNG', 'GIF']);
                           dataForPicture();
                           setPictureModal(true);
                         }}
@@ -407,14 +592,19 @@ const [addVideoModal,setAddVideoModal] = useState();
                     update={pictureupdate}
                     setUpdate={setPictureUpdate}
                   />
-                  <ViewFileComponentV2 moduleId={id} roomName="Content" recordType="Picture" update={pictureupdate}
-                    setUpdate={setPictureUpdate}/>
-                    </ComponentCard>
+                  <ViewFileComponentV2
+                    moduleId={id}
+                    roomName="Content"
+                    recordType="Picture"
+                    update={pictureupdate}
+                    setUpdate={setPictureUpdate}
+                  />
+                </ComponentCard>
               </FormGroup>
             </Form>
-      <Form>
+            <Form>
               <FormGroup>
-              <ComponentCard title="Attachments">
+                <ComponentCard title="Attachments">
                   <Row>
                     <Col xs="12" md="3" className="mb-3">
                       <Button
@@ -422,7 +612,7 @@ const [addVideoModal,setAddVideoModal] = useState();
                         color="primary"
                         onClick={() => {
                           setAttachmentRoomName('ContentAttachment');
-                          setAttachmentFileTypes(['JPG','JPEG', 'PNG', 'GIF', 'PDF']);
+                          setAttachmentFileTypes(['JPG', 'JPEG', 'PNG', 'GIF', 'PDF']);
                           dataForAttachment();
                           setAttachmentModal(true);
                         }}
@@ -444,14 +634,19 @@ const [addVideoModal,setAddVideoModal] = useState();
                     update={attachmentupdate}
                     setUpdate={setAttachmentUpdate}
                   />
-                  <ViewFileComponentV2 moduleId={id} roomName="ContentAttachment" recordType="ContentRelatedPicture" update={attachmentupdate}
-                    setUpdate={setAttachmentUpdate}/>
-                    </ComponentCard>
+                  <ViewFileComponentV2
+                    moduleId={id}
+                    roomName="ContentAttachment"
+                    recordType="ContentRelatedPicture"
+                    update={attachmentupdate}
+                    setUpdate={setAttachmentUpdate}
+                  />
+                </ComponentCard>
               </FormGroup>
             </Form>
             <Form>
               <FormGroup>
-              <ComponentCard title="Audio Attachments">
+                <ComponentCard title="Audio Attachments">
                   <Row>
                     <Col xs="12" md="3" className="mb-3">
                       <Button
@@ -483,13 +678,190 @@ const [addVideoModal,setAddVideoModal] = useState();
                     editaudiodatamodal={editaudiodatamodal}
                     setEditAudioDataModal={setEditAudioDataModal}
                   />
-                  <AudioViewFileComponentV2 moduleId={id} roomName="ContentAudioAttachment" recordType="ContentRelatedAudio" update={audioattachmentupdate}
+                  <AudioViewFileComponentV2
+                    moduleId={id}
+                    roomName="ContentAudioAttachment"
+                    recordType="ContentRelatedAudio"
+                    update={audioattachmentupdate}
                     setUpdate={setAudioAttachmentUpdate}
-                    />
-                    </ComponentCard>
+                  />
+                </ComponentCard>
               </FormGroup>
             </Form>
-          </TabPane> 
+          </TabPane>
+          <TabPane tabId="3">
+            <Form>
+              <FormGroup>
+                <Button
+                  color="primary"
+                  className="shadow-none"
+                  onClick={addContactToggless.bind(null)}
+                >
+                  Add New{' '}
+                </Button>
+                <Modal size="lg" isOpen={addContactModalss} toggle={addContactToggless.bind(null)}>
+                  <ModalHeader toggle={addContactToggless.bind(null)}>New Task</ModalHeader>
+                  <ModalBody>
+                    <Row>
+                      <Col md="12">
+                        <Card>
+                          <CardBody>
+                            <Form>
+                              <Row>
+                                <Col md="4">
+                                  <Label>Country</Label>
+                                  <FormGroup>
+                                    <Input
+                                      type="select"
+                                      onChange={(e) => {
+                                        handleInputsTime(e);
+                                      }}
+                                      value={insertTimeSheet && insertTimeSheet.country}
+                                      name="country"
+                                    >
+                                      <option value="selected">Please Select</option>
+                                      {milestones &&
+                                        milestones.map((e) => {
+                                          return (
+                                            <option key={e.key_text} value={e.value}>
+                                              {' '}
+                                              {e.value}{' '}
+                                            </option>
+                                          );
+                                        })}
+                                    </Input>
+                                  </FormGroup>
+                                </Col>
+                                {insertTimeSheet.country &&
+                                  insertTimeSheet.country !== 'selected' && ( // Render cities only if a country is selected
+                                    <Col md="4">
+                                      <FormGroup>
+                                        <Label>cities</Label>
+
+                                        {taskdetail &&
+                                          taskdetail.map((e) => (
+                                            <FormGroup check key={e.value}>
+                                              <Label check>
+                                                <Input
+                                                  type="checkbox"
+                                                  value={e.value}
+                                                  // value={insertTimeSheet && insertTimeSheet.city}
+                                                  // name="city"
+                                                  checked={selectedTasks.includes(e.citi_value)}
+                                                  onChange={(event) => {
+                                                    const selectedTask = e.citi_value;
+                                                    if (event.target.checked) {
+                                                      setSelectedTasks([
+                                                        ...selectedTasks,
+                                                        selectedTask,
+                                                      ]);
+                                                    } else {
+                                                      setSelectedTasks(
+                                                        selectedTasks.filter(
+                                                          (task) => task !== selectedTask,
+                                                        ),
+                                                      );
+                                                    }
+                                                  }}
+                                                />
+                                                {e.citi_value}
+                                              </Label>
+                                            </FormGroup>
+                                          ))}
+                                      </FormGroup>
+                                    </Col>
+                                  )}
+                              </Row>
+                            </Form>
+                          </CardBody>
+                        </Card>
+                      </Col>
+                    </Row>
+                  </ModalBody>
+                  <ModalFooter>
+                    <Button
+                      className="shadow-none"
+                      color="primary"
+                      onClick={() => {
+                        inserttimeSheets();
+                      }}
+                    >
+                      Submit
+                    </Button>
+                    <Button
+                      color="secondary"
+                      className="shadow-none"
+                      onClick={addContactToggless.bind(null)}
+                    >
+                      Cancel
+                    </Button>
+                  </ModalFooter>
+                </Modal>
+              </FormGroup>
+            </Form>
+            <ComponentCard title="Summary">
+              <Col md="2">
+                <FormGroup>
+                  <Label>country</Label>
+                  <Input
+                    type="select"
+                    name="country"
+                    onChange={(e) => {
+                      handleFilterChange(e.target.value);
+                    }}
+                  >
+                    <option value="">Please Select</option>
+                    {milestones &&
+                      milestones.map((e) => {
+                        return (
+                          <option key={e.key_text} value={e.value}>
+                            {' '}
+                            {e.value}{' '}
+                          </option>
+                        );
+                      })}
+                  </Input>
+                </FormGroup>
+              </Col>
+              <br />
+              <Row>
+                <Col>
+                  <FormGroup>
+                    <Label>First Name</Label>
+                  </FormGroup>
+                </Col>
+                <Col>
+                  <FormGroup>
+                    <Label>Country</Label>
+                  </FormGroup>
+                </Col>
+                <Col>
+                  <FormGroup>
+                    <Label>city</Label>
+                  </FormGroup>
+                </Col>
+              </Row>
+              {filteredContacts.map((contact) => (
+                <Row key={contact.contact_id}>
+                  <Col>
+                    <FormGroup>{contact && contact.first_name}</FormGroup>
+                  </Col>
+                  <Col>
+                    <FormGroup>
+                      
+                      {contact && contact.country}
+                    </FormGroup>
+                  </Col>
+                  <Col>
+                    <FormGroup>
+                     
+                      {contact && contact.city}
+                    </FormGroup>
+                  </Col>
+                </Row>
+              ))}
+            </ComponentCard>
+          </TabPane>
         </TabContent>
       </ComponentCard>
     </>

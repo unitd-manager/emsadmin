@@ -144,10 +144,12 @@ const Content = Loadable(lazy(() => import('../views/smartconTables/Content')));
 const QuestionAnswer = Loadable(lazy(() => import('../views/smartconTables/QuestionAnswer')));
 const Magazine = Loadable(lazy(() => import('../views/smartconTables/Magazine')));
 const Customer = Loadable(lazy(() => import('../views/smartconTables/Customer')));
+const BroadCast = Loadable(lazy(() => import('../views/smartconTables/BroadCast')));
 const ContentDetailsTable = Loadable(lazy(() => import('../views/detailTable/ContentDetails')));
 const QuestionDetails = Loadable(lazy(() => import('../views/detailTable/QuestionDetails')));
 const NewMagazine = Loadable(lazy(() => import('../views/detailTable/NewMagazine')));
 const CustomerDetailsTable = Loadable(lazy(() => import('../views/detailTable/CustomerDetails')));
+const BroadCastDetailsTable = Loadable(lazy(() => import('../views/detailTable/BroadCastDetails')));
 const SubCategoryTable = Loadable(lazy(() => import('../views/smartconTables/SubCategory')));
 const BlogDetailsTable = Loadable(lazy(() => import('../views/detailTable/BlogDetails')));
 const SupplierDetailsTable = Loadable(lazy(() => import('../views/detailTable/SupplierDetails')));
@@ -185,6 +187,8 @@ const QuestionsEdit = Loadable(lazy(() => import('../views/EditData/QuestionsEdi
 const ArticleEdit = Loadable(lazy(() => import('../views/EditData/ArticleEdit')));
 const MagazineEdit = Loadable(lazy(() => import('../views/EditData/MagazineEdit')));
 const CustomerEdit = Loadable(lazy(() => import('../views/EditData/CustomerEdit')));
+//const BroadCastEdit = Loadable(lazy(() => import('../views/EditData/BroadCastEdit')));
+const BroadCastsEdit = Loadable(lazy(() => import('../views/EditData/BroadCastsEdit')));
 const SectionEdit = Loadable(lazy(() => import('../views/EditData/SectionEdit')));
 const Login = Loadable(lazy(() => import('../views/detailTable/Login')));
 const ValueListEdit = Loadable(lazy(() => import('../views/EditData/ValueListEdit')));
@@ -250,6 +254,8 @@ const Routernew = () => {
           <Route path="/ArticleEdit/:id" name="contentdata" element={<ArticleEdit />}></Route>
           <Route path="/MagazineEdit/:id" name="contentdata" element={<MagazineEdit />}></Route>
           <Route path="/CustomerEdit/:id" name="customerdata" element={<CustomerEdit />}></Route>
+          {/* <Route path="/BroadCastEdit/:id" name="customerdata" element={<BroadCastEdit />}></Route> */}
+          <Route path="/BroadCastsEdit/:id" name="customerdata" element={<BroadCastsEdit />}></Route>
           <Route path="/BlogEdit/:id" name="blogdata" element={<BlogEdit />}></Route>
           <Route path="/InventoryEdit/:id" name="inventorydata" element={<InventoryEdit />}></Route>
                    <Route path="/SupplierEdit/:id" name="supplierdata" element={<SupplierEdit />}></Route>
@@ -411,6 +417,7 @@ const Routernew = () => {
           <Route path="/QuestionAnswer" name="contentdata" element={<QuestionAnswer />}></Route>
           <Route path="/Magazine" name="contentdata" element={<Magazine />}></Route>
           <Route path="/Customer" name="customerdata" element={<Customer />}></Route>
+          <Route path="/BroadCast" name="boardcastdata" element={<BroadCast />}></Route>
           <Route
             path="/ContentDetails"
             name="contentdetailsdata"
@@ -431,6 +438,7 @@ const Routernew = () => {
             name="customerdetailsdata"
             element={<CustomerDetailsTable />}
           ></Route>
+           <Route path="/BroadCastDetails" name="BroadCastdata"  element={<BroadCastDetailsTable />} ></Route>
           <Route path="/test" name="testdata" element={<TestTable />}></Route>
           <Route path="/Support" name="supportdata" element={<Support />}></Route>
           <Route path="/SupportNew" name="supportnewdata" element={<SupportNewTable />}></Route>
