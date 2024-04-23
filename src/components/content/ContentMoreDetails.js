@@ -58,6 +58,17 @@ export default function ContentMoreDetails({
     </Input>
   </FormGroup>
 </Col>
+<Col md="3">
+    <FormGroup>
+      <Label>Keyword search</Label>
+      <Input
+        type="textarea"
+        onChange={handleInputs}
+        value={contentDetails && contentDetails.search_keyword}
+        name="search_keyword"
+      />
+    </FormGroup>
+  </Col>
 {
 contentDetails && (
   // contentDetails.section_title === 'About Us / எங்களைப் பற்றி' ||
@@ -92,7 +103,7 @@ contentDetails && (
         name="author_name"
       />
     </FormGroup>
-  </Col>
+  </Col> 
   <Col md="3">
     <FormGroup>
       <Label>Date</Label>
