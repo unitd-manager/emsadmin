@@ -12,6 +12,7 @@ export default function ContentMoreDetails({
   subcategoryLinked,
   sectionLinked,
   categoryLinked,
+  valuelistCountry,
   
   }) {
   ContentMoreDetails.propTypes = {
@@ -21,6 +22,7 @@ export default function ContentMoreDetails({
     subcategoryLinked: PropTypes.func,
     sectionLinked: PropTypes.func,
     categoryLinked: PropTypes.func,
+    valuelistCountry:PropTypes.object
       };
   return (
     <div>
@@ -191,7 +193,27 @@ contentDetails && (
                   </Input>
                 </FormGroup>
               </Col>
-              
+              <Col md="3">
+                <FormGroup>
+                  <Label>Upload Country</Label>
+                  <Input
+                    type="select"
+                    onChange={handleInputs}
+                    value={contentDetails && contentDetails.upload_country}
+                    name="upload_country"
+                  >
+                    <option defaultValue="selected">Please Select</option>
+                    {valuelistCountry &&
+                      valuelistCountry.map((e) => {
+                        return (
+                          <option key={e.value} value={e.value}>
+                            {e.value}
+                          </option>
+                        );
+                      })}
+                  </Input>
+                </FormGroup>
+              </Col>
             </Row>
           </ComponentCard>
     </div>

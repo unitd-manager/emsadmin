@@ -94,6 +94,7 @@ const ContentUpdate = () => {
 
   const [addVideoModal, setAddVideoModal] = useState();
   const [valuelist, setValuelist] = useState();
+  const [valuelistCountry, setValuelistCountry] = useState();
   const [project, setProject] = useState([]);
   const [quote, setQuote] = useState({});
 
@@ -183,7 +184,17 @@ const ContentUpdate = () => {
         message('valuelist not found', 'info');
       });
   };
-
+  
+  const getValuelistCountry = () => {
+    api
+      .get('/valuelist/getValueListCountry')
+      .then((res) => {
+        setValuelistCountry(res.data.data);
+      })
+      .catch(() => {
+        message('valuelist not found', 'info');
+      });
+  };
   const getProject = () => {
     api.get('project/getOppProject').then((res) => {
       setProject(res.data.data);
@@ -399,6 +410,7 @@ const ContentUpdate = () => {
     getValuelist();
     getProject();
     getQuote();
+    getValuelistCountry();
   }, [id]);
 
   return (
@@ -453,6 +465,7 @@ const ContentUpdate = () => {
             getCategory={getCategory}
             sectionLinked={sectionLinked}
             categoryLinked={categoryLinked}
+            valuelistCountry={valuelistCountry}
           ></ContentMoreDetails>
 
           <ComponentCard title="Content details">
