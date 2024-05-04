@@ -5,11 +5,13 @@ import { ToastContainer } from 'react-toastify';
 import ComponentCard from '../ComponentCard';
 
 
-export default function ProductDetail({ productDetails, handleInputs,categoryLinked }) {
+export default function ProductDetail({ productDetails, handleInputs,categoryLinked,valueList }) {
     ProductDetail.propTypes = {
     productDetails: PropTypes.object,
     handleInputs: PropTypes.func,
     categoryLinked: PropTypes.array,
+    valueList: PropTypes.object,
+
   };
   return (
     <>
@@ -157,6 +159,17 @@ export default function ProductDetail({ productDetails, handleInputs,categoryLin
                 </FormGroup>
               </Col>
               <Col md="3">
+                <FormGroup>
+                  <Label> Language </Label>
+                  <Input
+                    type="text"
+                    onChange={handleInputs}
+                    value={productDetails && productDetails.product_language}
+                    name="product_language"
+                  />
+                </FormGroup>
+              </Col>
+              <Col md="3">
                 <Label>Most Popular</Label>
                 <FormGroup>
                   <Label>Yes</Label>
@@ -253,6 +266,27 @@ export default function ProductDetail({ productDetails, handleInputs,categoryLin
                     defaultChecked={productDetails && productDetails.latest === 0 && true}
                     onChange={handleInputs}
                   />
+                </FormGroup>
+              </Col>
+              <Col md="3">
+                <FormGroup>
+                  <Label>Author Name</Label>
+                  <Input
+                    type="select"
+                    onChange={handleInputs}
+                    value={productDetails && productDetails.author_name}
+                    name="author_name"
+                  >
+                    <option defaultValue="selected">Please Select</option>
+                    {valueList &&
+                      valueList.map((e) => {
+                        return (
+                          <option key={e.value} value={e.value}>
+                            {e.value}
+                          </option>
+                        );
+                      })}
+                  </Input>
                 </FormGroup>
               </Col>
             </Row>

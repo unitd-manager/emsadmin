@@ -26,6 +26,8 @@ const ProductUpdate = () => {
   const [RoomName, setRoomName] = useState('');
   const [fileTypes, setFileTypes] = useState('');
   const [attachmentModal, setAttachmentModal] = useState(false);
+  const [valueList, setValuelist] = useState([]);
+
   const [attachmentData, setDataForAttachment] = useState({
     modelType: '',
   });
@@ -108,9 +110,19 @@ const ProductUpdate = () => {
     });
     console.log('inside DataForAttachment');
   };
-
+  const getValuelist = () => {
+    api
+      .get('/product/getValueList')
+      .then((res) => {
+        setValuelist(res.data.data);
+      })
+      .catch(() => {
+        message('valuelist not found', 'info');
+      });
+  };
   
   useEffect(() => {
+    getValuelist();
     getCategory();
     getProductById();
   }, [id]);
@@ -127,6 +139,7 @@ const ProductUpdate = () => {
             productDetails={productDetails}
             handleInputs={handleInputs}
             categoryLinked={categoryLinked}
+            valueList={valueList}
           ></ProductDetail>
           {/* Product Details Form */}
           <Row>
