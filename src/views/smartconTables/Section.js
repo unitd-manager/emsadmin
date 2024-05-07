@@ -106,6 +106,20 @@ const SectionDetails = () => {
       width: 'auto',
     },
     {
+      name: 'Mobile Menu',
+      selector: 'showmenu_inmobile',
+      sortable: true,
+      grow: 2,
+      width: 'auto',
+    },
+    {
+      name: 'Website Menu',
+      selector: 'showmenu_inweb',
+      sortable: true,
+      grow: 2,
+      width: 'auto',
+    },
+    {
       name: 'Order',
       selector: 'sort_order',
       sortable: true,
@@ -161,6 +175,8 @@ const SectionDetails = () => {
                         value={element.published}
                       ></Publish>
                     </td>
+                    <td>{element.showmenu_inmobile}</td>
+                    <td>{element.showmenu_inweb}</td>
                     <td>
                       <SortOrder
                         idValue={element.section_id}

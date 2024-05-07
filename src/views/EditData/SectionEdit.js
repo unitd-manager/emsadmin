@@ -248,6 +248,50 @@ const SectionEdit = () => {
                   <Label>No</Label>
                 </FormGroup>
               </Col>
+              <Col md="3">
+                <Label>Show Menu Mobile</Label>
+                <FormGroup>
+                  <Input
+                    type="radio"
+                    name="showmenu_inmobile"
+                    value="1"
+                    onChange={handleInputs}
+                    defaultChecked={section && section.showmenu_inmobile === 1 && true}
+                  />
+                  <Label>Yes</Label>
+
+                  <Input
+                    type="radio"
+                    name="showmenu_inmobile"
+                    value="0"
+                    onChange={handleInputs}
+                    defaultChecked={section && section.showmenu_inmobile === 0 && true}
+                  />
+                  <Label>No</Label>
+                </FormGroup>
+              </Col>
+              <Col md="3">
+                <Label>Show Menu Website</Label>
+                <FormGroup>
+                  <Input
+                    type="radio"
+                    name="showmenu_inweb"
+                    value="1"
+                    onChange={handleInputs}
+                    defaultChecked={section && section.showmenu_inweb === 1 && true}
+                  />
+                  <Label>Yes</Label>
+
+                  <Input
+                    type="radio"
+                    name="showmenu_inweb"
+                    value="0"
+                    onChange={handleInputs}
+                    defaultChecked={section && section.showmenu_inweb === 0 && true}
+                  />
+                  <Label>No</Label>
+                </FormGroup>
+              </Col>
             </Row>
           </ComponentCard>
         </FormGroup>
