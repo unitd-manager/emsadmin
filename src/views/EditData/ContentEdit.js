@@ -95,8 +95,11 @@ const ContentUpdate = () => {
   const [addVideoModal, setAddVideoModal] = useState();
   const [valuelist, setValuelist] = useState();
   const [valuelistCountry, setValuelistCountry] = useState();
+  const [valuelistCity, setValuelistCity] = useState([]);
   const [project, setProject] = useState([]);
   const [quote, setQuote] = useState({});
+
+  console.log('valuelistCity',valuelistCity)
 
   // Navigation and Parameter Constants
   const { id } = useParams();
@@ -190,11 +193,27 @@ const ContentUpdate = () => {
       .get('/valuelist/getValueListCountry')
       .then((res) => {
         setValuelistCountry(res.data.data);
-      })
+        })
       .catch(() => {
         message('valuelist not found', 'info');
       });
   };
+
+  useEffect(() => {
+    const countryValue = contentDetails?.upload_country
+    console.log('countryValue',countryValue)
+            api
+            .post('/valuelist/getValueListCity',{value:countryValue})
+            .then((res1) => {
+              setValuelistCity(res1.data.data);
+              console.log('country',res1.data.data)
+             })
+  }, [contentDetails]);
+  const getValuelistCity = () => {
+    
+        };
+
+
   const getProject = () => {
     api.get('project/getOppProject').then((res) => {
       setProject(res.data.data);
@@ -372,6 +391,7 @@ const ContentUpdate = () => {
     getMilestoneName();
     CategoryById();
     getTaskName();
+    getValuelistCity();
     //getStaffNamefilter();
   }, [id]);
   const [filteredContacts, setFilteredContacts] = useState([]);
@@ -466,6 +486,7 @@ const ContentUpdate = () => {
             sectionLinked={sectionLinked}
             categoryLinked={categoryLinked}
             valuelistCountry={valuelistCountry}
+            valuelistCity={valuelistCity}
           ></ContentMoreDetails>
 
           <ComponentCard title="Content details">

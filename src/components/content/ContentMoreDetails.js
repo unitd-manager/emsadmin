@@ -13,7 +13,7 @@ export default function ContentMoreDetails({
   sectionLinked,
   categoryLinked,
   valuelistCountry,
-  
+  valuelistCity,
   }) {
   ContentMoreDetails.propTypes = {
     contentDetails: PropTypes.object,
@@ -22,8 +22,10 @@ export default function ContentMoreDetails({
     subcategoryLinked: PropTypes.func,
     sectionLinked: PropTypes.func,
     categoryLinked: PropTypes.func,
-    valuelistCountry:PropTypes.object
+    valuelistCountry:PropTypes.object,
+    valuelistCity:PropTypes.object,
       };
+      console.log('City',valuelistCity)
   return (
     <div>
    <ComponentCard title="Content Details" creationModificationDate={contentDetails}>
@@ -208,6 +210,27 @@ contentDetails && (
                         return (
                           <option key={e.value} value={e.value}>
                             {e.value}
+                          </option>
+                        );
+                      })}
+                  </Input>
+                </FormGroup>
+              </Col>
+              <Col md="3">
+                <FormGroup>
+                  <Label>Upload City</Label>
+                  <Input
+                    type="select"
+                    onChange={handleInputs}
+                    value={contentDetails && contentDetails.upload_city}
+                    name="upload_city"
+                  >
+                    <option defaultValue="selected">Please Select</option>
+                    {valuelistCity &&
+                      valuelistCity.map((e) => {
+                        return (
+                          <option key={e.citi_value} value={e.citi_value}>
+                            {e.citi_value}
                           </option>
                         );
                       })}
