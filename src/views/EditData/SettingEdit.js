@@ -4,6 +4,7 @@ import { ToastContainer } from 'react-toastify';
 import { useNavigate, useParams } from 'react-router-dom';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import '../form-editor/editor.scss';
+import moment from 'moment';
 import BreadCrumbs from '../../layouts/breadcrumbs/BreadCrumbs';
 import ComponentCard from '../../components/ComponentCard';
 import ComponentCardV2 from '../../components/ComponentCardV2';
@@ -232,7 +233,21 @@ const SettingEdit = () => {
                   </FormGroup>
                 </Col>
               )}
-
+                {valueType && valueType === 'Date Field' && (
+                <Col md="4">
+                  <FormGroup>
+                    <Label>Value</Label>
+                  <Input
+                    type="date"
+                    onChange={handleInputs}
+                    value={moment(settingdetails && settingdetails.value).format(
+                      'YYYY-MM-DD',
+                    )}
+                    name="value"
+                  />
+                  </FormGroup>
+                </Col>
+              )}
               <Col md="4">
                 <FormGroup>
                   <Label>Value Text</Label>
@@ -247,6 +262,7 @@ const SettingEdit = () => {
                     <option value="Text field">Text field</option>
                     <option value="Text Area">Text Area</option>
                     <option value="Number Field">Number Field</option>
+                    <option value="Date Field">Date Field</option>
                   </Input>
                 </FormGroup>
               </Col>
