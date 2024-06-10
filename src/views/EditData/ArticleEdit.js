@@ -14,6 +14,7 @@ import {
 } from 'reactstrap';
 //import * as $ from 'jquery';
 //import random from 'random';
+import * as Icon from 'react-feather';
 import PropTypes from 'prop-types';
 import { convertToRaw, ContentState, EditorState } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
@@ -23,6 +24,8 @@ import htmlToDraft from 'html-to-draftjs';
 import api from '../../constants/api';
 import message from '../../components/Message';
 import ComponentCard from '../../components/ComponentCard';
+import ViewFileComponentV2 from '../../components/ProjectModal/ViewFileComponentV2';
+import AttachmentModalV2 from '../../components/Tender/AttachmentModalV2';
 
 export default function InvoiceItem({ updateAricles, setUpdateArticles, articleId }) {
   InvoiceItem.propTypes = {
@@ -36,6 +39,19 @@ export default function InvoiceItem({ updateAricles, setUpdateArticles, articleI
   const [description, setDescription] = useState('');
   const [categoryLinked, setCategoryLinked] = useState('');
   const [articles, setArticles] = useState('');
+  const [attachmentroomname, setAttachmentRoomName] = useState('');
+  const [attachmentfiletypes, setAttachmentFileTypes] = useState('');
+  const [attachmentModal, setAttachmentModal] = useState(false);
+  const [attachmentData, setDataForAttachment] = useState({
+    modelType: '',
+  });
+  const [attachmentupdate, setAttachmentUpdate] = useState(false);
+  //Attachments
+  const dataForAttachment = () => {
+    setDataForAttachment({
+      modelType: 'attachment',
+    });
+  };
   const handleInputs = (e) => {
     setArticles({ ...articles, [e.target.name]: e.target.value });
   };
@@ -145,6 +161,49 @@ export default function InvoiceItem({ updateAricles, setUpdateArticles, articleI
                   </Input>
                 </FormGroup>
               </Col>
+              <Form>
+              <FormGroup>
+                <ComponentCard title="Attachments">
+                  <Row>
+                    <Col xs="12" md="3" className="mb-3">
+                      <Button
+                        className="shadow-none"
+                        color="primary"
+                        onClick={() => {
+                          setAttachmentRoomName('ArticalAttachment`');
+                          setAttachmentFileTypes(['JPG', 'JPEG', 'PNG', 'GIF', 'PDF']);
+                          dataForAttachment();
+                          setAttachmentModal(true);
+                        }}
+                      >
+                        <Icon.File className="rounded-circle" width="20" />
+                      </Button>
+                    </Col>
+                  </Row>
+                  <AttachmentModalV2
+                    moduleId={articleId}
+                    attachmentModal={attachmentModal}
+                    setAttachmentModal={setAttachmentModal}
+                    roomName={attachmentroomname}
+                    fileTypes={attachmentfiletypes}
+                    altTagData="ArticalRelated Data"
+                    desc="ArticalRelated Data"
+                    recordType="ArticalRelatedPicture"
+                    mediaType={attachmentData.modelType}
+                    update={attachmentupdate}
+                    setUpdate={setAttachmentUpdate}
+                  />
+                  <ViewFileComponentV2
+                    moduleId={id}
+                    roomName="ArticalAttachment"
+                    recordType="ArticalRelatedPicture"
+                    update={attachmentupdate} 
+                    setUpdate={setAttachmentUpdate}
+                  />
+                </ComponentCard>
+              </FormGroup>
+            </Form>
+
             </Row>
             <Row>
               {/* Description form */}
