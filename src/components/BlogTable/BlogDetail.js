@@ -3,11 +3,12 @@ import { Row, Col, FormGroup, Label, Input } from 'reactstrap';
 import PropTypes from 'prop-types';
 import ComponentCard from '../ComponentCard';
 
-export default function BlogDetail({ blog, handleInputs,category }) {
+export default function BlogDetail({ blog, handleInputs,category,subcategory }) {
   BlogDetail.propTypes = {
     blog: PropTypes.object,
     handleInputs: PropTypes.func,
     category: PropTypes.array,
+    subcategory: PropTypes.array
   };
   return (
     <>
@@ -40,6 +41,27 @@ export default function BlogDetail({ blog, handleInputs,category }) {
                               return (
                                 <option key={e.category_id} value={e.category_id}>
                                   {e.category_title}
+                                </option>
+                              );
+                            })}
+                        </Input>
+                      </FormGroup>
+                    </Col>
+                    <Col md="3">
+                      <FormGroup>
+                        <Label>Sub Category </Label>
+                        <Input
+                          type="select"
+                          name="sub_category_id"
+                          onChange={handleInputs}
+                          value={blog && blog.sub_category_id}
+                        >
+                          <option defaultValue="selected">Please Select</option>
+                          {subcategory &&
+                            subcategory.map((e) => {
+                              return (
+                                <option key={e.sub_category_id} value={e.sub_category_id}>
+                                  {e.sub_category_title}
                                 </option>
                               );
                             })}

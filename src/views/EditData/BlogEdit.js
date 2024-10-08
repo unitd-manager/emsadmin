@@ -31,7 +31,9 @@ const BlogEdit = () => {
   });
   const [roomName, setRoomName] = useState('');
   const [fileTypes, setFileTypes] = useState();
+  const [subcategory, setSubCategory] = useState('');
 
+  
   //navigation and parameters
   const { id } = useParams();
   const navigate = useNavigate();
@@ -82,6 +84,15 @@ const BlogEdit = () => {
       })
       .catch(() => {});
   };
+  const editSubCategory = () => {
+    api
+      .get('/subcategory/getSubCategory')
+      .then((res) => {
+        console.log(res.data.data);
+        setSubCategory(res.data.data);
+      })
+      .catch(() => {});
+  };
   //Update blog
   const editBlogs = () => {
     blog.modification_date = creationdatetime;
@@ -105,6 +116,7 @@ const BlogEdit = () => {
   useEffect(() => {
     getBlogById();
     editCategory();
+    editSubCategory();
   }, [id]);
 
   return (
@@ -183,7 +195,7 @@ const BlogEdit = () => {
             <div>
               <BreadCrumbs />
          {/* blog Details */}
-              <BlogDetail blog={blog} handleInputs={handleInputs} category={category}></BlogDetail>
+              <BlogDetail blog={blog} handleInputs={handleInputs} category={category} subcategory={subcategory}></BlogDetail>
               <ComponentCard title="Description">
                 <Editor
                   editorState={description}
