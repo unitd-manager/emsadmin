@@ -52,14 +52,18 @@ const Enquiry = () => {
 
   const columns = [
     {
-      name: 'id',
+      name: 'Id',
       selector: 'enquiry_id',
       grow: 0,
       wrap: true,
       width: '4%',
     },
     {
-      name: 'Edit',
+      name: (
+        <div>
+          <Icon.Edit />
+        </div>
+      ),
       selector: 'edit',
       cell: () => <Icon.Edit2 />,
       grow: 0,
@@ -68,28 +72,48 @@ const Enquiry = () => {
       sortable: false,
     },
     {
-      name: 'Name',
+      name: (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <Icon.CreditCard />
+          <span>Name</span>
+        </div>
+      ),
       selector: 'first_name',
       sortable: true,
       grow: 0,
       wrap: true,
     },
     {
-      name: 'Email',
+      name: (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <Icon.Mail />
+          <span>Email</span>
+        </div>
+      ),
       selector: 'email',
       sortable: true,
       grow: 2,
       wrap: true,
     },
     {
-      name: 'Comments',
+      name: (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <Icon.MessageSquare />
+          <span>Comments</span>
+        </div>
+      ),
       selector: 'comments',
       sortable: true,
       grow: 2,
       wrap: true,
     },
     {
-      name: 'Published',
+      name: (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <Icon.Eye />
+          <span>Published</span>
+        </div>
+      ),
       selector: 'published',
       sortable: true,
       width: 'auto',
@@ -104,17 +128,21 @@ const Enquiry = () => {
 
         <CommonTable
           loading={loading}
-          title="Enquiry List"
+          title={
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#5a3372', fontSize: '25px', fontWeight:600 }}>
+              <Icon.Grid /> Enquiry List
+            </div>
+          }
           Button={
             <Link to="/EnquiryDetails">
-              <Button color="primary" className="shadow-none">
-                Add New
+              <Button color="success" className="shadow-none">
+                <Icon.PlusCircle style={{ marginRight: '8px' }} /> New
               </Button>
             </Link>
           }
         >
           <thead>
-            <tr>
+            <tr style={{ backgroundColor: '#ebdcf6' }}>
               {columns.map((cell) => {
                 return <td key={cell.name}>{cell.name}</td>;
               })}
@@ -127,7 +155,7 @@ const Enquiry = () => {
                   <tr key={element.enquiry_id}>
                     <td>{element.enquiry_id}</td>
                     <td>
-                      <Link to={`/EnquiryEdit/${element.enquiry_id}`}>
+                      <Link to={`/EnquiryEdit/${element.enquiry_id}`} style={{ color: '#b92ad5' }}>
                         <Icon.Edit2 />
                       </Link>
                     </td>

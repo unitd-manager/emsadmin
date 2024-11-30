@@ -10,3 +10,7 @@ input[type="text"], select {
 .sidebarArea .nav-link {
     font-size: 11px !important;
 }
+
+.simplebar-mask {
+    background-color: #d5f3fe !important;
+}

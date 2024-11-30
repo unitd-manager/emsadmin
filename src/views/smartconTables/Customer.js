@@ -123,12 +123,16 @@ const Customer = () => {
       <BreadCrumbs />
 
       <CommonTable
-        title="Customer List"
+        title={
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#5a3372', fontSize: '25px', fontWeight:600 }}>
+            <Icon.Users /> Customer List
+          </div>
+        }
         Button={
           <Link to="/CustomerDetails">
-            <Button color="primary" className="shadow-none">
-              Add New
-            </Button>
+              <Button color="success" className="shadow-none">
+                <Icon.PlusCircle style={{ marginRight: '8px' }} /> New
+              </Button>
           </Link>
         }
       >

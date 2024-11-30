@@ -28,8 +28,8 @@ const Sidebar = () => {
   }, []);
 
   return (
-    <div className={`sidebarBox shadow bg-${activeBg} ${isFixed ? 'fixedSidebar' : ''}`}>
-      <SimpleBar style={{ height: '100%' }}>
+    <div className={`sidebarBox shadow bg-${activeBg} ${isFixed ? 'fixedSidebar' : ''}`} style={{ backgroundColor: '#ebdcf6' }}>
+      <SimpleBar style={{ height: '100%', backgroundColor: '#ebdcf6'}}>
         {/********Logo*******/}
         <div className="d-flex p-3 align-items-center">
           <Logo />
