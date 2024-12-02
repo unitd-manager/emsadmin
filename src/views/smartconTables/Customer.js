@@ -61,14 +61,13 @@ const Customer = () => {
       width: '4%',
     },
     {
-      name: 'Edit',
-      selector: 'edit',
-      cell: () => (
-        <Link to="/">
-          {' '}
-          <Icon.Edit3 />
-        </Link>
+      name: (
+        <div>
+          <Icon.Edit />
+        </div>
       ),
+      selector: 'edit',
+      cell: () => <Icon.Edit2 />,
       grow: 0,
       width: 'auto',
       button: true,
@@ -82,27 +81,35 @@ const Customer = () => {
       grow: 3,
     },
     {
-      name: 'Name',
+      name: (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <Icon.CreditCard />
+          <span>Name</span>
+        </div>
+      ),
       selector: 'first_name',
       sortable: true,
       grow: 0,
       wrap: true,
     },
     {
-      name: 'Email',
+      name: (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <Icon.Mail />
+          <span>Email</span>
+        </div>
+      ),
       selector: 'email',
       sortable: true,
       grow: 0,
     },
     {
-      name: 'Password',
-      selector: 'pass_word',
-      sortable: true,
-      width: 'auto',
-      grow: 3,
-    },
-    {
-      name: 'Mobile',
+      name: (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <Icon.Phone />
+          <span>Mobile</span>
+        </div>
+      ),
       selector: 'mobile',
       sortable: true,
       grow: 0,
@@ -110,7 +117,12 @@ const Customer = () => {
     },
     
     {
-      name: 'Creation Date',
+      name: (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <Icon.Calendar />
+          <span>Creation Date</span>
+        </div>
+      ),
       selector: 'creation_date',
       sortable: true,
       width: 'auto',
@@ -137,7 +149,7 @@ const Customer = () => {
         }
       >
         <thead>
-          <tr>
+          <tr style={{ backgroundColor: '#ebdcf6' }}>
             {Contentcolumns.map((cell) => {
               return <td key={cell.name}>{cell.name}</td>;
             })}
@@ -151,14 +163,13 @@ const Customer = () => {
                   <td>{index + 1}</td>
                   <td>
                     {' '}
-                    <Link to={`/CustomerEdit/${element.contact_id}`}>
+                    <Link to={`/CustomerEdit/${element.contact_id}`} style={{ color: '#b92ad5' }}>
                       <Icon.Edit2 />
                     </Link>
                   </td>
                   <td>{element.contact_id}</td>
                   <td>{element.first_name}</td>
                   <td>{element.email}</td>
-                  <td>{element.pass_word}</td>
                   <td>{element.mobile}</td>
                   <td>{element.creation_date}</td>
                 
