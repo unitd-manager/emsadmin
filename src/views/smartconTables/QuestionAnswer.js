@@ -4,25 +4,23 @@ import { Button } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'datatables.net-dt/js/dataTables.dataTables';
 import 'datatables.net-dt/css/jquery.dataTables.min.css';
-//import moment from 'moment';
-//import $ from 'jquery';
-import 'datatables.net-buttons/js/buttons.colVis';
-import 'datatables.net-buttons/js/buttons.flash';
-import 'datatables.net-buttons/js/buttons.html5';
-import 'datatables.net-buttons/js/buttons.print';
 import { Link } from 'react-router-dom';
-import message from '../../components/Message';
-import api from '../../constants/api';
 import BreadCrumbs from '../../layouts/breadcrumbs/BreadCrumbs';
 import CommonTable from '../../components/CommonTable';
+import 'datatables.net-buttons/js/buttons.colVis';
+import 'datatables.net-buttons/js/buttons.flash';
 import Publish from '../../components/Publish';
+import 'datatables.net-buttons/js/buttons.html5';
+import 'datatables.net-buttons/js/buttons.print';
+import api from '../../constants/api';
 import SortOrder from '../../components/SortOrder';
+import message from '../../components/Message';
 
 const Questions = () => {
-  //Const Variables
+  // State to store content
   const [content, setContent] = useState(null);
 
-  //getting data from content
+  // Fetching data from API
   const getContent = () => {
     api
       .get('/content/getQuestions')
@@ -33,10 +31,12 @@ const Questions = () => {
         message('Cannot get Content Data', 'error');
       });
   };
+
   useEffect(() => {
     getContent();
   }, []);
-  //Structure of Content List view
+
+  // Column configurations
   const Contentcolumns = [
     {
       name: '#',
@@ -45,48 +45,96 @@ const Questions = () => {
       width: '4%',
     },
     {
-      name: 'Edit',
-      selector: 'edit',
-      cell: () => (
-        <Link to="/">
-          {' '}
-          <Icon.Edit3 />
-        </Link>
+      name: (
+        <div>
+          <Icon.Edit />
+        </div>
       ),
+      selector: 'edit',
+      cell: () => <Icon.Edit2 />,
       grow: 0,
       width: 'auto',
       button: true,
       sortable: false,
     },
-
     {
-      name: 'Questions',
+      name: (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <Icon.CreditCard />
+          <span>Questions</span>
+        </div>
+      ),
       selector: 'questions',
       sortable: true,
       grow: 0,
       wrap: true,
     },
     {
-      name: 'Order',
+      name: (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <Icon.CreditCard />
+          <span>Order</span>
+        </div>
+      ),
       selector: 'sort_order',
       sortable: true,
       grow: 0,
     },
     {
-      name: 'Created by',
+      name: (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <Icon.CreditCard />
+          <span>Created by</span>
+        </div>
+      ),
       selector: 'created_by',
       sortable: true,
       grow: 0,
+      wrap: false, // Prevent wrapping
+      cell: (row) => (
+        <div
+          style={{
+            whiteSpace: 'nowrap',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+          }}
+          title={row.created_by} // Tooltip to show full value
+        >
+          {row.created_by}
+        </div>
+      ),
     },
     {
-      name: 'Modified by',
+      name: (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <Icon.CreditCard />
+          <span>Modified by</span>
+        </div>
+      ),
       selector: 'modified_by',
       sortable: true,
-      width: 'auto',
-      grow: 3,
+      grow: 0,
+      wrap: false, // Prevent wrapping
+      cell: (row) => (
+        <div
+          style={{
+            whiteSpace: 'nowrap',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+          }}
+          title={row.modified_by} // Tooltip to show full value
+        >
+          {row.modified_by}
+        </div>
+      ),
     },
     {
-      name: 'Published',
+      name: (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <Icon.CreditCard />
+          <span>Published</span>
+        </div>
+      ),
       selector: 'published',
       sortable: true,
       width: 'auto',
@@ -95,64 +143,93 @@ const Questions = () => {
   ];
 
   return (
-    <div className="MainDiv  pt-xs-25">
+    <div className="MainDiv pt-xs-25">
       <BreadCrumbs />
-
       <CommonTable
-        title="Question List"
+        title={
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              color: '#5a3372',
+              fontSize: '15px', // Adjusted font size
+              fontWeight: 400,
+              whiteSpace: 'nowrap',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+            }}
+          >
+            <Icon.Users /> Q & A
+          </div>
+        }
         Button={
           <Link to="/QuestionDetails">
-            <Button color="primary" className="shadow-none">
-              Add New
+            <Button
+              color="success"
+              className="shadow-none"
+              style={{
+                fontSize: '14px',
+                padding: '8px 16px',
+              }}
+            >
+              <Icon.PlusCircle style={{ marginRight: '8px' }} /> New
             </Button>
           </Link>
         }
+        style={{
+          width: '100%',
+          minWidth: '600px',
+          maxWidth: '1200px',
+          margin: '0 auto',
+          padding: '16px',
+        }}
       >
         <thead>
-          <tr>
-            {Contentcolumns.map((cell) => {
-              return <td key={cell.name}>{cell.name}</td>;
-            })}
+          <tr style={{ backgroundColor: '#ebdcf6' }}>
+            {Contentcolumns.map((cell) => (
+              <td key={cell.name}>{cell.name}</td>
+            ))}
           </tr>
         </thead>
         <tbody>
           {content &&
-            content.map((element, index) => {
-              return (
-                <tr key={element.question_id}>
-                  <td>{index + 1}</td>
-                  <td>
-                    {' '}
-                    <Link to={`/QuestionsEdit/${element.question_id}`}>
-                      <Icon.Edit2 />
-                    </Link>
-                  </td>
-                 
-                  <td>{element.questions}</td>
-                  <td>
-                    <SortOrder
-                      idValue={element.question_id}
-                      idColumn="question_id"
-                      tablename="questions"
-                      value={element.sort_order}
-                    ></SortOrder>
-                  </td>
-                  <td>{element.created_by}</td>
-                  <td>{element.modified_by}</td>
-                  <td>
-                    <Publish
-                      idColumn="question_id"
-                      tablename="questions"
-                      idValue={element.question_id.toString()}
-                      value={element.published}
-                    ></Publish>
-                  </td>
-                  </tr>
-              );
-            })}
+            content.map((element, index) => (
+              <tr key={element.question_id}>
+                <td>{index + 1}</td>
+                <td>
+                  <Link
+                    to={`/QuestionsEdit/${element.question_id}`}
+                    style={{ color: '#b92ad5' }}
+                  >
+                    <Icon.Edit2 />
+                  </Link>
+                </td>
+                <td>{element.questions}</td>
+                <td>
+                  <SortOrder
+                    idValue={element.question_id}
+                    idColumn="question_id"
+                    tablename="questions"
+                    value={element.sort_order}
+                  />
+                </td>
+                <td>{element.created_by}</td>
+                <td>{element.modified_by}</td>
+                <td>
+                  <Publish
+                    idColumn="question_id"
+                    tablename="questions"
+                    idValue={element.question_id.toString()}
+                    value={element.published}
+                  />
+                </td>
+              </tr>
+            ))}
         </tbody>
       </CommonTable>
     </div>
   );
 };
+
 export default Questions;

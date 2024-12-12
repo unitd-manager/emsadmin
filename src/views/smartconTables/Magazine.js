@@ -4,17 +4,19 @@ import { Button } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'datatables.net-dt/js/dataTables.dataTables';
 import 'datatables.net-dt/css/jquery.dataTables.min.css';
-import moment from 'moment';
 import $ from 'jquery';
-import 'datatables.net-buttons/js/buttons.colVis';
-import 'datatables.net-buttons/js/buttons.flash';
-import 'datatables.net-buttons/js/buttons.html5';
-import 'datatables.net-buttons/js/buttons.print';
+import moment from 'moment';
 import { Link } from 'react-router-dom';
-import message from '../../components/Message';
-import api from '../../constants/api';
 import BreadCrumbs from '../../layouts/breadcrumbs/BreadCrumbs';
 import CommonTable from '../../components/CommonTable';
+import 'datatables.net-buttons/js/buttons.colVis';
+import 'datatables.net-buttons/js/buttons.flash';
+// import Publish from '../../components/Publish';
+import 'datatables.net-buttons/js/buttons.html5';
+import 'datatables.net-buttons/js/buttons.print';
+import api from '../../constants/api';
+import message from '../../components/Message';
+
 
 const Content = () => {
   //Const Variables
@@ -59,14 +61,13 @@ const Content = () => {
       width: '4%',
     },
     {
-      name: 'Edit',
-      selector: 'edit',
-      cell: () => (
-        <Link to="/">
-          {' '}
-          <Icon.Edit3 />
-        </Link>
+      name: (
+        <div>
+          <Icon.Edit />
+        </div>
       ),
+      selector: 'edit',
+      cell: () => <Icon.Edit2 />,
       grow: 0,
       width: 'auto',
       button: true,
@@ -74,28 +75,48 @@ const Content = () => {
     },
 
     {
-      name: 'Title',
+      name: (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <Icon.CreditCard />
+          <span>Title</span>
+        </div>
+      ),
       selector: 'title',
       sortable: true,
       grow: 0,
       wrap: true,
     },
    {
-      name: 'Year',
+    name: (
+      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+        <Icon.CreditCard />
+        <span>Year</span>
+      </div>
+    ),
       selector: 'year',
       sortable: true,
       width: 'auto',
       grow: 3,
     },
     {
-      name: 'Month',
+      name: (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <Icon.CreditCard />
+          <span>Month</span>
+        </div>
+      ),
       selector: 'month',
       sortable: true,
       grow: 0,
       wrap: true,
     },
     {
-      name: 'Date',
+      name: (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <Icon.CreditCard />
+          <span>Date</span>
+        </div>
+      ),
       selector: 'date',
       sortable: true,
       grow: 0,
@@ -107,17 +128,21 @@ const Content = () => {
       <BreadCrumbs />
 
       <CommonTable
-        title="Magazine List"
-        Button={
+          title={
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#5a3372', fontSize: '25px', fontWeight:600 }}>
+              <Icon.Grid /> Magazine List
+            </div>
+          }
+          Button={
           <Link to="/NewMagazine">
-            <Button color="primary" className="shadow-none">
-              Add New
-            </Button>
-          </Link>
-        }
-      >
+            <Button color="success" className="shadow-none">
+                <Icon.PlusCircle style={{ marginRight: '8px' }} /> New
+              </Button>
+            </Link>
+          }
+        >
         <thead>
-          <tr>
+        <tr style={{ backgroundColor: '#ebdcf6' }}>
             {Contentcolumns.map((cell) => {
               return <td key={cell.name}>{cell.name}</td>;
             })}
