@@ -29,6 +29,17 @@ export default function SubCategoryEditDetails({ subcategoryeditdetails, handleI
             </Col>
             <Col md="3">
               <FormGroup>
+                <Label>Routes</Label>
+                <Input
+                  type="text"
+                  onChange={handleInputs}
+                  value={subcategoryeditdetails && subcategoryeditdetails.routes}
+                  name="routes"
+                />
+              </FormGroup>
+            </Col>
+            <Col md="3">
+              <FormGroup>
                 <Label>Category</Label>
                 <Input
                   type="select"

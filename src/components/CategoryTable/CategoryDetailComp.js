@@ -32,6 +32,19 @@ export default function CategoryDetailComp({ categoryDetails, handleInputs, sect
               </Col>
               <Col md="4">
                 <FormGroup>
+                  <Label>
+                    Routes <span className="required"> *</span>
+                  </Label>
+                  <Input
+                    type="text"
+                    onChange={handleInputs}
+                    value={categoryDetails && categoryDetails.routes}
+                    name="routes"
+                  />
+                </FormGroup>
+              </Col>
+              <Col md="4">
+                <FormGroup>
                   <Label>Section</Label>
                   <Input
                     type="select"
