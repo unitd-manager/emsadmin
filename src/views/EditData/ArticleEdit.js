@@ -170,7 +170,7 @@ export default function InvoiceItem({ updateAricles, setUpdateArticles, articleI
                         className="shadow-none"
                         color="primary"
                         onClick={() => {
-                          setAttachmentRoomName('ArticalAttachment`');
+                          setAttachmentRoomName('ArticalAttachment');
                           setAttachmentFileTypes(['JPG', 'JPEG', 'PNG', 'GIF', 'PDF']);
                           dataForAttachment();
                           setAttachmentModal(true);
@@ -194,7 +194,7 @@ export default function InvoiceItem({ updateAricles, setUpdateArticles, articleI
                     setUpdate={setAttachmentUpdate}
                   />
                   <ViewFileComponentV2
-                    moduleId={id}
+                    moduleId={articleId}
                     roomName="ArticalAttachment"
                     recordType="ArticalRelatedPicture"
                     update={attachmentupdate} 
