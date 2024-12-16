@@ -5,16 +5,17 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'datatables.net-dt/js/dataTables.dataTables';
 import 'datatables.net-dt/css/jquery.dataTables.min.css';
 import $ from 'jquery';
-import 'datatables.net-buttons/js/buttons.colVis';
-import 'datatables.net-buttons/js/buttons.flash';
-import 'datatables.net-buttons/js/buttons.html5';
-import 'datatables.net-buttons/js/buttons.print';
 import { Link } from 'react-router-dom';
-import api from '../../constants/api';
 import BreadCrumbs from '../../layouts/breadcrumbs/BreadCrumbs';
 import CommonTable from '../../components/CommonTable';
+import 'datatables.net-buttons/js/buttons.colVis';
+import 'datatables.net-buttons/js/buttons.flash';
 import Publish from '../../components/Publish';
+import 'datatables.net-buttons/js/buttons.html5';
+import 'datatables.net-buttons/js/buttons.print';
+import api from '../../constants/api';
 import SortOrder from '../../components/SortOrder';
+
 
 const Category = () => {
   //state variable
@@ -55,7 +56,11 @@ const Category = () => {
       width: '4%',
     },
     {
-      name: 'Edit',
+      name: (
+        <div>
+          <Icon.Edit />
+        </div>
+      ),
       selector: 'edit',
       cell: () => <Icon.Edit2 />,
       grow: 0,
@@ -64,41 +69,71 @@ const Category = () => {
       sortable: false,
     },
     {
-      name: 'Title',
+      name: (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <Icon.CreditCard />
+          <span>Title</span>
+        </div>
+      ),
       selector: 'title',
       sortable: true,
       grow: 0,
       wrap: true,
     },
     {
-      name: 'Order',
+      name: (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <Icon.CreditCard />
+          <span>Order</span>
+        </div>
+      ),
       selector: 'sort_order',
       sortable: true,
       grow: 2,
       wrap: true,
     },
     {
-      name: 'Category Type',
+      name: (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <Icon.CreditCard />
+          <span>Category Type</span>
+        </div>
+      ),
       selector: 'category_type',
       sortable: true,
       grow: 0,
     },
     {
-      name: 'Section',
+      name: (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <Icon.CreditCard />
+          <span>Section</span>
+        </div>
+      ),
       selector: 'title',
       sortable: true,
       width: 'auto',
       grow: 2,
     },
     {
-      name: 'ID',
+      name: (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <Icon.CreditCard />
+          <span>ID</span>
+        </div>
+      ),
       selector: 'category_id',
       sortable: true,
       grow: 2,
       width: 'auto',
     },
     {
-      name: 'Published',
+      name: (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <Icon.CreditCard />
+          <span>Published</span>
+        </div>
+      ),
       selector: 'published',
       sortable: true,
       grow: 2,
@@ -112,17 +147,21 @@ const Category = () => {
         <BreadCrumbs />
 
         <CommonTable
-          title="Category List"
-          Button={
+        title={
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#5a3372', fontSize: '25px', fontWeight:600 }}>
+            <Icon.Users /> Category List
+          </div>
+        }
+        Button={
             <Link to="/CategoryDetails">
-              <Button color="primary" className="shadow-none">
-                Add New
+              <Button color="success" className="shadow-none">
+                <Icon.PlusCircle style={{ marginRight: '8px' }} /> New
               </Button>
-            </Link>
+          </Link>
           }
         >
           <thead>
-            <tr>
+          <tr style={{ backgroundColor: '#ebdcf6' }}>
               {columns.map((cell) => {
                 return <td key={cell.name}>{cell.name}</td>;
               })}

@@ -57,7 +57,11 @@ const Orders = () => {
       width: '4%',
     },
     {
-      name: 'Edit',
+      name: (
+        <div>
+          <Icon.Edit />
+        </div>
+      ),
       selector: 'edit',
       cell: () => (
         <Link to="/">
@@ -70,41 +74,71 @@ const Orders = () => {
       sortable: false,
     },
     {
-      name: 'Order id',
+      name: (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <Icon.CreditCard />
+          <span>Id</span>
+        </div>
+      ),
       selector: 'order_id',
       sortable: true,
       grow: 0,
       wrap: true,
     },
     {
-      name: 'Customer Name',
+      name: (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <Icon.CreditCard />
+          <span>Customer Name</span>
+        </div>
+      ),
       selector: 'cust_first_name',
       sortable: true,
       grow: 0,
     },
     {
-      name: 'Order Date',
+      name: (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <Icon.CreditCard />
+          <span>Order Date</span>
+        </div>
+      ),
       selector: 'order_date',
       sortable: true,
       width: 'auto',
       grow: 3,
     },
     {
-      name: 'Delivery Date',
+      name: (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <Icon.CreditCard />
+          <span>Delivery Date</span>
+        </div>
+      ),
       selector: 'delivery_date',
       sortable: true,
       width: 'auto',
     },
 
     {
-      name: 'Status',
+      name: (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <Icon.CreditCard />
+          <span>Status</span>
+        </div>
+      ),
       selector: 'order_status',
       sortable: true,
       grow: 2,
       wrap: true,
     },
     {
-      name: 'Published',
+      name: (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <Icon.CreditCard />
+          <span>Published</span>
+        </div>
+      ),
       selector: 'published',
       sortable: true,
       width: 'auto',
@@ -117,9 +151,14 @@ const Orders = () => {
       <div className=" pt-xs-25">
         <BreadCrumbs />
 
-        <CommonTable loading={loading} title="Orders List">
+        <CommonTable
+        title={
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#5a3372', fontSize: '25px', fontWeight:600 }}>
+            <Icon.Users /> loading={loading} Orders List
+          </div>
+        }>
           <thead>
-            <tr>
+          <tr style={{ backgroundColor: '#ebdcf6' }}>
               {columns.map((cell) => {
                 return <td key={cell.name}>{cell.name}</td>;
               })}

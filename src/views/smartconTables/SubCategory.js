@@ -64,7 +64,11 @@ const SubCategory = () => {
       wrap: true,
     },
     {
-      name: 'Edit',
+      name: (
+        <div>
+          <Icon.Edit />
+        </div>
+      ),
       selector: 'edit',
       cell: () => <Icon.Edit2 />,
       grow: 0,
@@ -73,47 +77,82 @@ const SubCategory = () => {
       sortable: false,
     },
     {
-      name: 'Title',
+      name: (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <Icon.CreditCard />
+          <span>Title</span>
+        </div>
+      ),
       selector: 'sub_category_title',
       sortable: true,
       grow: 0,
       wrap: true,
     },
     {
-      name: 'Order',
+      name: (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <Icon.CreditCard />
+          <span>Order</span>
+        </div>
+      ),
       selector: 'sort_order',
       sortable: true,
       grow: 0,
       width: 'auto',
     },
     {
-      name: 'Sub Cat Child Type',
+      name: (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <Icon.CreditCard />
+          <span>Sub Cat Child Type</span>
+        </div>
+      ),
       selector: 'sub_category_type',
       sortable: true,
       grow: 0,
     },
     {
-      name: 'Section',
+      name: (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <Icon.CreditCard />
+          <span>Section</span>
+        </div>
+      ),
       selector: 'section_title',
       sortable: true,
       grow: 0,
     },
     {
-      name: 'Category',
+      name: (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <Icon.CreditCard />
+          <span>Category</span>
+        </div>
+      ),
       selector: 'category_title',
       sortable: true,
       grow: 2,
       width: 'auto',
     },
     {
-      name: 'ID',
+      name: (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <Icon.CreditCard />
+          <span>Id</span>
+        </div>
+      ),
       selector: 'sub_category_id',
       sortable: true,
       grow: 2,
       wrap: true,
     },
     {
-      name: 'Published',
+      name: (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <Icon.CreditCard />
+          <span>Published</span>
+        </div>
+      ),
       selector: 'published',
       sortable: true,
       grow: 2,

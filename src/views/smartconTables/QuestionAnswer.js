@@ -82,7 +82,7 @@ const Questions = () => {
     },
     {
       name: (
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+        <div>
           <Icon.CreditCard />
           <span>Created by</span>
         </div>
@@ -91,22 +91,11 @@ const Questions = () => {
       sortable: true,
       grow: 0,
       wrap: false, // Prevent wrapping
-      cell: (row) => (
-        <div
-          style={{
-            whiteSpace: 'nowrap',
-            overflow: 'hidden',
-            textOverflow: 'ellipsis',
-          }}
-          title={row.created_by} // Tooltip to show full value
-        >
-          {row.created_by}
-        </div>
-      ),
+    
     },
     {
       name: (
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+        <div>
           <Icon.CreditCard />
           <span>Modified by</span>
         </div>
@@ -115,22 +104,10 @@ const Questions = () => {
       sortable: true,
       grow: 0,
       wrap: false, // Prevent wrapping
-      cell: (row) => (
-        <div
-          style={{
-            whiteSpace: 'nowrap',
-            overflow: 'hidden',
-            textOverflow: 'ellipsis',
-          }}
-          title={row.modified_by} // Tooltip to show full value
-        >
-          {row.modified_by}
-        </div>
-      ),
     },
     {
       name: (
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+        <div >
           <Icon.CreditCard />
           <span>Published</span>
         </div>
