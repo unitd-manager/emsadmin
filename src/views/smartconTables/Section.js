@@ -189,7 +189,7 @@ const SectionDetails = () => {
           }
         >
           <thead>
-            <tr>
+          <tr style={{ backgroundColor: '#ebdcf6' }}>
               {columns.map((cell) => {
                 return <td key={cell.name}>{cell.name}</td>;
               })}
