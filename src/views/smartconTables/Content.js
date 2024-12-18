@@ -94,7 +94,7 @@ const Content = () => {
     {
       name: (
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <Icon.CreditCard />
+          <Icon.Octagon />
           <span>Order</span>
         </div>
       ),
@@ -105,7 +105,7 @@ const Content = () => {
     {
       name: (
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <Icon.CreditCard />
+          <Icon.MinusCircle />
           <span>Section</span>
         </div>
       ),
@@ -117,7 +117,7 @@ const Content = () => {
     {
       name: (
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <Icon.CreditCard />
+          <Icon.Disc />
           <span>Category</span>
         </div>
       ),
@@ -129,8 +129,8 @@ const Content = () => {
     {
       name: (
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <Icon.CreditCard />
-          <span>SSub Category</span>
+          <Icon.Star />
+          <span>Sub Category</span>
         </div>
       ),
       selector: 'sub_category_title',
@@ -140,7 +140,7 @@ const Content = () => {
     {
       name: (
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <Icon.CreditCard />
+          <Icon.Calendar />
           <span>Content Date</span>
         </div>
       ),
@@ -152,7 +152,7 @@ const Content = () => {
     {
       name: (
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <Icon.CreditCard />
+          <Icon.MinusSquare />
           <span>Content Type</span>
         </div>
       ),
@@ -164,7 +164,7 @@ const Content = () => {
     {
       name: (
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <Icon.CreditCard />
+          <Icon.Hash />
           <span>ID</span>
         </div>
       ),
@@ -176,7 +176,7 @@ const Content = () => {
     {
       name: (
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <Icon.CreditCard />
+          <Icon.Eye />
           <span>Published</span>
         </div>
       ),

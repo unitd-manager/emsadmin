@@ -64,21 +64,7 @@ const Valuelist = () => {
   };
 
   useEffect(() => {
-    // setTimeout(() => {
-    //   $('#example').DataTable({
-    //     pagingType: 'full_numbers',
-    //     pageLength: 20,
-    //     processing: true,
-    //     dom: 'Bfrtip',
-    //     buttons: [
-    //       {
-    //         extend: 'print',
-    //         text: 'Print',
-    //         className: 'shadow-none btn btn-primary',
-    //       },
-    //     ],
-    //   });
-    // }, 1000);
+   
     getValuelist();
   }, []);
 
@@ -92,7 +78,11 @@ const Valuelist = () => {
       width: '4%',
     },
     {
-      name: 'Edit',
+      name: (
+        <div>
+          <Icon.Edit />
+        </div>
+      ),
       selector: 'edit',
       cell: () => <Icon.Edit2 />,
       grow: 0,
@@ -101,42 +91,72 @@ const Valuelist = () => {
       sortable: false,
     },
     {
-      name: 'Text (English)',
+      name: (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <Icon.Cast />
+          <span>Text(English)</span>
+        </div>
+      ),  
       selector: 'value',
       sortable: true,
       grow: 0,
       wrap: true,
     },
     {
-      name: 'Value List Name',
+      name: (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <Icon.CreditCard />
+          <span>Value List name</span>
+        </div>
+      ),  
       selector: 'key_text',
       sortable: true,
       grow: 2,
       wrap: true,
     },
     {
-      name: 'Code',
+      name: (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <Icon.PlusSquare />
+          <span>Code</span>
+        </div>
+      ),  
       selector: 'code',
       sortable: true,
       width: 'auto',
       grow: 3,
     },
     {
-      name: 'ID',
+      name: (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <Icon.Hash />
+          <span>ID</span>
+        </div>
+      ),  
       selector: 'valuelist_id',
       sortable: true,
       width: 'auto',
       grow: 3,
     },
     {
-      name: 'Order',
+      name: (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <Icon.CheckSquare />
+          <span>Order</span>
+        </div>
+      ),  
       selector: 'sort_order',
       sortable: true,
       grow: 2,
       width: 'auto',
     },
     {
-      name: 'Published',
+      name: (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <Icon.Eye />
+          <span>Published</span>
+        </div>
+      ),  
       selector: 'published',
       sortable: true,
       width: 'auto',
@@ -151,18 +171,22 @@ const Valuelist = () => {
 
         <CommonTable
           loading={loading}
-          title="Value List"
+          title={
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#5a3372', fontSize: '25px', fontWeight:600 }}>
+              <Icon.Grid /> Value List
+            </div>
+          }
           Button={
             <Link to="/ValuelistDetails">
-              <Button color="primary" className=" shadow-none">
-                Add New
+              <Button color="success" className="shadow-none">
+                <Icon.PlusCircle style={{ marginRight: '8px' }} /> New
               </Button>
             </Link>
           }
         >
           <thead>
-            <tr>
-              {columns.map((cell) => {
+          <tr style={{ backgroundColor: '#ebdcf6' }}>
+          {columns.map((cell) => {
                 return <td key={cell.name}>{cell.name}</td>;
               })}
             </tr>

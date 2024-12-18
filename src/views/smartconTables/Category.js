@@ -83,7 +83,7 @@ const Category = () => {
     {
       name: (
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <Icon.CreditCard />
+          <Icon.Octagon />
           <span>Order</span>
         </div>
       ),
@@ -95,7 +95,7 @@ const Category = () => {
     {
       name: (
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <Icon.CreditCard />
+          <Icon.Disc />
           <span>Category Type</span>
         </div>
       ),
@@ -106,7 +106,7 @@ const Category = () => {
     {
       name: (
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <Icon.CreditCard />
+          <Icon.MinusCircle />
           <span>Section</span>
         </div>
       ),
@@ -118,7 +118,7 @@ const Category = () => {
     {
       name: (
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <Icon.CreditCard />
+          <Icon.Hash />
           <span>ID</span>
         </div>
       ),
@@ -130,7 +130,7 @@ const Category = () => {
     {
       name: (
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <Icon.CreditCard />
+          <Icon.Eye />
           <span>Published</span>
         </div>
       ),

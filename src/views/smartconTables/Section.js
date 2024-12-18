@@ -62,7 +62,11 @@ const SectionDetails = () => {
       width: '4%',
     },
     {
-      name: 'Edit',
+      name: (
+        <div>
+          <Icon.Edit />
+        </div>
+      ),
       selector: 'edit',
       cell: () => <Icon.Edit2 />,
       grow: 0,
@@ -72,55 +76,94 @@ const SectionDetails = () => {
     },
 
     {
-      name: 'Title',
-      selector: 'section_title',
+      name: (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <Icon.CreditCard />
+          <span>Title</span>
+        </div>
+      ),        selector: 'section_title',
       sortable: true,
       grow: 0,
       wrap: true,
     },
     {
-      name: 'Groups',
+      name: (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <Icon.Cast />
+          <span>Groups</span>
+        </div>
+      ),  
       selector: 'groups',
       sortable: true,
       grow: 2,
       wrap: true,
     },
     {
-      name: 'Button Position',
+      name: (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <Icon.Bell />
+          <span>Button Position</span>
+        </div>
+      ),  
       selector: 'button_position',
       sortable: true,
       grow: 0,
     },
     {
-      name: 'ID',
+      name: (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <Icon.Hash />
+          <span>ID</span>
+        </div>
+      ),  
       selector: 'section_id',
       sortable: true,
       width: 'auto',
       grow: 3,
     },
     {
-      name: 'Published',
+      name: (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <Icon.Eye />
+          <span>Published</span>
+        </div>
+      ),  
       selector: 'published',
       sortable: true,
       grow: 2,
       width: 'auto',
     },
     {
-      name: 'Mobile Menu',
+      name: (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <Icon.Monitor />
+          <span>Mobile Menu</span>
+        </div>
+      ),  
       selector: 'showmenu_inmobile',
       sortable: true,
       grow: 2,
       width: 'auto',
     },
     {
-      name: 'Website Menu',
+      name: (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <Icon.PlusCircle />
+          <span>Website Menu</span>
+        </div>
+      ),  
       selector: 'showmenu_inweb',
       sortable: true,
       grow: 2,
       width: 'auto',
     },
     {
-      name: 'Order',
+      name: (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <Icon.CreditCard />
+          <span>Order</span>
+        </div>
+      ),  
       selector: 'sort_order',
       sortable: true,
       grow: 2,

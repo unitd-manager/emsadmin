@@ -91,7 +91,7 @@ const SubCategory = () => {
     {
       name: (
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <Icon.CreditCard />
+          <Icon.MinusSquare />
           <span>Order</span>
         </div>
       ),
@@ -103,7 +103,7 @@ const SubCategory = () => {
     {
       name: (
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <Icon.CreditCard />
+          <Icon.Star />
           <span>Sub Cat Child Type</span>
         </div>
       ),
@@ -114,7 +114,7 @@ const SubCategory = () => {
     {
       name: (
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <Icon.CreditCard />
+          <Icon.Cast />
           <span>Section</span>
         </div>
       ),
@@ -125,7 +125,7 @@ const SubCategory = () => {
     {
       name: (
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <Icon.CreditCard />
+          <Icon.Disc />
           <span>Category</span>
         </div>
       ),
@@ -137,7 +137,7 @@ const SubCategory = () => {
     {
       name: (
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <Icon.CreditCard />
+          <Icon.Hash />
           <span>Id</span>
         </div>
       ),
@@ -149,7 +149,7 @@ const SubCategory = () => {
     {
       name: (
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <Icon.CreditCard />
+          <Icon.Eye />
           <span>Published</span>
         </div>
       ),
@@ -166,12 +166,16 @@ const SubCategory = () => {
         <BreadCrumbs />
 
         <CommonTable
-          loading={loading}
-          title="SubCategory List"
+        loading={loading}
+        title={
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#5a3372', fontSize: '25px', fontWeight:600 }}>
+            <Icon.Users /> SubCategory List
+          </div>
+        }
           Button={
             <Link to="/SubCategoryDetails">
-              <Button color="primary" className="shadow-none">
-                Add New
+             <Button color="success" className="shadow-none">
+                <Icon.PlusCircle style={{ marginRight: '8px' }} /> New
               </Button>
             </Link>
           }

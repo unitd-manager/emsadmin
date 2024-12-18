@@ -1,5 +1,5 @@
 import React from "react";
-// import * as Icon from 'react-feather';
+import * as Icon from 'react-feather';
 
 export const columns = [
     {
@@ -11,7 +11,11 @@ export const columns = [
       
     },
     {
-        name: "",
+      name: (
+        <div>
+          <Icon.Edit />
+        </div>
+      ),
         selector: "edit",
         sortable: true,
         grow:0,
@@ -19,51 +23,91 @@ export const columns = [
         wrap: true
     },
     {
-      name: "Item Code",
+      name: (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <Icon.Disc />
+          <span>Item Code</span>
+        </div>
+      ),
       selector: "closing",
       sortable: true,
       grow:0,
       wrap: true
     },
     {
-      name: "Product Name",
+      name: (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <Icon.Disc />
+          <span>Project Name</span>
+        </div>
+      ),
       selector: "project",
       sortable: true,
       cell: d => <span>{d.closing.join(", ")}</span>,
       sorttype:'input'
     },
     {
-      name: "Product Type",
+      name: (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <Icon.PlusCircle />
+          <span>Product Type</span>
+        </div>
+      ),
       selector: "ref",
       sortable: true,
       sorttype:'select'
     },
     {
-      name: "List Price",
+      name: (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <Icon.Pause />
+          <span>List Price</span>
+        </div>
+      ),
       selector: "closing",
       sortable: true,
       cell: d => <span>{d.closing.join(", ")}</span>
     },
     {
-      name: "Unit",
+      name: (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <Icon.Star />
+          <span>Unit</span>
+        </div>
+      ),
       selector: "status",
       sortable: true,
       cell: d => <span>{d.closing.join(", ")}</span>
     },
     {
-      name: "Stock",
+      name: (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <Icon.Inbox />
+          <span>Quote</span>
+        </div>
+      ),
       selector: "quoted",
       sortable: true,
       cell: d => <span>{d.closing.join(", ")}</span>
     },
     {
-      name: "Updated By",
+      name: (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <Icon.UserCheck />
+          <span>Updated By</span>
+        </div>
+      ),
       selector: "update",
       sortable: true,
       cell: d => <span>{d.closing.join(", ")}</span>
     },
     {
-      name: "Published",
+      name: (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <Icon.Eye />
+          <span>Published</span>
+        </div>
+      ),
       selector: "published",
       sortable: true,
       cell: d => <span>{d.closing.join(", ")}</span>

@@ -59,7 +59,11 @@ const Staff = () => {
       width: '4%',
     },
     {
-      name: 'Edit',
+      name: (
+        <div>
+          <Icon.Edit />
+        </div>
+      ),
       selector: 'edit',
       cell: () => <Icon.Edit2 />,
       grow: 0,
@@ -68,54 +72,94 @@ const Staff = () => {
       sortable: false,
     },
     {
-      name: 'Name',
+      name: (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <Icon.User />
+          <span>Name</span>
+        </div>
+      ),
       selector: 'first_name',
       sortable: true,
       grow: 0,
       wrap: true,
     },
     {
-      name: 'Group',
+        name: (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <Icon.File />
+          <span>Group</span>
+        </div>
+      ),
       selector: 'user_group_title',
       sortable: true,
       grow: 2,
       wrap: true,
     },
     {
-      name: 'Email',
+      name: (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <Icon.Cast />
+          <span>Email</span>
+        </div>
+      ),
       selector: 'email',
       sortable: true,
       grow: 0,
     },
     {
-      name: 'Team',
+      name: (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <Icon.Target />
+          <span>Team</span>
+        </div>
+      ),
       selector: 'team',
       sortable: true,
       width: 'auto',
       grow: 3,
     },
     {
-      name: 'Staff Type',
+      name: (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <Icon.PlusSquare />
+          <span>Staff Type</span>
+        </div>
+      ),
       selector: 'staff_type',
       sortable: true,
       grow: 2,
       width: 'auto',
     },
     {
-      name: 'Status',
-      selector: 'status',
+      name: (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <Icon.Star />
+          <span>Status</span>
+        </div>
+      ),
+            selector: 'status',
       sortable: true,
       grow: 2,
       wrap: true,
     },
     {
-      name: 'ID',
+      name: (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <Icon.Hash />
+          <span>ID</span>
+        </div>
+      ),
       selector: 'staff_id',
       sortable: true,
       width: 'auto',
     },
     {
-      name: 'Published',
+      name: (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <Icon.Eye />
+          <span>Published</span>
+        </div>
+      ),
       selector: 'published',
       sortable: true,
       grow: 2,
@@ -130,18 +174,22 @@ const Staff = () => {
 
         <CommonTable
           loading={loading}
-          title="Staff List"
+          title={
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#5a3372', fontSize: '25px', fontWeight:600 }}>
+              <Icon.Grid /> Staff List
+            </div>
+          }
           Button={
             <Link to="/StaffDetails">
-              <Button color="primary" className="shadow-none">
-                Add New
+               <Button color="success" className="shadow-none">
+                <Icon.PlusCircle style={{ marginRight: '8px' }} /> New
               </Button>
             </Link>
           }
         >
           <thead>
-            <tr>
-              {columns.map((cell) => {
+          <tr style={{ backgroundColor: '#ebdcf6' }}>
+                          {columns.map((cell) => {
                 return <td key={cell.name}>{cell.name}</td>;
               })}
             </tr>

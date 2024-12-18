@@ -74,21 +74,35 @@ function UserGroup() {
       width: 'auto',
     },
     {
-      name: '',
-      selector: 'edit',
+      name: (
+        <div>
+          <Icon.Edit />
+        </div>
+      ),
+            selector: 'edit',
       sortable: true,
       grow: 0,
       width: 'auto',
       wrap: true,
     },
     {
-      name: 'Title',
+      name: (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <Icon.CreditCard />
+          <span>Title</span>
+        </div>
+      ),   
       selector: 'title',
       sortable: true,
       grow: 5,
     },
     {
-      name: 'ID',
+      name: (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <Icon.Hash />
+          <span>ID</span>
+        </div>
+      ),   
       selector: 'user_group_id',
       sortable: true,
       grow: 1,
@@ -104,18 +118,22 @@ function UserGroup() {
 
         <div className="">
           <CommonTable
-            title="UserGroup List"
+            title={
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#5a3372', fontSize: '25px', fontWeight:600 }}>
+                <Icon.Grid /> UserGroup List
+              </div>
+            }
             loading={loading}
             Button={
               <Link to="/UserGroupDetails">
-                <Button color="primary" className="shadow-none">
-                  Add New
-                </Button>
+                <Button color="success" className="shadow-none">
+                <Icon.PlusCircle style={{ marginRight: '8px' }} /> New
+              </Button>
               </Link>
             }
           >
             <thead>
-              <tr>
+            <tr style={{ backgroundColor: '#ebdcf6' }}>
                 {columns.map((cell) => {
                   return <td key={cell.name}>{cell.name}</td>;
                 })}

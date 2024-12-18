@@ -89,7 +89,7 @@ const Content = () => {
    {
     name: (
       <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-        <Icon.CreditCard />
+        <Icon.Calendar />
         <span>Year</span>
       </div>
     ),
@@ -101,7 +101,7 @@ const Content = () => {
     {
       name: (
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <Icon.CreditCard />
+          <Icon.Disc />
           <span>Month</span>
         </div>
       ),
@@ -113,7 +113,7 @@ const Content = () => {
     {
       name: (
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <Icon.CreditCard />
+          <Icon.FilePlus />
           <span>Date</span>
         </div>
       ),

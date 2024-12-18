@@ -93,11 +93,16 @@ const Test = () => {
         <BreadCrumbs />
 
         <Link to="/ProductDetails">
-          <Button color="primary" className="shadow-none">
-            Add New
-          </Button>
+        <Button color="success" className="shadow-none">
+                <Icon.PlusCircle style={{ marginRight: '8px' }} /> New
+              </Button>
         </Link>
         <table
+          title={
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#5a3372', fontSize: '25px', fontWeight:600 }}>
+              <Icon.Users />Product List
+            </div>
+          }
           // ref={tableRef}
           id="example"
           className="display border border-secondary rounded"

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import * as Icon from 'react-feather';
 import { Button, Col } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'datatables.net-fixedheader';
@@ -144,14 +145,18 @@ const Test = () => {
         <CommonTable
           loading={loading}
           additionalClasses={'table'}
-          title="Product List"
-          Button={
+          title={
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#5a3372', fontSize: '25px', fontWeight:600 }}>
+              <Icon.Users />Product List
+            </div>
+          }       
+             Button={
             <>
               <Col>
                 <Link to="/ProductDetails">
-                  <Button color="primary" className="shadow-none">
-                    Add New
-                  </Button>
+                <Button color="success" className="shadow-none">
+                <Icon.PlusCircle style={{ marginRight: '8px' }} /> New
+              </Button>
                 </Link>
               </Col>
               <Col>
@@ -168,7 +173,7 @@ const Test = () => {
           }
         >
           <thead>
-            <tr className="filters">
+            <tr className="filters" style={{ backgroundColor: '#ebdcf6' }}>
               {columns.map((cell) => {
                 return (
                   <th key={cell.name}>

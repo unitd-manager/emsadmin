@@ -58,7 +58,11 @@ const Setting = () => {
       width: '4%',
     },
     {
-      name: 'Edit',
+      name: (
+        <div>
+          <Icon.Edit />
+        </div>
+      ),
       selector: 'edit',
       cell: () => <Icon.Edit2 />,
       grow: 0,
@@ -67,35 +71,60 @@ const Setting = () => {
       sortable: false,
     },
     {
-      name: 'Key Text',
+      name: (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <Icon.CreditCard />
+          <span>Key Text</span>
+        </div>
+      ),
       selector: 'key_text',
       sortable: true,
       grow: 0,
       wrap: true,
     },
     {
-      name: 'Description',
+      name: (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <Icon.Book />
+          <span>Description</span>
+        </div>
+      ),
       selector: 'description',
       sortable: true,
       grow: 2,
       wrap: true,
     },
     {
-      name: 'Value',
+      name: (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <Icon.Cast />
+          <span>Value</span>
+        </div>
+      ),
       selector: 'value',
       sortable: true,
       grow: 0,
     },
     {
-      name: 'ID',
+      name: (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <Icon.Hash />
+          <span>ID</span>
+        </div>
+      ),
       selector: 'setting_id',
       sortable: true,
       width: 'auto',
       grow: 3,
     },
     {
-      name: 'Published',
-      selector: 'published',
+      name: (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <Icon.Eye />
+          <span>Published</span>
+        </div>
+      ),     
+       selector: 'published',
       sortable: true,
       width: 'auto',
       grow: 3,
@@ -107,17 +136,21 @@ const Setting = () => {
         <BreadCrumbs />
         <CommonTable
           loading={loading}
-          title="Setting List"
+          title={
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#5a3372', fontSize: '25px', fontWeight:600 }}>
+              <Icon.Grid /> Setting List
+            </div>
+          }
           Button={
             <Link to="/SettingDetails">
-              <Button color="primary" className="shadow-none">
-                Add New
+             <Button color="success" className="shadow-none">
+                <Icon.PlusCircle style={{ marginRight: '8px' }} /> New
               </Button>
             </Link>
           }
         >
           <thead>
-            <tr>
+          <tr style={{ backgroundColor: '#ebdcf6' }}>
               {columns.map((cell) => {
                 return <td key={cell.name}>{cell.name}</td>;
               })}

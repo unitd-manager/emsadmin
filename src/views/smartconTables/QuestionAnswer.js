@@ -60,7 +60,7 @@ const Questions = () => {
     {
       name: (
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <Icon.CreditCard />
+          <Icon.Shuffle />
           <span>Questions</span>
         </div>
       ),
@@ -83,7 +83,7 @@ const Questions = () => {
     {
       name: (
         <div>
-          <Icon.CreditCard />
+          <Icon.Cast />
           <span>Created by</span>
         </div>
       ),
@@ -96,7 +96,7 @@ const Questions = () => {
     {
       name: (
         <div>
-          <Icon.CreditCard />
+          <Icon.CheckSquare />
           <span>Modified by</span>
         </div>
       ),
@@ -108,7 +108,7 @@ const Questions = () => {
     {
       name: (
         <div >
-          <Icon.CreditCard />
+          <Icon.Eye />
           <span>Published</span>
         </div>
       ),

@@ -58,7 +58,11 @@ const Blog = () => {
       width: '4%',
     },
     {
-      name: 'Edit',
+      name: (
+        <div>
+          <Icon.Edit />
+        </div>
+      ),
       selector: 'edit',
       cell: () => <Icon.Edit2 />,
       grow: 0,
@@ -67,21 +71,36 @@ const Blog = () => {
       sortable: false,
     },
     {
-      name: 'Title',
+      name: (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <Icon.CreditCard />
+          <span>Title</span>
+        </div>
+      ),
       selector: 'title',
       sortable: true,
       grow: 0,
       wrap: true,
     },
     {
-      name: 'Author',
+      name: (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <Icon.User />
+          <span>Author</span>
+        </div>
+      ),
       selector: 'author',
       sortable: true,
       grow: 2,
       wrap: true,
     },
     {
-      name: 'Published',
+      name: (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <Icon.Eye />
+          <span>Published</span>
+        </div>
+      ),
       selector: 'published',
       sortable: true,
       width: 'auto',
@@ -96,18 +115,22 @@ const Blog = () => {
 
         <CommonTable
           loading={loading}
-          title="Blog List"
+          title={
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#5a3372', fontSize: '25px', fontWeight:600 }}>
+              <Icon.Grid /> Blog List
+            </div>
+          }
           Button={
             <Link to="/BlogDetails">
-              <Button color="primary" className="shadow-none">
-                Add New
+              <Button color="success" className="shadow-none">
+                <Icon.PlusCircle style={{ marginRight: '8px' }} /> New
               </Button>
             </Link>
           }
         >
           <thead>
-            <tr>
-              {columns.map((cell) => {
+          <tr style={{ backgroundColor: '#ebdcf6' }}>
+                          {columns.map((cell) => {
                 return <td key={cell.name}>{cell.name}</td>;
               })}
             </tr>

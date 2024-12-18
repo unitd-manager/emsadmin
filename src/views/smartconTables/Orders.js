@@ -76,7 +76,7 @@ const Orders = () => {
     {
       name: (
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <Icon.CreditCard />
+          <Icon.Hash />
           <span>Id</span>
         </div>
       ),
@@ -99,7 +99,7 @@ const Orders = () => {
     {
       name: (
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <Icon.CreditCard />
+          <Icon.Calendar />
           <span>Order Date</span>
         </div>
       ),
@@ -111,7 +111,7 @@ const Orders = () => {
     {
       name: (
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <Icon.CreditCard />
+          <Icon.Cast />
           <span>Delivery Date</span>
         </div>
       ),
@@ -123,7 +123,7 @@ const Orders = () => {
     {
       name: (
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <Icon.CreditCard />
+          <Icon.PlusCircle />
           <span>Status</span>
         </div>
       ),
@@ -135,7 +135,7 @@ const Orders = () => {
     {
       name: (
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <Icon.CreditCard />
+          <Icon.Eye />
           <span>Published</span>
         </div>
       ),
