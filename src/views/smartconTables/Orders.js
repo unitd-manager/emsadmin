@@ -1,43 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import * as Icon from 'react-feather';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import 'datatables.net-dt/js/dataTables.dataTables';
-import 'datatables.net-dt/css/jquery.dataTables.min.css';
-import $ from 'jquery';
-import 'datatables.net-buttons/js/buttons.colVis';
-import 'datatables.net-buttons/js/buttons.flash';
-import 'datatables.net-buttons/js/buttons.html5';
-import 'datatables.net-buttons/js/buttons.print';
 import { Link } from 'react-router-dom';
+import DataTable from 'react-data-table-component';
 import Publish from '../../components/Publish';
 import api from '../../constants/api';
 import BreadCrumbs from '../../layouts/breadcrumbs/BreadCrumbs';
-import CommonTable from '../../components/CommonTable';
+
 
 const Orders = () => {
-  //All State Variable
-  const [finance, setFinance] = useState(null);
+  const [finance, setFinance] = useState([]);
+  const [filteredFinance, setFilteredFinance] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  //getting data from Finance
+  // Fetching orders
   const getFinance = () => {
+    setLoading(true);
     api
       .get('/orders/getOrders')
       .then((res) => {
         setFinance(res.data.data);
-        $('#example').DataTable({
-          pagingType: 'full_numbers',
-          pageLength: 20,
-          processing: true,
-          dom: 'Bfrtip',
-          buttons: [
-            {
-              extend: 'print',
-              text: 'Print',
-              className: 'shadow-none btn btn-primary',
-            },
-          ],
-        });
+        setFilteredFinance(res.data.data);
         setLoading(false);
       })
       .catch(() => {
@@ -49,29 +32,35 @@ const Orders = () => {
     getFinance();
   }, []);
 
+  // Search handler
+  const handleSearch = (e) => {
+    const value = e.target.value.toLowerCase();
+    const result = finance.filter((item) =>
+      Object.values(item).some((val) =>
+        String(val).toLowerCase().includes(value)
+      )
+    );
+    setFilteredFinance(result);
+  };
+
+  // DataTable columns
   const columns = [
     {
       name: '#',
-      grow: 0,
-      wrap: true,
-      width: '4%',
+      cell: (row, index) => index + 1,
+      width: '60px',
     },
     {
-      name: (
-        <div>
-          <Icon.Edit />
-        </div>
-      ),
-      selector: 'edit',
-      cell: () => (
-        <Link to="/">
+      name: <Icon.Edit />,
+      cell: (row) => (
+        <Link to={`/OrdersEdit/${row.order_id}`}>
           <Icon.Edit3 />
         </Link>
       ),
-      grow: 0,
-      width: 'auto',
+      ignoreRowClick: true,
+      allowOverflow: true,
       button: true,
-      sortable: false,
+      width: '80px',
     },
     {
       name: (
@@ -80,10 +69,8 @@ const Orders = () => {
           <span>Id</span>
         </div>
       ),
-      selector: 'order_id',
+      selector: (row) => row.order_id,
       sortable: true,
-      grow: 0,
-      wrap: true,
     },
     {
       name: (
@@ -92,9 +79,8 @@ const Orders = () => {
           <span>Customer Name</span>
         </div>
       ),
-      selector: 'cust_first_name',
+      selector: (row) => row.first_name,
       sortable: true,
-      grow: 0,
     },
     {
       name: (
@@ -103,10 +89,8 @@ const Orders = () => {
           <span>Order Date</span>
         </div>
       ),
-      selector: 'order_date',
+      selector: (row) => row.order_date,
       sortable: true,
-      width: 'auto',
-      grow: 3,
     },
     {
       name: (
@@ -115,22 +99,18 @@ const Orders = () => {
           <span>Delivery Date</span>
         </div>
       ),
-      selector: 'delivery_date',
+      selector: (row) => row.delivery_date,
       sortable: true,
-      width: 'auto',
     },
-
     {
       name: (
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <Icon.PlusCircle />
-          <span>Status</span>
+          <span>Payment Method</span>
         </div>
       ),
-      selector: 'order_status',
+      selector: (row) => row.payment_method,
       sortable: true,
-      grow: 2,
-      wrap: true,
     },
     {
       name: (
@@ -139,60 +119,45 @@ const Orders = () => {
           <span>Published</span>
         </div>
       ),
-      selector: 'published',
-      sortable: true,
-      width: 'auto',
-      grow: 3,
+      cell: (row) => (
+        <Publish
+          idColumn="order_id"
+          tablename="orders"
+          idValue={row.order_id.toString()}
+          value={row.published}
+        />
+      ),
     },
   ];
 
   return (
     <div className="MainDiv">
-      <div className=" pt-xs-25">
+      <div className="pt-xs-25">
         <BreadCrumbs />
-
-        <CommonTable
-        title={
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#5a3372', fontSize: '25px', fontWeight:600 }}>
-            <Icon.Users /> loading={loading} Orders List
-          </div>
-        }>
-          <thead>
-          <tr style={{ backgroundColor: '#ebdcf6' }}>
-              {columns.map((cell) => {
-                return <td key={cell.name}>{cell.name}</td>;
-              })}
-            </tr>
-          </thead>
-          <tbody>
-            {finance &&
-              finance.map((element, index) => {
-                return (
-                  <tr key={element.order_id}>
-                    <td>{index + 1}</td>
-                    <td>
-                      <Link to={`/OrdersEdit/${element.order_id}`}>
-                        <Icon.Edit2 />
-                      </Link>
-                    </td>
-                    <td>{element.order_id}</td>
-                    <td>{element.cust_first_name}</td>
-                    <td>{element.order_date}</td>
-                    <td>{element.delivery_date}</td>
-                    <td>{element.order_status}</td>
-                    <td>
-                      <Publish
-                        idColumn="order_id"
-                        tablename="orders"
-                        idValue={element.order_id.toString()}
-                        value={element.published}
-                      ></Publish>
-                    </td>
-                  </tr>
-                );
-              })}
-          </tbody>
-        </CommonTable>
+        <DataTable
+          title={
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#5a3372', fontSize: '25px', fontWeight: 600 }}>
+              <Icon.Users /> Orders List
+            </div>
+          }
+          columns={columns}
+          data={filteredFinance}
+          pagination
+          progressPending={loading}
+          highlightOnHover
+          persistTableHead
+          responsive
+          subHeader
+          subHeaderComponent={
+            <input
+              type="text"
+              placeholder="Search orders..."
+              className="form-control"
+              onChange={handleSearch}
+              style={{ maxWidth: '300px' }}
+            />
+          }
+        />
       </div>
     </div>
   );

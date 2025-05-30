@@ -163,7 +163,10 @@ const Content = () => {
                   <td>{element.title}</td>
                   <td>{element.year}</td>
                   <td>{element.month}</td>
-                  <td>{moment(element.date).format('YYYY-MM-DD')}</td>
+                  <td>
+  {moment(element.date).isValid() ? moment(element.date).format('DD-MM-YYYY') : ''}
+</td>
+
                              
                 </tr>
               );

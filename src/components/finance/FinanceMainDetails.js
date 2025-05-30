@@ -55,13 +55,13 @@ export default function FinanceMainDetails({ financeDetails , handleInputs,}) {
                   <span>{financeDetails && financeDetails.amount}</span>
                 </FormGroup>
               </Col>
-              <Col md="3">
+              {/* <Col md="3">
                 <FormGroup>
                   <Label>Status</Label>
                   <br />
                   <span>{financeDetails && financeDetails.order_status}</span>
                 </FormGroup>
-              </Col>
+              </Col> */}
               <Col md="3">
                 <FormGroup>
                   <Label>Published</Label>

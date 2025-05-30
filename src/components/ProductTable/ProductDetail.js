@@ -20,7 +20,7 @@ export default function ProductDetail({ productDetails, handleInputs,categoryLin
         <ComponentCard title="Product Details" creationModificationDate={productDetails}>
             <ToastContainer></ToastContainer>
             <Row>
-              <Col md="3">
+              {/* <Col md="3">
                 <FormGroup>
                   <Label> Item code </Label>
                   <Input
@@ -30,7 +30,7 @@ export default function ProductDetail({ productDetails, handleInputs,categoryLin
                     name="product_code"
                   />
                 </FormGroup>
-              </Col>
+              </Col> */}
               <Col md="3">
                 <FormGroup>
                   <Label> Product Name </Label>
@@ -74,13 +74,13 @@ export default function ProductDetail({ productDetails, handleInputs,categoryLin
                     name="product_type"
                   >
                     <option defaultValue="selected"> Please Select </option>
+                    <option value="books">Books</option>
                     <option value="materials">Materials</option>
                     <option value="tools">Tools</option>
                   </Input>
                 </FormGroup>
               </Col>
-            </Row>
-            <Row>
+         
               <Col md="3">
                 <FormGroup>
                   <Label> Quantity in Stock </Label>

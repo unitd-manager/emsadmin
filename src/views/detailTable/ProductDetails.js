@@ -102,7 +102,7 @@ const ProductDetails = () => {
                     </Button>
                     <Button
                       onClick={() => {
-                        navigate('/ProductEdit');
+                        navigate('/Product');
                       }}
                       type="button"
                       className="btn btn-dark shadow-none"

@@ -1,24 +1,28 @@
 import React, { useEffect, useState } from 'react';
 import * as Icon from 'react-feather';
-import { Button, Col } from 'reactstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'datatables.net-fixedheader';
-import 'datatables.net-dt/js/dataTables.dataTables';
-import 'datatables.net-dt/css/jquery.dataTables.min.css';
-import $ from 'jquery';
-import 'datatables.net-buttons/js/buttons.colVis';
-import 'datatables.net-buttons/js/buttons.flash';
-import 'datatables.net-buttons/js/buttons.html5';
-import 'datatables.net-buttons/js/buttons.print';
+import { Button, Col, Row, Input } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import DataTable from 'react-data-table-component';
 import BreadCrumbs from '../../layouts/breadcrumbs/BreadCrumbs';
-import CommonTable from '../../components/CommonTable';
-import { columns } from '../../data/Tender/ProductData';
 import api from '../../constants/api';
 import message from '../../components/Message';
 
 const Test = () => {
   const [loading, setLoading] = useState(false);
+  const [products, setProducts] = useState([]);
+  const [filterText, setFilterText] = useState('');
+  const getAllProducts = () => {
+    setLoading(true);
+    api
+      .get('/product/getAllProducts')
+      .then((res) => {
+        setProducts(res.data.data || []);
+      })
+      .catch(() => {
+        message('Failed to load product data.', 'error');
+      })
+      .finally(() => setLoading(false));
+  };
 
   const changePublishStatus = (publishValue, id) => {
     setLoading(true);
@@ -31,165 +35,156 @@ const Test = () => {
       })
       .then((res) => {
         if (res.status === 200) {
-          window.location.reload();
+          getAllProducts();
         } else {
           message('Unable to edit record.', 'error');
         }
       })
       .catch(() => {
         message('Network connection error.');
-      });
+      })
+      .finally(() => setLoading(false));
   };
-  const getAllProducts = () => {
-    /* eslint-disable */
-    setLoading(true);
-    $('#example').DataTable({
-      dom: 'Bfrtip',
-      serverSide: true,
-      searching: true,
-      scrollX: true,
-      lengthChange: false,
-      pageLength: 50,
-      buttons: ['excel'],
-      bDestroy: true,
-      ajax: {
-        type: 'POST',
-        url: 'http://43.228.126.245:4013/product/getProductsPagination',
-      },
-      lengthMenu: [
-        [10, 100, -1],
-        [10, 100, 'All'],
-      ],
-      drawCallback: function (settings) {
-        $(document).on('click', '#publish', function (e) {
-          e.preventDefault();
-          changePublishStatus($(this).attr('data-status'), $(this).attr('data-value'));
-        });
-        $(document).on('click', '.notes', function (e) {
-          e.preventDefault();
-          toggle();
-        });
-      },
-      select: true,
-      colReorder: true,
-      columns: [
-        {
-          render: function (data, type, row, meta) {
-            return row.product_id;
-          },
-        },
-        {
-          render: function (data, type, row, meta) {
-            return '<a href="' + '#/ProductEdit/' + row.product_id + '">Edit</a>';
-          },
-        },
-        {
-          render: function (data, type, row, meta) {
-            return row.product_code;
-          },
-        },
-        {
-          render: function (data, type, row, meta) {
-            return row.title;
-          },
-        },
-        {
-          render: function (data, type, row, meta) {
-            return row.product_type;
-          },
-        },
-        {
-          render: function (data, type, row, meta) {
-            return row.price;
-          },
-        },
-        {
-          render: function (data, type, row, meta) {
-            return row.unit;
-          },
-        },
-        {
-          render: function (data, type, row, meta) {
-            return row.qty_in_stock;
-          },
-        },
-        {
-          render: function (data, type, row, meta) {
-            return row.modified_by;
-          },
-        },
-        {
-          render: function (data, type, row, meta) {
-            if (row.published == 1) {
-              return `<span data-status='0' data-value=${row.product_id} id="publish" class="cursor-pointer badge bg-success"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></span>`;
-            } else {
-              return `<span data-status='1' data-value=${row.product_id} id="publish" class="cursor-pointer badge bg-danger"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></span>`;
-            }
-          },
-        },
-      ],
-    });
 
-    setLoading(false);
-  };
+  
 
   useEffect(() => {
     getAllProducts();
   }, []);
 
+  const columns = [
+    {
+      name: 'ID',
+      selector: (row) => row.product_id,
+      sortable: true,
+      width: '60px',
+    },
+    {
+      name: 'Edit',
+      cell: (row) => (
+        <Link to={`/ProductEdit/${row.product_id}`}>
+          <Icon.Edit2 />
+        </Link>
+      ),
+      ignoreRowClick: true,
+      button: true,
+      width: '80px',
+    },
+    // {
+    //   name: 'Product Code',
+    //   selector: (row) => row.product_code,
+    //   sortable: true,
+    // },
+    {
+      name: 'Title',
+      selector: (row) => row.title,
+      sortable: true,
+    },
+    {
+      name: 'Type',
+      selector: (row) => row.product_type,
+      sortable: true,
+    },
+    {
+      name: 'Price',
+      selector: (row) => row.price,
+      sortable: true,
+    },
+    {
+      name: 'Unit',
+      selector: (row) => row.unit,
+    },
+    {
+      name: 'Qty in Stock',
+      selector: (row) => row.qty_in_stock,
+    },
+    // {
+    //   name: 'Modified By',
+    //   selector: (row) => row.modified_by,
+    // },
+    {
+      name: 'Published',
+      cell: (row) => (
+        <span
+          className={`badge ${row.published ? 'bg-success' : 'bg-danger'} cursor-pointer`}
+          onClick={() => {
+            const newStatus = row.published ? 0 : 1;
+            const confirmMessage = `Are you sure you want to ${newStatus ? 'publish' : 'unpublish'} this product?`;
+    
+            if (window.confirm(confirmMessage)) {
+              changePublishStatus(newStatus, row.product_id);
+            }
+          }}
+          style={{ cursor: 'pointer' }}
+        >
+          {row.published ? 'Yes' : 'No'}
+        </span>
+      ),
+    }
+    
+  ];
+
+  const filteredItems = products.filter(
+    (item) =>
+      item.title?.toLowerCase().includes(filterText.toLowerCase()) ||
+      item.product_code?.toLowerCase().includes(filterText.toLowerCase())
+  );
+
   return (
     <div className="MainDiv">
-      <div className=" pt-xs-25">
+      <div className="pt-xs-25">
         <BreadCrumbs />
 
-        <CommonTable
-          loading={loading}
-          additionalClasses={'table'}
-          title={
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#5a3372', fontSize: '25px', fontWeight:600 }}>
-              <Icon.Users />Product List
-            </div>
-          }       
-             Button={
-            <>
-              <Col>
-                <Link to="/ProductDetails">
-                <Button color="success" className="shadow-none">
-                <Icon.PlusCircle style={{ marginRight: '8px' }} /> New
+        <Row className="mb-3">
+          <Col md={4}>
+            <Input
+              type="text"
+              placeholder="Search by title..."
+              value={filterText}
+              onChange={(e) => setFilterText(e.target.value)}
+            />
+          </Col>
+          <Col className="d-flex gap-2">
+            <Link to="/ProductDetails">
+              <Button color="success" className="shadow-none">
+                <Icon.PlusCircle className="me-1" />
+                New
               </Button>
-                </Link>
-              </Col>
-              <Col>
-                <a
-                  href="http://43.228.126.245/smartco-api/storage/excelsheets/Product.xlsx"
-                  download
-                >
-                  <Button color="primary" className="shadow-none">
-                    Sample
-                  </Button>
-                </a>
-              </Col>
-            </>
+            </Link>
+            {/* <a
+              href="http://43.228.126.245/smartco-api/storage/excelsheets/Product.xlsx"
+              download
+            >
+              <Button color="primary" className="shadow-none">
+                Sample
+              </Button>
+            </a> */}
+          </Col>
+        </Row>
+
+        <DataTable
+          title={
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                color: '#5a3372',
+                fontSize: '25px',
+                fontWeight: 600,
+              }}
+            >
+              <Icon.Users /> Product List
+            </div>
           }
-        >
-          <thead>
-            <tr className="filters" style={{ backgroundColor: '#ebdcf6' }}>
-              {columns.map((cell) => {
-                return (
-                  <th key={cell.name}>
-                    {cell.name}
-                    {cell.sorttype && cell.sorttype === 'select' && (
-                      <div className={'select'}></div>
-                    )}
-                    {cell.sorttype && cell.sorttype === 'input' && <div className={'input'}></div>}
-                    {!cell.sorttype && <div></div>}
-                  </th>
-                );
-              })}
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </CommonTable>
+          columns={columns}
+          data={filteredItems}
+          pagination
+          progressPending={loading}
+          highlightOnHover
+          striped
+          persistTableHead
+        />
       </div>
     </div>
   );
