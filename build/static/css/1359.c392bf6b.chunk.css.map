@@ -1,0 +1,1 @@
+{"version":3,"file":"static/css/1359.c392bf6b.chunk.css","mappings":"AAAA,YACE,gBAAiB,CAClB,aAGC,QAAO,CADP,cACS","sources":["views/form-editor/editor.scss"],"sourcesContent":[".edi-height {\r\n  min-height: 200px;\r\n}\r\n.demo-editor {\r\n  padding: 0 15px;\r\n  margin: 0;\r\n}\r\n"],"names":[],"sourceRoot":""}

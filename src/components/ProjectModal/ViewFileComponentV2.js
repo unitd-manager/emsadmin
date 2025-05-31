@@ -70,12 +70,12 @@ function ViewFileComponentV2({ moduleId, roomName }) {
                 <tr key={res.media_id}>
                   <td style={tableStyle}>
                       <a
-                        href={`https://emsmedia.net/storage/uploads/${res.name}`}
+                        href={`https://ems.unitdtechnologies.com/storage/${res.name}`}
                         target="_blank"
                         rel="noreferrer"
                       >
                         <img
-  src={`https://emsmedia.net/storage/uploads/${res.name}`} 
+  src={`https://ems.unitdtechnologies.com/storage/${res.name}`} 
   width={200}
   height={200}
   alt={`${res.name}`}

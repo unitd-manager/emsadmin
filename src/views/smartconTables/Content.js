@@ -4,7 +4,6 @@ import { Button, Input, Col, Label } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'datatables.net-dt/js/dataTables.dataTables';
 import 'datatables.net-dt/css/jquery.dataTables.min.css';
-import $ from 'jquery';
 import { Link } from 'react-router-dom';
 import moment from 'moment/moment';
 import BreadCrumbs from '../../layouts/breadcrumbs/BreadCrumbs';
@@ -96,21 +95,7 @@ const Content = () => {
 
   //getting data from content
   useEffect(() => {
-    setTimeout(() => {
-      $('#example').DataTable({
-        pagingType: 'full_numbers',
-        pageLength: 20,
-        processing: true,
-        dom: 'Bfrtip',
-        buttons: [
-          {
-            extend: 'print',
-            text: 'Print',
-            className: 'shadow-none btn btn-primary',
-          },
-        ],
-      });
-    }, 1000);
+  
 
     getContent();
   }, []);
