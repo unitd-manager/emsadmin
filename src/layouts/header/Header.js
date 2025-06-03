@@ -20,6 +20,12 @@ const Header = () => {
   const isDarkMode = useSelector((state) => state.customizer.isDark);
   //const topbarColor = useSelector((state) => state.customizer.topbarBg);
   const dispatch = useDispatch();
+  const logout=()=>{
+    localStorage.clear()
+    setTimeout(()=>{
+      window.location.reload()
+    },200)
+  }
 
   return (
     <Navbar
@@ -77,7 +83,7 @@ const Header = () => {
           </DropdownToggle>
           <DropdownMenu className="ddWidth">
             <div className="p-2 px-3">
-              <Button color="danger" size="sm">
+            <Button onClick={logout} color="danger" size="sm">
                 Logout
               </Button>
             </div>
