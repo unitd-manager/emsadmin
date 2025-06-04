@@ -1,7 +1,9 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-import { ReactComponent as LogoDarkText } from '../../assets/images/logos/logo.svg';
+
+import LogoDarkText from '../../assets/images/logos/logo.png';
+// import { ReactComponent as LogoDarkText } from '../../assets/images/logos/logo.svg';
 import { ReactComponent as LogoWhiteIcon } from '../../assets/images/logos/xtreme-white-icon.svg';
 import { ReactComponent as LogoWhiteText } from '../../assets/images/logos/xtreme-white-text.svg';
 
@@ -18,7 +20,7 @@ const AuthLogo = () => {
       ) : (
         <>
           
-          <LogoDarkText />
+          <img src={LogoDarkText} alt="Logo Dark Text"  />
         </>
       )}
     </div>

@@ -1,10 +1,10 @@
 {
   "files": {
     "main.css": "/static/css/main.1ae7d48e.css",
-    "main.js": "/static/js/main.37d92f62.js",
+    "main.js": "/static/js/main.4e15472b.js",
     "static/js/6453.e9896245.chunk.js": "/static/js/6453.e9896245.chunk.js",
     "static/css/8746.e7489d5c.chunk.css": "/static/css/8746.e7489d5c.chunk.css",
-    "static/js/8746.5fa0f52e.chunk.js": "/static/js/8746.5fa0f52e.chunk.js",
+    "static/js/8746.cbbb996b.chunk.js": "/static/js/8746.cbbb996b.chunk.js",
     "static/js/1270.d701255b.chunk.js": "/static/js/1270.d701255b.chunk.js",
     "static/js/9957.e57e5ecd.chunk.js": "/static/js/9957.e57e5ecd.chunk.js",
     "static/css/9311.243063c8.chunk.css": "/static/css/9311.243063c8.chunk.css",
@@ -338,10 +338,10 @@
     "static/media/litecoin-ltc-logo.svg": "/static/media/litecoin-ltc-logo.d76270cbdd0c73dd9cb171444fa174d5.svg",
     "static/media/login-bgleft.svg": "/static/media/login-bgleft.86cfa8964ef473760adbe3b9a05e7377.svg",
     "main.1ae7d48e.css.map": "/static/css/main.1ae7d48e.css.map",
-    "main.37d92f62.js.map": "/static/js/main.37d92f62.js.map",
+    "main.4e15472b.js.map": "/static/js/main.4e15472b.js.map",
     "6453.e9896245.chunk.js.map": "/static/js/6453.e9896245.chunk.js.map",
     "8746.e7489d5c.chunk.css.map": "/static/css/8746.e7489d5c.chunk.css.map",
-    "8746.5fa0f52e.chunk.js.map": "/static/js/8746.5fa0f52e.chunk.js.map",
+    "8746.cbbb996b.chunk.js.map": "/static/js/8746.cbbb996b.chunk.js.map",
     "1270.d701255b.chunk.js.map": "/static/js/1270.d701255b.chunk.js.map",
     "9957.e57e5ecd.chunk.js.map": "/static/js/9957.e57e5ecd.chunk.js.map",
     "9311.243063c8.chunk.css.map": "/static/css/9311.243063c8.chunk.css.map",
@@ -626,6 +626,6 @@
   },
   "entrypoints": [
     "static/css/main.1ae7d48e.css",
-    "static/js/main.37d92f62.js"
+    "static/js/main.4e15472b.js"
   ]
 }
