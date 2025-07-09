@@ -2,16 +2,9 @@ import React, { useEffect, useState } from 'react';
 import * as Icon from 'react-feather';
 import { Button, Input, Col, Label } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import 'datatables.net-dt/js/dataTables.dataTables';
-import 'datatables.net-dt/css/jquery.dataTables.min.css';
 import { Link } from 'react-router-dom';
-import moment from 'moment/moment';
-import BreadCrumbs from '../../layouts/breadcrumbs/BreadCrumbs';
+import moment from 'moment';
 import CommonTable from '../../components/CommonTable';
-import 'datatables.net-buttons/js/buttons.colVis';
-import 'datatables.net-buttons/js/buttons.flash';
-import 'datatables.net-buttons/js/buttons.html5';
-import 'datatables.net-buttons/js/buttons.print';
 import api from '../../constants/api';
 import Publish from '../../components/Publish';
 import SortOrder from '../../components/SortOrder';
@@ -19,7 +12,6 @@ import message from '../../components/Message';
 import ExportReport from '../../components/Report/ExportReport';
 
 const Content = () => {
-  //Const Variables
   const [content, setContent] = useState([]);
   const [fromDate, setFromDate] = useState('');
   const [toDate, setToDate] = useState('');
@@ -92,31 +84,19 @@ const Content = () => {
     { name: 'Published', selector: 'published' },
   ];
 
-
-  //getting data from content
-  useEffect(() => {
-  
-
-    getContent();
-  }, []);
-  //Structure of Content List view
   const Contentcolumns = [
     {
-      name: '#',
+      name: 'SN',
       grow: 0,
       wrap: true,
+      selector: 's_no',
       width: '4%',
     },
     {
-      name: (
-        <div>
-          <Icon.Edit />
-        </div>
-      ),
+      name: <Icon.Edit />,
       selector: 'edit',
       cell: () => (
         <Link to="/">
-          {' '}
           <Icon.Edit3 />
         </Link>
       ),
@@ -125,7 +105,6 @@ const Content = () => {
       button: true,
       sortable: false,
     },
-
     {
       name: (
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
@@ -158,7 +137,6 @@ const Content = () => {
       ),
       selector: 'section_title',
       sortable: true,
-      width: 'auto',
       grow: 3,
     },
     {
@@ -176,24 +154,12 @@ const Content = () => {
     {
       name: (
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <Icon.Star />
-          <span>Sub Category</span>
-        </div>
-      ),
-      selector: 'sub_category_title',
-      sortable: true,
-      grow: 0,
-    },
-    {
-      name: (
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <Icon.Calendar />
           <span>Content Date</span>
         </div>
       ),
       selector: 'content_date',
       sortable: true,
-      width: 'auto',
       grow: 3,
     },
     {
@@ -205,19 +171,6 @@ const Content = () => {
       ),
       selector: 'content_type',
       sortable: true,
-      width: 'auto',
-      grow: 3,
-    },
-    {
-      name: (
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <Icon.Hash />
-          <span>ID</span>
-        </div>
-      ),
-      selector: 'content_id ',
-      sortable: true,
-      width: 'auto',
       grow: 3,
     },
     {
@@ -229,14 +182,12 @@ const Content = () => {
       ),
       selector: 'published',
       sortable: true,
-      width: 'auto',
       grow: 3,
     },
   ];
 
   return (
-    <div className="MainDiv  pt-xs-25">
-      <BreadCrumbs />
+    <div className="MainDiv pt-xs-25">
       <div className="d-flex align-items-center mb-3 flex-wrap" style={{ gap: '10px' }}>
         <Label>From:</Label>
         <Input
@@ -291,68 +242,94 @@ const Content = () => {
           <ExportReport columns={columns} data={filteredReservations} exportValue={exportValue} />
         </Col>
       </div>
+
       <CommonTable
         title={
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#5a3372', fontSize: '25px', fontWeight:600 }}>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              color: '#5a3372',
+              fontSize: '25px',
+              fontWeight: 600,
+            }}
+          >
             <Icon.Users /> Content List
           </div>
         }
         Button={
           <Link to="/ContentDetails">
             <Button color="success" className="shadow-none">
-                <Icon.PlusCircle style={{ marginRight: '8px' }} /> New
-              </Button>
+              <Icon.PlusCircle style={{ marginRight: '8px' }} /> New
+            </Button>
           </Link>
         }
       >
         <thead>
-        <tr style={{ backgroundColor: '#ebdcf6' }}>
-            {Contentcolumns.map((cell) => {
-              return <td key={cell.name}>{cell.name}</td>;
-            })}
+          <tr style={{ backgroundColor: '#ebdcf6' }}>
+            {Contentcolumns.map((cell) => (
+              <td key={typeof cell.name === 'string' ? cell.name : Math.random()}>{cell.name}</td>
+            ))}
           </tr>
         </thead>
         <tbody>
           {currentItems &&
-            currentItems.map((element, index) => {
-              return (
-                <tr key={element.content_id}>
-                  <td>{index + 1}</td>
-                  <td>
-                    {' '}
-                    <Link to={`/ContentEdit/${element.content_id}`}>
-                      <Icon.Edit2 />
-                    </Link>
-                  </td>
-                  <td>{element.title}</td>
-                  <td>
-                    <SortOrder
-                      idValue={element.content_id}
-                      idColumn="content_id"
-                      tablename="content"
-                      value={element.sort_order}
-                    ></SortOrder>
-                  </td>
-                  <td>{element.section_title}</td>
-                  <td>{element.category_title}</td>
-                  <td>{element.sub_category_title}</td>
-                  <td>{moment(element.content_date).format('YYYY-MM-DD')}</td>
-                  <td>{element.content_type}</td>
-                  <td>{element.content_id}</td>
-                  <td>
-                    <Publish
-                      idColumn="content_id"
-                      tablename="content"
-                      idValue={element.content_id.toString()}
-                      value={element.published}
-                    ></Publish>
-                  </td>
-                </tr>
-              );
-            })}
+            currentItems.map((element, index) => (
+              <tr key={element.content_id}>
+                <td>{indexOfFirstItem + index + 1}</td>
+                <td>
+                  <Link to={`/ContentEdit/${element.content_id}`}>
+                    <Icon.Edit2 />
+                  </Link>
+                </td>
+                <td>{element.title}</td>
+                <td>
+                  <SortOrder
+                    idValue={element.content_id}
+                    idColumn="content_id"
+                    tablename="content"
+                    value={element.sort_order}
+                  />
+                </td>
+                <td>{element.section_title}</td>
+                <td>{element.category_title}</td>
+                <td>{moment(element.content_date).format('DD-MM-YYYY')}</td>
+                <td>{element.content_type}</td>
+                <td>
+                  <Publish
+                    idColumn="content_id"
+                    tablename="content"
+                    idValue={element.content_id.toString()}
+                    value={element.published}
+                  />
+                </td>
+              </tr>
+            ))}
         </tbody>
       </CommonTable>
+
+      <div className="d-flex justify-content-center mt-3">
+        <Button
+          disabled={currentPage === 1}
+          onClick={() => setCurrentPage(currentPage - 1)}
+          className="me-2"
+        >
+          Prev
+        </Button>
+        <span className="align-self-center">
+          Page {currentPage} of {Math.ceil(filteredReservations.length / itemsPerPage)}
+        </span>
+        <Button
+          disabled={currentPage === Math.ceil(filteredReservations.length / itemsPerPage)}
+          onClick={() => setCurrentPage(currentPage + 1)}
+          className="ms-2"
+        >
+          Next
+        </Button>
+      </div>
     </div>
   );
 };
+
 export default Content;

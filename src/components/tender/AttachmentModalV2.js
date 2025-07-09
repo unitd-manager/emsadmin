@@ -58,15 +58,15 @@ const AttachmentModalV2 = ({attachmentModal,setAttachmentModal,moduleId,roomName
                     // setAttachmentModal(false)
                     message('Files Uploaded Successfully','success')
                     
-                    // setTimeout(() => {
-                    //     window.location.reload()
-                    // }, 400);
+                    setTimeout(() => {
+                        window.location.reload()
+                    }, 400);
                 }).catch(()=>{
                     setAttachmentModal(false)
                     message('Unable to upload File','error')
-                    // setTimeout(() => {
-                    //     window.location.reload()
-                    // }, 400);
+                    setTimeout(() => {
+                        window.location.reload()
+                    }, 400);
                 })
             }else{
                 message('No files selected','info')
