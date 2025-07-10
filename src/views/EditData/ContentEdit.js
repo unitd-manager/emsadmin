@@ -7,12 +7,12 @@ import {
   Label,
   Input,
   Button,
-  Modal,
-  ModalFooter,
-  ModalHeader,
-  Card,
-  CardBody,
-  ModalBody,
+  // Modal,
+  // ModalFooter,
+  // ModalHeader,
+  // Card,
+  // CardBody,
+  // ModalBody,
   TabContent,
   TabPane,
 } from 'reactstrap';
@@ -36,8 +36,8 @@ import message from '../../components/Message';
 import api from '../../constants/api';
 import ContentMoreDetails from '../../components/Content/ContentMoreDetails';
 import Tab from '../../components/Tab';
-import AddVideoModal from '../../components/Content/AddVideoModal';
-import ItemTable from '../../components/Content/ItemTable';
+// import AddVideoModal from '../../components/Content/AddVideoModal';
+// import ItemTable from '../../components/Content/ItemTable';
 import AppContext from '../../context/AppContext';
 import creationdatetime from '../../constants/creationdatetime';
 
@@ -50,19 +50,19 @@ const ContentUpdate = () => {
   const [subcategoryLinked, setSubCategoryLinked] = useState();
   const [description, setDescription] = useState('');
   const [activeTab, setActiveTab] = useState('1');
-  const [pictureroomname, setPictureRoomName] = useState('');
+  // const [pictureroomname, setPictureRoomName] = useState('');
   const [attachmentroomname, setAttachmentRoomName] = useState('');
-  const [picturefiletypes, setPictureFileTypes] = useState('');
+  // const [picturefiletypes, setPictureFileTypes] = useState('');
   const [attachmentfiletypes, setAttachmentFileTypes] = useState('');
-  const [picturemodal, setPictureModal] = useState(false);
+  // const [picturemodal, setPictureModal] = useState(false);
   const [attachmentModal, setAttachmentModal] = useState(false);
   const [attachmentData, setDataForAttachment] = useState({
     modelType: '',
   });
-  const [pictureData, setDataForPicture] = useState({
-    modelType: '',
-  });
-  const [pictureupdate, setPictureUpdate] = useState(false);
+  // const [pictureData, setDataForPicture] = useState({
+  //   modelType: '',
+  // });
+  // const [pictureupdate, setPictureUpdate] = useState(false);
   const [attachmentupdate, setAttachmentUpdate] = useState(false);
   const [audioattachmentroomname, setAudioAttachmentRoomName] = useState('');
   const [audioattachmentfiletypes, setAudioAttachmentFileTypes] = useState('');
@@ -80,24 +80,24 @@ const ContentUpdate = () => {
     });
   };
   //Pictures
-  const dataForPicture = () => {
-    setDataForPicture({
-      modelType: 'picture',
-    });
-  };
-  //Audio Attachment
+  // const dataForPicture = () => {
+  //   setDataForPicture({
+  //     modelType: 'picture',
+  //   });
+  // };
+ // Audio Attachment
   const dataForAudioAttachment = () => {
     setAudioDataForAttachment({
       modelType: 'audioattachment',
     });
   };
 
-  const [addVideoModal, setAddVideoModal] = useState();
+  // const [addVideoModal, setAddVideoModal] = useState();
   const [valuelist, setValuelist] = useState();
   const [valuelistCountry, setValuelistCountry] = useState();
   const [valuelistCity, setValuelistCity] = useState([]);
-  const [project, setProject] = useState([]);
-  const [quote, setQuote] = useState({});
+  // const [project, setProject] = useState([]);
+  // const [quote, setQuote] = useState({});
 
   console.log('valuelistCity',valuelistCity)
 
@@ -138,7 +138,7 @@ const ContentUpdate = () => {
         convertHtmlToDraft(res.data.data.description);
       })
       .catch(() => {
-        message('Content Data Not Found', 'info');
+        // message('Content Data Not Found', 'info');
       });
   };
   //Edit Content
@@ -214,38 +214,38 @@ const ContentUpdate = () => {
         };
 
 
-  const getProject = () => {
-    api.get('project/getOppProject').then((res) => {
-      setProject(res.data.data);
-    });
-  };
-  const getQuote = () => {
-    api.post('/tender/getQuoteById', { opportunity_id: id }).then((res) => {
-      setQuote(res.data.data[0]);
-    });
-  };
+  // const getProject = () => {
+  //   api.get('project/getOppProject').then((res) => {
+  //     setProject(res.data.data);
+  //   });
+  // };
+  // const getQuote = () => {
+  //   api.post('/tender/getQuoteById', { opportunity_id: id }).then((res) => {
+  //     setQuote(res.data.data[0]);
+  //   });
+  // };
 
   const tabs = [
-    { id: '1', name: 'Video' },
+    // { id: '1', name: 'Video' },
     { id: '2', name: 'Attachment' },
-    { id: '3', name: 'BroadCast List' },
+    // { id: '3', name: 'BroadCast List' },
   ];
 
-  const [insertTimeSheet, setInsertTimesheet] = useState({
-    broadcast_id: '',
-    city: '',
-  });
+  // const [insertTimeSheet, setInsertTimesheet] = useState({
+  //   broadcast_id: '',
+  //   city: '',
+  // });
   const [categoryDetails, setbroadcast] = useState();
-  const [milestones, setMilestones] = useState([]);
-  const [taskdetail, setTaskDetail] = useState([]);
-  const [selectedTasks, setSelectedTasks] = useState([]);
+  // const [milestones, setMilestones] = useState([]);
+  // const [taskdetail, setTaskDetail] = useState([]);
+  // const [selectedTasks, setSelectedTasks] = useState([]);
   //const [employee, setEmployee] = useState();  // Gettind data from Job By Id
 
-  const [addContactModalss, setAddContactModalss] = useState(false);
+  // const [addContactModalss, setAddContactModalss] = useState(false);
   //const [employeeTime, setEmployee] = useState();
-  const addContactToggless = () => {
-    setAddContactModalss(!addContactModalss);
-  };
+  // const addContactToggless = () => {
+  //   setAddContactModalss(!addContactModalss);
+  // };
   // Gettind data from Job By Id
   const editJobById = () => {
     api
@@ -262,9 +262,9 @@ const ContentUpdate = () => {
   // };
 
   //Milestone data in milestoneDetails
-  const handleInputsTime = (e) => {
-    setInsertTimesheet({ ...insertTimeSheet, [e.target.name]: e.target.value });
-  };
+  // const handleInputsTime = (e) => {
+  //   setInsertTimesheet({ ...insertTimeSheet, [e.target.name]: e.target.value });
+  // };
   //Insert Milestone
   // Insert Milestone
   //  const inserttimeSheets = () => {
@@ -300,52 +300,52 @@ const ContentUpdate = () => {
   //     // You may want to reset the selectedTasks array after insertion
   //     setSelectedTasks([]);
   //   };
-  const inserttimeSheets = async () => {
-    try {
-      if (selectedTasks.length === 0) {
-        message('Please select at least one task.', 'warning');
-        return;
-      }
+  // const inserttimeSheets = async () => {
+  //   try {
+  //     if (selectedTasks.length === 0) {
+  //       message('Please select at least one task.', 'warning');
+  //       return;
+  //     }
 
-      const contactResponse = await api.post('/contact/getContactByCountrycities', {
-        country: insertTimeSheet.country,
-        city: selectedTasks.join(','), // Join selected cities into a comma-separated string
-      });
+  //     const contactResponse = await api.post('/contact/getContactByCountrycities', {
+  //       country: insertTimeSheet.country,
+  //       city: selectedTasks.join(','), // Join selected cities into a comma-separated string
+  //     });
 
-      if (contactResponse?.data?.data && contactResponse.data.data.length > 0) {
-        contactResponse.data.data.forEach(async (contact) => {
-          const newContactWithCompany = {
-            ...insertTimeSheet,
-            contact_id: contact.contact_id,
-            city: selectedTasks,
-          };
-          newContactWithCompany.broadcast_id = id;
+  //     if (contactResponse?.data?.data && contactResponse.data.data.length > 0) {
+  //       contactResponse.data.data.forEach(async (contact) => {
+  //         const newContactWithCompany = {
+  //           ...insertTimeSheet,
+  //           contact_id: contact.contact_id,
+  //           city: selectedTasks,
+  //         };
+  //         newContactWithCompany.broadcast_id = id;
 
-          const response = await api.post(
-            '/content/insertBroadcastConntact',
-            newContactWithCompany,
-          );
+  //         const response = await api.post(
+  //           '/content/insertBroadcastConntact',
+  //           newContactWithCompany,
+  //         );
 
-          if (response.data.success) {
-            const insertedDataId = response.data.data.insertId;
-            console.log(`Inserted data for contact_id ${contact.contact_id}: ${insertedDataId}`);
-          } else {
-            console.error(`Error inserting data for contact_id ${contact.contact_id}`);
-            message('Record inserted sucessfully', 'sucess');
-          }
-        });
+  //         if (response.data.success) {
+  //           const insertedDataId = response.data.data.insertId;
+  //           console.log(`Inserted data for contact_id ${contact.contact_id}: ${insertedDataId}`);
+  //         } else {
+  //           console.error(`Error inserting data for contact_id ${contact.contact_id}`);
+  //           message('Record inserted sucessfully', 'sucess');
+  //         }
+  //       });
 
-        message('Contacts inserted successfully.', 'success');
-        setSelectedTasks([]);
-      } else {
-        console.error('No contact records found for the selected country and city.');
-        message('No contact records found for the selected country and city.', 'error');
-      }
-    } catch (error) {
-      console.error('Error inserting time sheets:', error);
-      message('Error inserting time sheets.', 'error');
-    }
-  };
+  //       message('Contacts inserted successfully.', 'success');
+  //       setSelectedTasks([]);
+  //     } else {
+  //       console.error('No contact records found for the selected country and city.');
+  //       message('No contact records found for the selected country and city.', 'error');
+  //     }
+  //   } catch (error) {
+  //     console.error('Error inserting time sheets:', error);
+  //     message('Error inserting time sheets.', 'error');
+  //   }
+  // };
 
   // Get Category By Id
   const CategoryById = () => {
@@ -360,76 +360,77 @@ const ContentUpdate = () => {
   };
 
   // Api call for getting project name dropdown
-  const getMilestoneName = () => {
-    api
-      .get('/valuelist/getCountryValuelist')
-      .then((res) => {
-        setMilestones(res.data.data);
-      })
-      .catch(() => {
-        message('Milestone not found', 'info');
-      });
-  };
+  // const getMilestoneName = () => {
+  //   api
+  //     .get('/valuelist/getCountryValuelist')
+  //     .then((res) => {
+  //       setMilestones(res.data.data);
+  //     })
+  //     .catch(() => {
+  //       message('Milestone not found', 'info');
+  //     });
+  // };
 
   // Api call for getting milestone dropdown based on project ID
-  const getTaskName = () => {
-    api
-      .get('/valuelist/getCitiesvalue')
-      .then((res) => {
-        setTaskDetail(res.data.data);
-      })
-      .catch(() => {
-        message('Task not found', 'info');
-      });
-  };
+  // const getTaskName = () => {
+  //   api
+  //     .get('/valuelist/getCitiesvalue')
+  //     .then((res) => {
+  //       setTaskDetail(res.data.data);
+  //     })
+  //     .catch(() => {
+  //       message('Task not found', 'info');
+  //     });
+  // };
 
   useEffect(() => {
     editJobById();
   }, [id]);
 
   useEffect(() => {
-    getMilestoneName();
+    // getMilestoneName();
     CategoryById();
-    getTaskName();
+    // getTaskName();
     getValuelistCity();
     //getStaffNamefilter();
   }, [id]);
-  const [filteredContacts, setFilteredContacts] = useState([]);
-  const [country, setCountry] = useState([]);
+  // const [filteredContacts, setFilteredContacts] = useState([]);
+  // const [country, setCountry] = useState([]);
+  
 
-  const getContactcountryName = () => {
-    api
-      .post('/content/getBroadCastcountryById', { broadcast_id: id })
-      .then((res) => {
-        setCountry(res.data.data);
-        // Set filtered contacts initially with all contacts
-        //setFilteredContacts(res.data.data);
-      })
-      .catch(() => {
-        message('Milestone not found', 'info');
-      });
-  };
+  // const getContactcountryName = () => {
+  //   api
+  //     .post('/content/getBroadCastcountryById', { broadcast_id: id })
+  //     .then((res) => {
+  //       setCountry(res.data.data);
+  //       // Set filtered contacts initially with all contacts
+  //       //setFilteredContacts(res.data.data);
+  //     })
+  //     .catch(() => {
+  //       message('Milestone not found', 'info');
+  //     });
+  // };
   console.log("",categoryDetails)
-  const handleFilterChange = (selectedCountry) => {
-    // Update the filtered contacts based on the selected country
-    if (selectedCountry === 'selected') {
-      setFilteredContacts(country); // Show all contacts when "Please Select" is chosen
-    } else {
-      setFilteredContacts(country.filter((contact) => contact.country === selectedCountry));
-    }
-  };
+  // const handleFilterChange = (selectedCountry) => {
+  //   // Update the filtered contacts based on the selected country
+  //   if (selectedCountry === 'selected') {
+  //     setFilteredContacts(country); // Show all contacts when "Please Select" is chosen
+  //   } else {
+  //     setFilteredContacts(country.filter((contact) => contact.country === selectedCountry));
+  //   }
+  // };
 
   //Attachments
 
   useEffect(() => {
     getsection();
-    getContactcountryName();
+    // getContactcountryName();
     getCategory();
     getSubCategory();
     getContentById();
     getValuelist();
-    getProject();
-    getQuote();
+    // getProject();
+    // getQuote();
     getValuelistCountry();
   }, [id]);
 
@@ -570,7 +571,7 @@ const ContentUpdate = () => {
 
         <Tab toggle={toggle} tabs={tabs} />
         <TabContent className="p-4" activeTab={activeTab}>
-          <TabPane tabId="1">
+          {/* <TabPane tabId="1">
             <AddVideoModal
               addVideoModal={addVideoModal}
               setAddVideoModal={setAddVideoModal}
@@ -590,11 +591,11 @@ const ContentUpdate = () => {
               </Col>
             </Row>
             <ItemTable ContentId={id} project={project} quote={quote} />
-          </TabPane>
+          </TabPane> */}
           <TabPane tabId="2">
             {/* Picture and Attachments Form */}
 
-            <Form>
+            {/* <Form>
               <FormGroup>
                 <ComponentCard title="Picture">
                   <Row>
@@ -635,7 +636,7 @@ const ContentUpdate = () => {
                   />
                 </ComponentCard>
               </FormGroup>
-            </Form>
+            </Form> */}
             <Form>
               <FormGroup>
                 <ComponentCard title="Attachments">
@@ -723,7 +724,7 @@ const ContentUpdate = () => {
               </FormGroup>
             </Form>
           </TabPane>
-          <TabPane tabId="3">
+          {/* <TabPane tabId="3">
             <Form>
               <FormGroup>
                 <Button
@@ -895,7 +896,7 @@ const ContentUpdate = () => {
                 </Row>
               ))}
             </ComponentCard>
-          </TabPane>
+          </TabPane> */}
         </TabContent>
       </ComponentCard>
     </>

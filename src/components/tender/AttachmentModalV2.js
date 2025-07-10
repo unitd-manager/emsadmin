@@ -5,7 +5,7 @@ import { FileUploader } from "react-drag-drop-files";
 import api from '../../constants/api';
 import message from '../Message';
 
-const AttachmentModalV2 = ({attachmentModal,setAttachmentModal,moduleId,roomName,fileTypes,altTagData, desc}) => {
+const AttachmentModalV2 = ({attachmentModal,setAttachmentModal,moduleId,roomName,fileTypes,altTagData, desc,selectedCountries}) => {
 
     AttachmentModalV2.propTypes = {
         attachmentModal: PropTypes.bool,
@@ -15,6 +15,7 @@ const AttachmentModalV2 = ({attachmentModal,setAttachmentModal,moduleId,roomName
         altTagData:PropTypes.string,
         desc:PropTypes.string,
         fileTypes:PropTypes.any,
+        selectedCountries:PropTypes.any,
       }
       
         const [file, setFile] = useState([]);
@@ -48,6 +49,8 @@ const AttachmentModalV2 = ({attachmentModal,setAttachmentModal,moduleId,roomName
                 data.append('room_name', roomName)
                 data.append('alt_tag_data', altTagData)
                 data.append('description', desc)
+                data.append('countries', selectedCountries)
+                
 
                 api.post('/file/uploadFiles',data,{onUploadProgress:(filedata)=>{
                     console.log( Math.round((filedata.loaded/filedata.total)*100))
@@ -72,6 +75,7 @@ const AttachmentModalV2 = ({attachmentModal,setAttachmentModal,moduleId,roomName
                 message('No files selected','info')
             }
         }
+      
       
     
   return (

@@ -294,7 +294,7 @@ const Content = () => {
                 </td>
                 <td>{element.section_title}</td>
                 <td>{element.category_title}</td>
-                <td>{moment(element.content_date).format('DD-MM-YYYY')}</td>
+                <td>{element.content_date?moment(element.content_date).format('DD-MM-YYYY'):''}</td>
                 <td>{element.content_type}</td>
                 <td>
                   <Publish

@@ -2,11 +2,11 @@ import React from 'react';
 import * as Icon from 'react-feather';
 import { Row, Col, Button } from 'reactstrap';
 import PropTypes from 'prop-types';
-import pdfMake from 'pdfmake';
-import pdfFonts from 'pdfmake/build/vfs_fonts';
-import PdfHeader from '../PDF/PdfHeader';
-import PdfFooter from '../PDF/PdfFooter';
-import api from '../../constants/api';
+// import pdfMake from 'pdfmake';
+// import pdfFonts from 'pdfmake/build/vfs_fonts';
+// import PdfHeader from '../PDF/PdfHeader';
+// import PdfFooter from '../PDF/PdfFooter';
+// import api from '../../constants/api';
 
 const ExportReport = ({ data, columns }) => {
   ExportReport.propTypes = {
@@ -14,18 +14,18 @@ const ExportReport = ({ data, columns }) => {
     columns: PropTypes.array,
   };
 
-  const [hfdata, setHeaderFooterData] = React.useState();
+  // const [hfdata, setHeaderFooterData] = React.useState();
 
-  React.useEffect(() => {
-    api.get('/setting/getSettingsForCompany').then((res) => {
-      setHeaderFooterData(res.data.data);
-    });
-  }, []);
+  // React.useEffect(() => {
+  //   api.get('/setting/getSettingsForCompany').then((res) => {
+  //     setHeaderFooterData(res.data.data);
+  //   });
+  // }, []);
 
-  const findCompany = (key) => {
-    const filteredResult = hfdata.find((e) => e.key_text === key);
-    return filteredResult.value;
-  };
+  // const findCompany = (key) => {
+  //   const filteredResult = hfdata.find((e) => e.key_text === key);
+  //   return filteredResult.value;
+  // };
 
   function convertArrayOfObjectsToCSV(array) {
     let result;
@@ -75,84 +75,84 @@ const ExportReport = ({ data, columns }) => {
     link.click();
   }
   //Pdf
-  function buildTableBody() {
-    const body = [];
+  // function buildTableBody() {
+  //   const body = [];
 
-    const selectors = [];
-    const header = [];
-    columns.forEach((singleColumn) => {
-      selectors.push(singleColumn.selector);
-      header.push( {
-        text: singleColumn.name,
-        style:'tableHead',
-      })
-    });
-    body.push(header);
+  //   const selectors = [];
+  //   const header = [];
+  //   columns.forEach((singleColumn) => {
+  //     selectors.push(singleColumn.selector);
+  //     header.push( {
+  //       text: singleColumn.name,
+  //       style:'tableHead',
+  //     })
+  //   });
+  //   body.push(header);
 
-    data.forEach((row, index) => {
-      const dataRow = [];
+  //   data.forEach((row, index) => {
+  //     const dataRow = [];
 
-      selectors.forEach((column) => {
+  //     selectors.forEach((column) => {
 
-        dataRow.push({text:column === 's_no' ? index + 1 : (row[column] !== undefined ? row[column] : ''),style:'tableBody',});
-      });
+  //       dataRow.push({text:column === 's_no' ? index + 1 : (row[column] !== undefined ? row[column] : ''),style:'tableBody',});
+  //     });
 
-      body.push(dataRow);
-    });
+  //     body.push(dataRow);
+  //   });
 
-    return body;
-  }
-  const getWidthOfColumns = () => {
-    const columnWidth = 100 / columns.length;
-    const LEN = columns.length;
-    const arry = [];
-    for (let i = 0; i < LEN; i++) {
-      arry.push(`${columnWidth}%`);
-    }
-    console.log(arry);
-    return arry;
-  };
-  function table() {
-    return {
-      table: {
-        headerRows: 1,
-        dontBreakRows: true,
-        widths: getWidthOfColumns(),
-        body: buildTableBody(),
-      },
-      layout: 'lightHorizontalLines'
-    };
-  }
-  const downloadPdf = () => {
-    const dd = {
-      pageSize: 'A4',
-      header: PdfHeader({ findCompany }),
-      pageMargins: [40, 110, 40, 80],
-      footer: PdfFooter,
-      content: [
-      //   { canvas: [
-      //         { type: 'line', x1: 0, y1: -35, x2: 510, y2: -35, lineWidth: 1 }, //Bottom line
-      //     ],
-      // },
-      table()],
-      styles:{
-        tableHead:{
-          border: [false, true, false, true],
-          fillColor: '#eaf2f5',
-          margin: [0, 5, 0, 5],
-          fontSize: 10,
-          bold:'true',
-    },
-    tableBody:{
-      border: [false, true, false, true],
-      margin: [0, 5, 0, 5],
-      fontSize: 10,
-},
-      }
-    };
-    pdfMake.vfs = pdfFonts.pdfMake.vfs;
-    pdfMake.createPdf(dd, null, null, pdfFonts.pdfMake.vfs).open();
-  };
+  //   return body;
+  // }
+  // const getWidthOfColumns = () => {
+  //   const columnWidth = 100 / columns.length;
+  //   const LEN = columns.length;
+  //   const arry = [];
+  //   for (let i = 0; i < LEN; i++) {
+  //     arry.push(`${columnWidth}%`);
+  //   }
+  //   console.log(arry);
+  //   return arry;
+  // };
+  // function table() {
+  //   return {
+  //     table: {
+  //       headerRows: 1,
+  //       dontBreakRows: true,
+  //       widths: getWidthOfColumns(),
+  //       body: buildTableBody(),
+  //     },
+  //     layout: 'lightHorizontalLines'
+  //   };
+  // }
+//   const downloadPdf = () => {
+//     const dd = {
+//       pageSize: 'A4',
+//       header: PdfHeader({ findCompany }),
+//       pageMargins: [40, 110, 40, 80],
+//       footer: PdfFooter,
+//       content: [
+//       //   { canvas: [
+//       //         { type: 'line', x1: 0, y1: -35, x2: 510, y2: -35, lineWidth: 1 }, //Bottom line
+//       //     ],
+//       // },
+//       table()],
+//       styles:{
+//         tableHead:{
+//           border: [false, true, false, true],
+//           fillColor: '#eaf2f5',
+//           margin: [0, 5, 0, 5],
+//           fontSize: 10,
+//           bold:'true',
+//     },
+//     tableBody:{
+//       border: [false, true, false, true],
+//       margin: [0, 5, 0, 5],
+//       fontSize: 10,
+// },
+//       }
+//     };
+//     pdfMake.vfs = pdfFonts.pdfMake.vfs;
+//     pdfMake.createPdf(dd, null, null, pdfFonts.pdfMake.vfs).open();
+//   };
   return (
     <>
       <Row >
@@ -160,9 +160,9 @@ const ExportReport = ({ data, columns }) => {
           <Button style={{background:'green',border:'none',marginRight:'10px'}} className="shadow-none" onClick={downloadCSV}>
           <Icon.Table /> Excel
           </Button>
-          <Button style={{background:'#D11606',border:'none'}} className="shadow-none" onClick={downloadPdf}>
+          {/* <Button style={{background:'#D11606',border:'none'}} className="shadow-none" onClick={downloadPdf}>
           <Icon.File /> PDF
-          </Button>
+          </Button> */}
         </Col>
       </Row>
     </>
