@@ -64,6 +64,17 @@ export default function ContentMoreDetails({
 </Col>
 <Col md="3">
     <FormGroup>
+      <Label>Link</Label>
+      <Input
+        type="text"
+        onChange={handleInputs}
+        value={contentDetails && contentDetails.internal_link}
+        name="internal_link"
+      />
+    </FormGroup>
+  </Col>
+<Col md="3">
+    <FormGroup>
       <Label>Keyword search</Label>
       <Input
         type="textarea"

@@ -132,6 +132,7 @@ const Blog = Loadable(lazy(() => import('../views/smartconTables/Blog')));
 const Inventory = Loadable(lazy(() => import('../views/smartconTables/Inventory')));
 // Details Table
 const ProductDetailsTable = Loadable(lazy(() => import('../views/detailTable/ProductDetails')));
+const CouponDetailsTable = Loadable(lazy(() => import('../views/detailTable/CouponDetails')));
 
 // Finance Admin
 const FinanceTable = Loadable(lazy(() => import('../views/smartconTables/Orders')));
@@ -143,6 +144,7 @@ const FinanceTable = Loadable(lazy(() => import('../views/smartconTables/Orders'
 const Content = Loadable(lazy(() => import('../views/smartconTables/Content')));
 const QuestionAnswer = Loadable(lazy(() => import('../views/smartconTables/QuestionAnswer')));
 const Magazine = Loadable(lazy(() => import('../views/smartconTables/Magazine')));
+const Coupon = Loadable(lazy(() => import('../views/smartconTables/Coupon')));
 const Customer = Loadable(lazy(() => import('../views/smartconTables/Customer')));
 const BroadCast = Loadable(lazy(() => import('../views/smartconTables/BroadCast')));
 const ContentDetailsTable = Loadable(lazy(() => import('../views/detailTable/ContentDetails')));
@@ -180,6 +182,7 @@ const SupportDetails = Loadable(lazy(() => import('../views/detailTable/SupportD
 // Table Edit's
 
 const ProductEdit = Loadable(lazy(() => import('../views/EditData/ProductEdit')));
+const CouponEdit = Loadable(lazy(() => import('../views/EditData/CouponEdit')));
 const StaffEdit = Loadable(lazy(() => import('../views/EditData/StaffEdit')));
 const OrdersEdit = Loadable(lazy(() => import('../views/EditData/OrdersEdit')));
 const ContentEdit = Loadable(lazy(() => import('../views/EditData/ContentEdit')));
@@ -248,6 +251,7 @@ const Routernew = () => {
       {/* Table Edit's */}
        
           <Route path="/ProductEdit/:id" name="productdata" element={<ProductEdit />}></Route>
+          <Route path="/CouponEdit/:id" name="productdata" element={<CouponEdit />}></Route>
           <Route path="/OrdersEdit/:id" name="orderdata" element={<OrdersEdit />}></Route>
           <Route path="/ContentEdit/:id" name="contentdata" element={<ContentEdit />}></Route>
           <Route path="/QuestionsEdit/:id" name="contentdata" element={<QuestionsEdit />}></Route>
@@ -375,6 +379,7 @@ const Routernew = () => {
           <Route path="/Task" name="taskdata" element={<TaskTable />}></Route>
           <Route path="/Staff" name="staffdata" element={<StaffTable />}></Route>
           <Route path="/ProductDetails" name="productDetaildata" element={<ProductDetailsTable />}></Route>
+          <Route path="/CouponDetails" name="CouponDetaildata" element={<CouponDetailsTable />}></Route>
           <Route path="/StaffDetails" name="staffDetaildata" element={<StaffDetails />}></Route>
           <Route path="/Product" name="productdata" element={<ProductTable />}></Route>
           <Route path="/Orders" name="ordersdata" element={<FinanceTable />}></Route>
@@ -416,6 +421,7 @@ const Routernew = () => {
           <Route path="/Content" name="contentdata" element={<Content />}></Route>
           <Route path="/QuestionAnswer" name="contentdata" element={<QuestionAnswer />}></Route>
           <Route path="/Magazine" name="contentdata" element={<Magazine />}></Route>
+          <Route path="/Coupon" name="contentdata" element={<Coupon />}></Route>
           <Route path="/Customer" name="customerdata" element={<Customer />}></Route>
           <Route path="/BroadCast" name="boardcastdata" element={<BroadCast />}></Route>
           <Route
