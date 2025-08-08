@@ -52,16 +52,23 @@ export default function FinanceMainDetails({ financeDetails , handleInputs,}) {
                 <FormGroup>
                   <Label>Amount</Label>
                   <br />
+                  <span>{financeDetails && financeDetails.amounts}</span>
+                </FormGroup>
+              </Col>
+              <Col md="3">
+                <FormGroup>
+                  <Label>Discount</Label>
+                  <br />
+                  <span>{financeDetails && financeDetails.discount}</span>
+                </FormGroup>
+              </Col>
+              <Col md="3">
+                <FormGroup>
+                  <Label>Total Amount</Label>
+                  <br />
                   <span>{financeDetails && financeDetails.amount}</span>
                 </FormGroup>
               </Col>
-              {/* <Col md="3">
-                <FormGroup>
-                  <Label>Status</Label>
-                  <br />
-                  <span>{financeDetails && financeDetails.order_status}</span>
-                </FormGroup>
-              </Col> */}
               <Col md="3">
                 <FormGroup>
                   <Label>Published</Label>

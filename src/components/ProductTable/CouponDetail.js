@@ -10,6 +10,20 @@ export default function CouponDetail({ CouponDetails, handleInputs }) {
     CouponDetails: PropTypes.object,
     handleInputs: PropTypes.func,
   };
+
+  const calculateDays = (startDate, endDate) => {
+    if (!startDate || !endDate) return 0;
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+    const difference = Math.ceil((end - start) / (1000 * 60 * 60 * 24)); // Convert milliseconds to days
+    return difference >= 0 ? difference : 0; // Ensure it's not negative
+  };
+  const TotalDays = calculateDays(
+    CouponDetails?.valid_from,
+    CouponDetails?.valid_to
+  );
+ console.log('Totaldays',TotalDays)
+
   return (
     <>
       <Form>
@@ -46,13 +60,24 @@ export default function CouponDetail({ CouponDetails, handleInputs }) {
                     type="select"
                     onChange={handleInputs}
                     value={CouponDetails && CouponDetails.discount_type }
-                    name="discount_type "
+                    name="discount_type"
                   >
                     <option defaultValue="selected"> Please Select </option>
                     <option value="percentage">Percentage</option>
                     <option value="fixed">Fixed</option>
-                    <option value="no of counts">No of counts</option>
+                    {/* <option value="no of counts">No of counts</option> */}
                   </Input>
+                </FormGroup>
+              </Col>
+              <Col md="3">
+                <FormGroup>
+                  <Label> Discount </Label>
+                  <Input
+                    type="text"
+                    onChange={handleInputs}
+                    value={CouponDetails && CouponDetails.discount_value}
+                    name="discount_value"
+                  />
                 </FormGroup>
               </Col>
               <Col md="3">
@@ -113,6 +138,17 @@ export default function CouponDetail({ CouponDetails, handleInputs }) {
               <Col md="3">
                 <FormGroup>
                   <Label> Coupon Code </Label>
+                  <Input
+                    type="textarea"
+                    onChange={handleInputs}
+                    value={CouponDetails && CouponDetails.coupon_code}
+                    name="coupon_code"
+                  />
+                </FormGroup>
+              </Col>
+              <Col md="3">
+                <FormGroup>
+                  <Label> Description Short</Label>
                   <Input
                     type="textarea"
                     onChange={handleInputs}

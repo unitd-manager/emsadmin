@@ -68,6 +68,7 @@ const NavSubMenu = ({ title, items, isUrl, suffixColor, suffix }) => {
                 {item.section_title === 'UserGroup' && <Icon.UserCheck />}
                 {item.section_title === 'Value list' && <Icon.List />}
                 {item.section_title === 'Menu' && <Icon.Menu />}
+                {item.section_title === 'Coupon' && <Icon.Tag />}
               </span>
               <span className="hide-mini">
                 <span>{item.section_title}</span>
